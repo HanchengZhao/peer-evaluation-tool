@@ -1,27 +1,39 @@
 var app = angular.module("advisorApp", ["firebase"]);
 
 app.controller("authCtrl", function($scope, $firebaseAuth) {
-//   var auth = $firebaseAuth();
   $scope.authObj = $firebaseAuth();
-    // Sign in Firebase using popup auth and Google as the identity provider.
-    //   var provider = new firebase.auth.GoogleAuthProvider();
-    //   this.auth.signInWithPopup(provider);
 
   // login with google
   $scope.authObj.$signInWithPopup("google").then(function(firebaseUser) {
-  console.log("Signed in as:", firebaseUser.uid);
-}).catch(function(error) {
-  console.error("Authentication failed:", error);
-  
-  
-//   logout
+    console.log("Signed in as:", firebaseUser.displayName);
+  }).catch(function(error) {
+    console.error("Authentication failed:", error);
+  });
+  //sign-out
+  $scope.authObj.$signOut(function() {
+
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    }, function(error) {
+      // An error happened.
+    });
+  })
+
   $scope.authObj.$onAuthStateChanged(function(firebaseUser) {
-  if (firebaseUser) {
-    console.log("Signed in as:", firebaseUser.uid);
-  } else {
-    console.log("Signed out");
-  }
-});
-  //$scope.logout
-});
+    if (firebaseUser) {
+      $scope.firebaseUser = firebaseUser;
+      $scope.displayName = firebaseUser.displayName;
+      $scope.profilePicUrl = firebaseUser.photoURL;
+      $scope.email = firebaseUser.email;
+      console.log($scope.profilePicUrl);
+      // $("#user-pic").style.backgroundImage = 'url(' + $scope.profilePicUrl + ')';
+      console.log("Signed in as:", firebaseUser.displayName);
+    } else {
+      $scope.firebaseUser = false;
+      console.log("Signed out");
+    }
+  });
+
+
+
 });

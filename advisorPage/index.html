@@ -6,6 +6,7 @@
   <script data-require="angularjs@1.5.0" data-semver="1.5.0" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.js"></script>
   <script data-require="bootstrap.js@*" data-semver="3.3.6" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
   <script>
@@ -24,11 +25,9 @@
 
 <body ng-app="advisorApp">
   <div ng-controller="authCtrl">
-
-
-
-    <span ng-show="firebaseUser">
-      {{ firebaseUser.displayName }} | <a href="#" ng-click="authObj.$signOut()">Sign out</a>
+    <span ng-if="firebaseUser" class="breadcrumb pull-right where-am-i">
+      <div id="user-pic"></div>
+      {{ displayName || email }} | <a href="#" ng-click="authObj.$signOut()">Sign out</a>
     </span>
   </div>
 
