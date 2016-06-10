@@ -30,8 +30,17 @@
       {{ displayName || email }} | <a href="#" ng-click="authObj.$signOut()">Sign out</a>
     </span>
   </div>
-<h2>Advisor page -- Questions Generating</h2>
-<hr />
+  <h2>Advisor page -- Questions Generating</h2>
+  <hr />
+  <div ng-controller="questionCtrl">
+    <section>
+      <h4>Select question type:</h4>
+      <select ng-option = "item for item in types" ng-model="selected">
+        <option value=''>--Types--</option>
+      </select>
+    </section>
+    
+  </div>
 
 </body>
 
