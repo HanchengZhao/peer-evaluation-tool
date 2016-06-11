@@ -41,6 +41,8 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject","$firebaseArray",
      
      $scope.types = ["Linear scale", "Multiple choice", "Paragragh", "Dropdown", "Check box"];
       console.log($scope.selected);
+     $scope.low = "low";
+     $scope.high = "high";
      
      var ref = firebase.database().ref();
 

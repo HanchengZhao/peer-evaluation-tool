@@ -38,49 +38,38 @@
       <select ng-options = "item for item in types" ng-model="selected" class="btn btn-primary dropdown-toggle" >
         <option value='' >--Types--</option>
       </select>
+      <div>{{selected}}</div>
       <hr>
     </section>
     
-    <section ng-if = "selected == 'Linear scale">
-      <!-- Multiple Radios (inline) -->
+    <section ng-if="{{selected}} =='Linear Scale'">
+      <!-- Linear Scale -->
         <div class="form-group">
-          <label class="col-md-12 control-label" for="interaction">How often do you interact with each person?</label>
+          <label class="col-md-1" for="">Questions: </label>
+          <input class="col-md-4" type="text" name="question" ng-model="question"
+          placeholder="Please describe the question here"></input><br>
           <div class="col-md-12">
+            <div>{{low}}&nbsp;&nbsp;
             <label class="radio-inline" for="interaction-0">
-              <input type="radio" name="interaction" id="interaction-0" value="1" checked="checked" />
-
-
-
-      1
-    </label>
+              <input type="radio" name="interaction" id="interaction-0" value="1"  />1</label>
             <label class="radio-inline" for="interaction-1">
-              <input type="radio" name="interaction" id="interaction-1" value="2" />
-
-
-
-      2
-    </label>
+              <input type="radio" name="interaction" id="interaction-1" value="2" />2</label>
             <label class="radio-inline" for="interaction-2">
-              <input type="radio" name="interaction" id="interaction-2" value="3" />
-
-
-
-      3
-    </label>
+              <input type="radio" name="interaction" id="interaction-2" value="3" />3</label>
             <label class="radio-inline" for="interaction-3">
-              <input type="radio" name="interaction" id="interaction-3" value="4" />
-
-
-
-      4
-    </label>
+              <input type="radio" name="interaction" id="interaction-3" value="4" />4</label>
+            <label class="radio-inline" for="interaction-3">
+              <input type="radio" name="interaction" id="interaction-4" value="5" />5</label>
+            &nbsp;&nbsp;{{high}}</div>
           </div>
         </div>
-      
+        <div class="col-md-8">1: <input type="text" name="low" ng-model="low"/></div>
+        <div class="col-md-8">5: <input type="text" name="high" ng-model="high"/></div>
+        <hr>
     </section>
     
   </div>
-
+<iframe src="https://docs.google.com/forms/d/1r2S3Hpw2Zez0jmVCSIE_lep4GSrtrA-PfUFcxcOL8Cw/viewform?embedded=true" width="1024" height="768" frameborder="10" marginheight="20" marginwidth="20" align="middle">Loading...</iframe>
 </body>
 
 </html>
