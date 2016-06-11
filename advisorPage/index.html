@@ -35,9 +35,48 @@
   <div ng-controller="questionCtrl">
     <section>
       <h4>Select question type:</h4>
-      <select ng-option = "item for item in types" ng-model="selected">
-        <option value=''>--Types--</option>
+      <select ng-options = "item for item in types" ng-model="selected" class="btn btn-primary dropdown-toggle" >
+        <option value='' >--Types--</option>
       </select>
+      <hr>
+    </section>
+    
+    <section ng-if = "selected == 'Linear scale">
+      <!-- Multiple Radios (inline) -->
+        <div class="form-group">
+          <label class="col-md-12 control-label" for="interaction">How often do you interact with each person?</label>
+          <div class="col-md-12">
+            <label class="radio-inline" for="interaction-0">
+              <input type="radio" name="interaction" id="interaction-0" value="1" checked="checked" />
+
+
+
+      1
+    </label>
+            <label class="radio-inline" for="interaction-1">
+              <input type="radio" name="interaction" id="interaction-1" value="2" />
+
+
+
+      2
+    </label>
+            <label class="radio-inline" for="interaction-2">
+              <input type="radio" name="interaction" id="interaction-2" value="3" />
+
+
+
+      3
+    </label>
+            <label class="radio-inline" for="interaction-3">
+              <input type="radio" name="interaction" id="interaction-3" value="4" />
+
+
+
+      4
+    </label>
+          </div>
+        </div>
+      
     </section>
     
   </div>

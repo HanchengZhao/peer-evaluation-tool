@@ -38,8 +38,9 @@ app.controller("authCtrl", function($scope, $firebaseAuth) {
 
 app.controller("questionCtrl", ["$scope", "$firebaseObject","$firebaseArray",
   function($scope, $firebaseObject, $firebaseArray) {
+     
      $scope.types = ["Linear scale", "Multiple choice", "Paragragh", "Dropdown", "Check box"];
-
+      console.log($scope.selected);
      
      var ref = firebase.database().ref();
 
@@ -54,13 +55,6 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject","$firebaseArray",
           console.log(key, value);
        });
      });
-
-     // To make the data available in the DOM, assign it to $scope
-     $scope.data = obj;
-
-     // For three-way data bindings, bind it to the scope instead
-     obj.$bindTo($scope, "data");
-     
      
      var list = $firebaseArray(ref);
 
