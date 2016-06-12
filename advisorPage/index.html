@@ -40,14 +40,12 @@
       </select>
       <hr>
     </section>
-    
+    <!-- Linear Scale -->
     <section ng-if="selected == 'Linear scale'">
-      <!-- Linear Scale -->
         <div class="form-group">
           <h3>{{selected}}:</h3>
           <label  for="">Questions: &nbsp;&nbsp; </label>
-          <input class="col-md-6" type="text" name="question" ng-model="question"
-          placeholder="Please describe the question here"></input><br>
+          <input type="text" ng-model="question" placeholder="Please describe the question here"></input><br>
           <div class="col-md-12" id="radio">
             <div>{{low}}&nbsp;&nbsp;
             <label class="radio-inline" for="interaction-0">
@@ -65,9 +63,36 @@
           <div class="col-md-8">1: <input type="text" name="low" ng-model="low"/></div>
           <div class="col-md-8">5: <input type="text" name="high" ng-model="high"/></div>
           <hr>
-          <button type="button" class="btn btn-primary" ng-click="saveQuestion(question,low,high)">Save</button>
+          <button type="button" class="btn btn-primary" ng-click="saveLinearScale(question,low,high)">Save</button>
         </div>
-        
+    </section>
+    
+    <!--Paragragh-->
+    <section ng-if ="selected == 'Paragragh'">
+      <input type="text" name="question" ng-model="question"
+          placeholder="Please describe the question here"></input><br>
+      <form role="form">
+        <div class="form-group">
+          <label for="comment">{{question}}:</label>
+          <textarea class="form-control" rows="5" id="comment"></textarea>
+        </div>
+      </form>
+      <button type="button" class="btn btn-primary" ng-click="saveParagragh(question)">Save</button>
+    </section>
+    
+    <!-- Multiple choice -->
+    <section ng-if="selected == 'Multiple choice'">
+        <div class="form-group">
+          <h3>{{selected}}:</h3>
+          <label  for="">Questions: &nbsp;&nbsp; </label>
+          <input type="text" ng-model="question" placeholder="Please describe the question here"></input><br>
+          <div class="col-md-12" id="radio" ng-repeat = "option in multiOptions">
+            <label class="radio-inline" for="">
+              <input type="radio"   />{{option}}</label>
+          </div>
+          <hr>
+          <button type="button" class="btn btn-primary" ng-click="addOption()">Add Option</button>
+        </div>
     </section>
     
   </div>

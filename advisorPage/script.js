@@ -3,12 +3,7 @@ var app = angular.module("advisorApp", ["firebase"]);
 app.controller("authCtrl", function($scope, $firebaseAuth) {
   $scope.authObj = $firebaseAuth();
 
-  // login with google
-  $scope.authObj.$signInWithPopup("google").then(function(firebaseUser) {
-    console.log("Signed in as:", firebaseUser.displayName);
-  }).catch(function(error) {
-    console.error("Authentication failed:", error);
-  });
+  
   //sign-out
   $scope.authObj.$signOut(function() {
 
@@ -31,6 +26,12 @@ app.controller("authCtrl", function($scope, $firebaseAuth) {
     } else {
       $scope.firebaseUser = false;
       console.log("Signed out");
+          // login with google
+      $scope.authObj.$signInWithPopup("google").then(function(firebaseUser) {
+        console.log("Signed in as:", firebaseUser.displayName);
+      }).catch(function(error) {
+        console.error("Authentication failed:", error);
+      });
     }
   });
 
@@ -40,33 +41,48 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject","$firebaseArray",
   function($scope, $firebaseObject, $firebaseArray) {
      
      $scope.types = ["Linear scale", "Multiple choice", "Paragragh", "Dropdown", "Check box"];
+     $scope.question = "question";
+     
+    // Linear scale part
      $scope.low = "low";
      $scope.high = "high";
-     
-    // var isLinearScale = function(){
-    //   console.log($scope.selected);
-    //   if ($scope.selected == "Linear scale") {
-    //     return true;
-    //   }else{
-    //     return false;
-    //   }
-    // };
-  
-     
-      $scope.saveQuestion = function(question,low,high){
+      $scope.saveLinearScale = function(question,low,high){
        console.log(question);
        var linearScaleQuestion ={
           "question":question,
           "low":low,
           "high":high
         };
-        var newKey = firebase.database().ref().child('LinearScale').push().key;
+        var newKey = firebase.database().ref().child('Questions').child('LinearScale').push().key;
 
         var updates = {};
-        updates['/LinearScale/' + newKey] = linearScaleQuestion;
+        updates['/Questions/LinearScale/' + newKey] = linearScaleQuestion;
 
         return firebase.database().ref().update(updates);
      };
+     
+    // Paragraph part
+     $scope.saveParagragh = function(question){
+       console.log(question);
+       var paragraghQuestion ={
+          "question":question,
+        };
+        var newKey = firebase.database().ref().child('Questions').child('Paragragh').push().key;
+
+        var updates = {};
+        updates['/Questions/Paragragh/' + newKey] = paragraghQuestion;
+
+        return firebase.database().ref().update(updates);
+     };
+     
+     //Multiple choice
+     $scope.multiOptions =["option1"];
+     
+     $scope.addOption = function(){
+        var len = $scope.multiOptions.length;
+         len = len + 1;
+         $scope.multiOptions.push("option"+len);
+     }
      
      var ref = firebase.database().ref();
 

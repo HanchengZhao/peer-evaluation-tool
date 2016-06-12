@@ -1,7 +1,9 @@
-{"Linear scale":[
+{"Questions":["Linear scale":[{"question":question,
+          "low":low,
+          "high":high}
     ],
   "Multiple choice":[],
   "Paragragh":[],
   "Dropdown":[],
   "Check box":[]
-}
+]}
