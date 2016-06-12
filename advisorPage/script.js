@@ -40,9 +40,17 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject","$firebaseArray",
   function($scope, $firebaseObject, $firebaseArray) {
      
      $scope.types = ["Linear scale", "Multiple choice", "Paragragh", "Dropdown", "Check box"];
-      console.log($scope.selected);
      $scope.low = "low";
      $scope.high = "high";
+     
+     var isLinearScale = function(){
+       console.log($scope.selected);
+       if ($scope.selected == "Linear scale") {
+         return true;
+       }else{
+         return false;
+       }
+     };
      
      var ref = firebase.database().ref();
 
@@ -51,7 +59,6 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject","$firebaseArray",
      // to take an action after the data loads, use the $loaded() promise
      obj.$loaded().then(function() {
         console.log("loaded record:", obj.$id, obj.someOtherKeyInData);
-
        // To iterate the key/value pairs of the object, use angular.forEach()
        angular.forEach(obj, function(value, key) {
           console.log(key, value);
