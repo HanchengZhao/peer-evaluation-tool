@@ -35,7 +35,7 @@
   <div ng-controller="questionCtrl">
     <section>
       <h4>Select question type:</h4>
-      <select ng-options = "item for item in types" ng-model="selected" ng-change="isLinearScale()" class="btn btn-primary dropdown-toggle"  >
+      <select ng-options = "item for item in types" ng-model="selected" class="btn btn-primary dropdown-toggle"  >
         <option value='' >--Types--</option>
       </select>
       <hr>
@@ -65,7 +65,7 @@
           <div class="col-md-8">1: <input type="text" name="low" ng-model="low"/></div>
           <div class="col-md-8">5: <input type="text" name="high" ng-model="high"/></div>
           <hr>
-          <button type="button" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-primary" ng-click="saveQuestion(question,low,high)">Save</button>
         </div>
         
     </section>

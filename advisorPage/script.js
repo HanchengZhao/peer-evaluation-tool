@@ -43,13 +43,29 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject","$firebaseArray",
      $scope.low = "low";
      $scope.high = "high";
      
-     var isLinearScale = function(){
-       console.log($scope.selected);
-       if ($scope.selected == "Linear scale") {
-         return true;
-       }else{
-         return false;
-       }
+    // var isLinearScale = function(){
+    //   console.log($scope.selected);
+    //   if ($scope.selected == "Linear scale") {
+    //     return true;
+    //   }else{
+    //     return false;
+    //   }
+    // };
+  
+     
+      $scope.saveQuestion = function(question,low,high){
+       console.log(question);
+       var linearScaleQuestion ={
+          "question":question,
+          "low":low,
+          "high":high
+        };
+        var newKey = firebase.database().ref().child('LinearScale').push().key;
+
+        var updates = {};
+        updates['/LinearScale/' + newKey] = linearScaleQuestion;
+
+        return firebase.database().ref().update(updates);
      };
      
      var ref = firebase.database().ref();
