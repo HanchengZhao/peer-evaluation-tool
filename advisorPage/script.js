@@ -146,21 +146,53 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject","$firebaseArray",
 
         return firebase.database().ref().update(updates);
      };
-     
-     var ref = firebase.database().ref();
+      
+      $scope.RetrieveData =function(){
+          console.log('hi');
+          firebase.database().ref().child('Questions').once('value').then(function(snapshot) {
+          var data = snapshot.val();
+          var dataArray=[];
+          snapshot.forEach(function(record){
+            dataArray.push(record.val());
+          });
+          console.log(dataArray);
+          $("#retrieve-data").text(JSON.stringify(data));
+        });
+        };
+  }
+]);
 
-     var obj = $firebaseObject(ref);
 
-     // to take an action after the data loads, use the $loaded() promise
-     obj.$loaded().then(function() {
-        console.log("loaded record:", obj.$id, obj.someOtherKeyInData);
-       // To iterate the key/value pairs of the object, use angular.forEach()
-       angular.forEach(obj, function(value, key) {
-          console.log(key, value);
+app.controller("viewCtrl", ["$scope", "$firebaseObject","$firebaseArray",
+  function($scope, $firebaseObject, $firebaseArray) {
+ 
+   var ref = firebase.database().ref();
+  
+       var obj = $firebaseObject(ref);
+  
+       // to take an action after the data loads, use the $loaded() promise
+       obj.$loaded().then(function() {
+          console.log("loaded record:", obj.$id, obj.someOtherKeyInData);
+         // To iterate the key/value pairs of the object, use angular.forEach()
+         angular.forEach(obj, function(value, key) {
+            console.log(key, value);
+         });
        });
-     });
-     
-     var list = $firebaseArray(ref);
-
+       
+       var list = $firebaseArray(ref);
+       
+       $scope.RetrieveData =function(){
+          console.log('hi');
+          firebase.database().ref().child('Questions').once('value').then(function(snapshot) {
+          var data = snapshot.val();
+          var dataArray=[];
+          snapshot.forEach(function(record){
+            dataArray.push(record.val());
+          });
+          console.log(dataArray);
+          $("#retrieve-data").text(JSON.stringify(data));
+        });
+        };
+ 
   }
 ]);
