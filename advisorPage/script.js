@@ -78,11 +78,74 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject","$firebaseArray",
      //Multiple choice
      $scope.multiOptions =["option1"];
      
-     $scope.addOption = function(){
-        var len = $scope.multiOptions.length;
+     $scope.addOption = function(array){
+        var len = array.length;
          len = len + 1;
-         $scope.multiOptions.push("option"+len);
+         array.push("option"+len);
      }
+     
+     $scope.saveMultichoice = function(question){
+       console.log(question);
+       var optionArray = $scope.multiOptions;
+       var multiOptionsQuestion ={
+         "question":question,
+       }
+       optionArray.forEach(function(item, index){
+         multiOptionsQuestion['option'+ index + 1] = item;
+       })
+       
+        var newKey = firebase.database().ref().child('Questions').child('MultipleChoices').push().key;
+
+        var updates = {};
+        updates['/Questions/MultipleChoices/' + newKey] = multiOptionsQuestion;
+
+        return firebase.database().ref().update(updates);
+     };
+     
+     
+    // Dropdown
+      $scope.dropdowns =["option1"];
+    
+     $scope.saveDropdown = function(question){
+       console.log(question);
+       var optionArray = $scope.dropdowns;
+       var dropdownQuestion ={
+         "question":question,
+       }
+       optionArray.forEach(function(item, index){
+         dropdownQuestion['option'+ index] = item;
+       })
+       
+        var newKey = firebase.database().ref().child('Questions').child('Dropdown').push().key;
+
+        var updates = {};
+        updates['/Questions/Dropdown/' + newKey] = dropdownQuestion;
+
+        return firebase.database().ref().update(updates);
+     };
+     
+     
+     
+     // Check box
+     $scope.checkboxes =["option1"];
+    
+     $scope.saveCheckbox = function(question){
+       console.log(question);
+       var optionArray = $scope.checkboxes;
+       var checkboxQuestion ={
+         "question":question,
+       }
+       optionArray.forEach(function(item, index){
+         checkboxQuestion['option'+ index] = item;
+       })
+       
+        var newKey = firebase.database().ref().child('Questions').child('Checkbox').push().key;
+
+        var updates = {};
+        updates['/Questions/Checkbox/' + newKey] = checkboxQuestion;
+
+        return firebase.database().ref().update(updates);
+     };
      
      var ref = firebase.database().ref();
 

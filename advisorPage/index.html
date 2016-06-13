@@ -86,12 +86,42 @@
           <h3>{{selected}}:</h3>
           <label  for="">Questions: &nbsp;&nbsp; </label>
           <input type="text" ng-model="question" placeholder="Please describe the question here"></input><br>
+          <button type="button" class="btn btn-info" ng-click="addOption(multiOptions)">Add Option</button>
           <div class="col-md-12" id="radio" ng-repeat = "option in multiOptions">
             <label class="radio-inline" for="">
               <input type="radio"   />{{option}}</label>
           </div>
           <hr>
-          <button type="button" class="btn btn-primary" ng-click="addOption()">Add Option</button>
+          <button type="button" class="btn btn-primary" ng-click="saveMultichoice(question)">Save</button>
+        </div>
+    </section>
+    <!--Dropdown-->
+    <section ng-if="selected == 'Dropdown'">
+        <div class="form-group">
+          <h3>{{selected}}:</h3>
+          <label  for="">Questions: &nbsp;&nbsp; </label>
+          <input type="text" ng-model="question" placeholder="Discription"></input><br>
+          <button type="button" class="btn btn-info" ng-click="addOption(dropdowns)">Add Option</button>
+          <select ng-options = "item for item in dropdowns" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle"  >
+            <option value='' >--Options--</option>
+          </select>
+          <hr>
+          <button type="button" class="btn btn-primary" ng-click="saveDropdown(question)">Save</button>
+        </div>
+    </section>
+    
+    <!--Check box-->
+    <section ng-if="selected == 'Check box'">
+        <div class="form-group">
+          <h3>{{selected}}:</h3>
+          <label  for="">Questions: &nbsp;&nbsp; </label>
+          <input type="text" ng-model="question" placeholder="Discription"></input><br>
+          <button type="button" class="btn btn-info" ng-click="addOption(checkboxes)">Add Option</button>
+          <div class="checkbox" ng-repeat = "option in checkboxes">
+            <label><input type="checkbox" >{{option}}</label>
+          </div>
+          <hr>
+          <button type="button" class="btn btn-primary" ng-click="saveCheckbox(question)">Save</button>
         </div>
     </section>
     
