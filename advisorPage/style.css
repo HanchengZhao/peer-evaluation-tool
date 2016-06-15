@@ -13,3 +13,15 @@ input[type=text] {
     border-bottom: 1px solid #000000;
     padding: 2px 5px;
 }
+
+#user-pic{
+  position: relative;
+  display: inline-block;
+  background-image: url('/images/profile_placeholder.png');
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+  background-size: 40px;
+  border-radius: 20px;
+}
+

@@ -2,8 +2,16 @@ var app = angular.module("advisorApp", ["firebase"]);
 
 app.controller("authCtrl", function($scope, $firebaseAuth) {
   $scope.authObj = $firebaseAuth();
-
-
+    // $scope.userPic = $('#user-pic');
+    //login with google
+    
+    $scope.signIn = function(){
+      $scope.authObj.$signInWithPopup("google").then(function(firebaseUser) {
+        console.log("Signed in as:", firebaseUser.displayName);
+      }).catch(function(error) {
+        console.error("Authentication failed:", error);
+      });
+    }
   //sign-out
   $scope.authObj.$signOut(function() {
 
@@ -18,20 +26,19 @@ app.controller("authCtrl", function($scope, $firebaseAuth) {
     if (firebaseUser) {
       $scope.firebaseUser = firebaseUser;
       $scope.displayName = firebaseUser.displayName;
-      $scope.profilePicUrl = firebaseUser.photoURL;
+      $scope.profilePicUrl = firebaseUser.photoURL || 'images/profile_placeholder.png';
       $scope.email = firebaseUser.email;
-      // console.log($scope.profilePicUrl);
-      // $("#user-pic").style.backgroundImage = 'url(' + $scope.profilePicUrl + ')';
+      $scope.userPic = $('#user-pic');
+      console.log($scope.profilePicUrl);
+      // $("#user-pic").css('background-image','url(https://lh4.googleusercontent.com/-wnTI5FMslk8/AAAAAAAAAAI/AAAAAAAAAzk/xRUP7BTC8EE/s96-c/photo.jpg)');
+      $scope.userPic.css('background-image','url(' + $scope.profilePicUrl + ')');
       console.log("Signed in as:", firebaseUser.displayName);
+      
     } else {
       $scope.firebaseUser = false;
       console.log("Signed out");
-      // login with google
-      $scope.authObj.$signInWithPopup("google").then(function(firebaseUser) {
-        console.log("Signed in as:", firebaseUser.displayName);
-      }).catch(function(error) {
-        console.error("Authentication failed:", error);
-      });
+      $scope.userPic.css('background-image','url(/images/profile_placeholder.png)');
+      
     }
   });
 
@@ -160,7 +167,7 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 
     // to take an action after the data loads, use the $loaded() promise
     obj.$loaded().then(function() {
-      console.log("loaded record:", obj.$id, obj.someOtherKeyInData);
+      console.log("loaded record:", obj.$id, obj.questions);
       // To iterate the key/value pairs of the object, use angular.forEach()
       angular.forEach(obj, function(value, key) {
         console.log(key, value);
