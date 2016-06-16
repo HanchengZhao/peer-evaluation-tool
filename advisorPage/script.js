@@ -48,7 +48,7 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
   function($scope, $firebaseObject, $firebaseArray) {
 
     $scope.types = ["Linear scale", "Multiple choice", "Paragragh", "Dropdown", "Check box"];
-    $scope.question = "question";
+    $scope.question = "Please describe question";
 
     // Linear scale part
     $scope.low = "low";
@@ -100,6 +100,11 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       optionArray.forEach(function(item, index) {
         multiOptionsQuestion['option' + index + 1] = item;
       })
+      
+      //recover to original state
+        $scope.question = "Please describe question";
+        console.log($scope.question);
+       $scope.multiOptions = ["option1"];
 
       var newKey = firebase.database().ref().child('Questions').child('MultipleChoices').push().key;
 
@@ -145,7 +150,10 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       optionArray.forEach(function(item, index) {
         checkboxQuestion['option' + index] = item;
       })
-
+      
+      //recover
+      $scope.question = "Please describe question";
+      $scope.checkboxes = ["option1"];
       var newKey = firebase.database().ref().child('Questions').child('Checkbox').push().key;
 
       var updates = {};

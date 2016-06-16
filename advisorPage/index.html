@@ -96,9 +96,10 @@
         <input type="text" ng-model="question" placeholder="Please describe the question here"></input>
         <br>
         <button type="button" class="btn btn-info" ng-click="addOption(multiOptions)">Add Option</button>
-        <div class="col-md-12" id="radio" ng-repeat="option in multiOptions">
+        <div class="col-md-12" id="radio" ng-repeat="option in multiOptions track by $index">
           <label class="radio-inline" for="">
-            <input type="radio" />{{option}}</label>
+            <input type="radio" name="radioAnswer"/>
+            <input type="text" ng-model="multiOptions[$index]"></input>
         </div>
         <hr>
         <button type="button" class="btn btn-primary" ng-click="saveMultichoice(question)">Save</button>
@@ -112,7 +113,7 @@
         <input type="text" ng-model="question" placeholder="Discription"></input>
         <br>
         <button type="button" class="btn btn-info" ng-click="addOption(dropdowns)">Add Option</button>
-        <select ng-options="item for item in dropdowns" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
+        <select ng-options="item for item in dropdowns track by $index" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
           <option value=''>--Options--</option>
         </select>
         <hr>
@@ -128,9 +129,9 @@
         <input type="text" ng-model="question" placeholder="Discription"></input>
         <br>
         <button type="button" class="btn btn-info" ng-click="addOption(checkboxes)">Add Option</button>
-        <div class="checkbox" ng-repeat="option in checkboxes">
+        <div class="checkbox" ng-repeat="option in checkboxes track by $index">
           <label>
-            <input type="checkbox">{{option}}</label>
+            <input type="checkbox"><input type="text" ng-model="checkboxes[$index]"></input></label>
         </div>
         <hr>
         <button type="button" class="btn btn-primary" ng-click="saveCheckbox(question)">Save</button>
