@@ -113,10 +113,16 @@
         <input type="text" ng-model="question" placeholder="Discription"></input>
         <br>
         <button type="button" class="btn btn-info" ng-click="addOption(dropdowns)">Add Option</button>
-        <select ng-options="item for item in dropdowns track by $index" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
+        <select ng-options="item for item in dropdowns" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
           <option value=''>--Options--</option>
         </select>
         <hr>
+        <div class="col-md-12" ng-repeat="item in dropdowns track by $index">
+          <li>
+            <input type="text" ng-model="dropdowns[$index]"></input><br>
+          </li>
+        </div>
+         <hr>
         <button type="button" class="btn btn-primary" ng-click="saveDropdown(question)">Save</button>
       </div>
     </section>

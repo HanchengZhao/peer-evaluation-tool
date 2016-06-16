@@ -60,6 +60,7 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
         "low": low,
         "high": high
       };
+      alert("Question saved");
       var newKey = firebase.database().ref().child('Questions').child('LinearScale').push().key;
 
       var updates = {};
@@ -102,6 +103,7 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       })
       
       //recover to original state
+      alert('Question saved');
         $scope.question = "Please describe question";
         console.log($scope.question);
        $scope.multiOptions = ["option1"];
@@ -127,7 +129,9 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       optionArray.forEach(function(item, index) {
         dropdownQuestion['option' + index] = item;
       })
-
+      //recover
+      alert('Question saved');
+      $scope.dropdowns = ["option1"];
       var newKey = firebase.database().ref().child('Questions').child('Dropdown').push().key;
 
       var updates = {};
@@ -154,6 +158,7 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       //recover
       $scope.question = "Please describe question";
       $scope.checkboxes = ["option1"];
+      alert('Question saved');
       var newKey = firebase.database().ref().child('Questions').child('Checkbox').push().key;
 
       var updates = {};
