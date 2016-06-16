@@ -29,7 +29,7 @@ app.controller("authCtrl", function($scope, $firebaseAuth) {
       $scope.profilePicUrl = firebaseUser.photoURL || 'images/profile_placeholder.png';
       $scope.email = firebaseUser.email;
       $scope.userPic = $('#user-pic');
-      console.log($scope.profilePicUrl);
+      // console.log($scope.profilePicUrl);
       // $("#user-pic").css('background-image','url(https://lh4.googleusercontent.com/-wnTI5FMslk8/AAAAAAAAAAI/AAAAAAAAAzk/xRUP7BTC8EE/s96-c/photo.jpg)');
       $scope.userPic.css('background-image','url(' + $scope.profilePicUrl + ')');
       console.log("Signed in as:", firebaseUser.displayName);
@@ -178,26 +178,32 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 
     var obj = $firebaseObject(ref);
 
+    var list = $firebaseArray(ref);
+    // $scope.list= list;
+    var checkboxRef= ref.child('Questions');
+    var query = checkboxRef.orderByChild("timestamp").limitToLast(10);
     // to take an action after the data loads, use the $loaded() promise
     obj.$loaded().then(function() {
-      console.log("loaded record:", obj.$id, obj.questions);
+      // console.log("loaded record:", obj.$id, obj.questions);
       // To iterate the key/value pairs of the object, use angular.forEach()
       angular.forEach(obj, function(value, key) {
         console.log(key, value);
       });
     });
 
-    var list = $firebaseArray(ref);
+    
 
     $scope.RetrieveData = function() {
-      firebase.database().ref().child('Questions').once('value').then(function(snapshot) {
+      firebase.database().ref().child('Questions').on('value',function(snapshot) {
         var data = snapshot.val();
         var dataArray = [];
+        var dataInJson =JSON.stringify(data);
         snapshot.forEach(function(record) {
           dataArray.push(record.val());
         });
+        $scope.list = dataArray;
         console.log(dataArray);
-        $("#retrieve-data").text(JSON.stringify(data));
+        // $("#retrieve-data").text(dataInJson);
       });
     };
 
