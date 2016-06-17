@@ -190,11 +190,20 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
         console.log(key, value);
       });
     });
-
+    
+     $scope.filterQuestion = function(items) {
+        var result = {};
+        angular.forEach(items, function(value, key) {
+            if (key == "question") {
+                result[key] = value;
+            }
+        });
+        return result;
+    } 
     
 
     $scope.RetrieveData = function() {
-      firebase.database().ref().child('Questions').on('value',function(snapshot) {
+      firebase.database().ref().on('value',function(snapshot) {
         var data = snapshot.val();
         var dataArray = [];
         var dataInJson =JSON.stringify(data);
@@ -203,7 +212,6 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
         });
         $scope.list = dataArray;
         console.log(dataArray);
-        // $("#retrieve-data").text(dataInJson);
       });
     };
 

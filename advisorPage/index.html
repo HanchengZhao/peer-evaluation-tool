@@ -155,7 +155,15 @@
     </div>
     <div id="retrieve-data"></div>
     <div ng-repeat = "item in list ">
-      <li ng-repeat = "thing in item">{{thing}}</li>
+      <div ng-repeat = "(questionType, questionContent) in item">
+        <div ng-if= "questionType == 'Checkbox'">{{questionType}}:{{questionContent}}
+          <div ng-repeat = "option in questionContent ">
+              <div ng-repeat = "(key,value) in filterQuestion(option)">
+                <li>{{value}}</li>
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!--<iframe src="https://docs.google.com/forms/d/1r2S3Hpw2Zez0jmVCSIE_lep4GSrtrA-PfUFcxcOL8Cw/viewform?embedded=true" width="800" height="600" frameborder="10" marginheight="20" marginwidth="20" align="middle">Loading...</iframe>-->
