@@ -79,7 +79,9 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 
       var updates = {};
       updates['/Questions/Paragraph/' + newKey] = paragraghQuestion;
-
+        
+      $scope.question = "Please describe question";
+      
       return firebase.database().ref().update(updates);
     };
 
