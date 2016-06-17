@@ -52,16 +52,16 @@
         <br>
         <div class="col-md-12" id="radio">
           <div>{{low}}&nbsp;&nbsp;
-            <label class="radio-inline" for="0">
-              <input type="radio"  value="1" />1</label>
-            <label class="radio-inline" for="1">
-              <input type="radio"  value="2" />2</label>
-            <label class="radio-inline" for="2">
-              <input type="radio"  value="3" />3</label>
-            <label class="radio-inline" for="3">
-              <input type="radio"  value="4" />4</label>
-            <label class="radio-inline" for="4">
-              <input type="radio"  value="5" />5</label>
+            <label class="radio-inline" >
+              <input type="radio"  value="1"  name="radSelecet"/>1</label>
+            <label class="radio-inline" >
+              <input type="radio"  value="2"  name="radSelecet"/>2</label>
+            <label class="radio-inline" >
+              <input type="radio"  value="3"  name="radSelecet"/>3</label>
+            <label class="radio-inline" >
+              <input type="radio"  value="4"  name="radSelecet"/>4</label>
+            <label class="radio-inline" >
+              <input type="radio"  value="5"  name="radSelecet"/>5</label>
             &nbsp;&nbsp;{{high}}</div>
         </div>
         <div class="col-md-8">1:
@@ -75,8 +75,8 @@
       </div>
     </section>
 
-    <!--Paragragh-->
-    <section ng-if="selected == 'Paragragh'">
+    <!--Paragraph-->
+    <section ng-if="selected == 'Paragraph'">
       <input type="text" name="question" ng-model="question" placeholder="Please describe the question here"></input>
       <br>
       <form role="form">
@@ -85,7 +85,7 @@
           <textarea class="form-control" rows="5" id="comment"></textarea>
         </div>
       </form>
-      <button type="button" class="btn btn-primary" ng-click="saveParagragh(question)">Save</button>
+      <button type="button" class="btn btn-primary" ng-click="saveParagraph(question)">Save</button>
     </section>
 
     <!-- Multiple choice -->
@@ -153,14 +153,151 @@
         <button type="button" class="btn btn-success" ng-click="RetrieveData()">Retrieve</button>
       </div>
     </div>
-    <div id="retrieve-data"></div>
+    <!--Retrieved-data-->
     <div ng-repeat = "item in list ">
       <div ng-repeat = "(questionType, questionContent) in item">
-        <div ng-if= "questionType == 'Checkbox'">{{questionType}}:{{questionContent}}
-          <div ng-repeat = "option in questionContent ">
-              <div ng-repeat = "(key,value) in filterQuestion(option)">
-                <li>{{value}}</li>
+        <!--LinearScale-->
+        <div ng-if= "questionType == 'LinearScale'">
+          <h3>LinearScale:</h3>
+          <div ng-repeat = "option in questionContent track by $index">
+            <table class="table table-striped">
+               <tbody>
+                <tr>
+            <!--Questions-->
+              <td><div ng-repeat = "(key,value) in filterQuestion(option)">
+                
+                   <label for="">Question: {{value}} </label>
+                  </div>
+              </td>
+              </tr>
+            <!--Options-->
+              <tr>
+                <td><div class="col-md-12" id="radio">
+                      <div>{{option.low}}&nbsp;&nbsp;
+                        <label class="radio-inline" >
+                          <input type="radio"  value="1"  name="{{$index}}"/>1</label>
+                        <label class="radio-inline" >
+                          <input type="radio"  value="2"  name="{{$index}}"/>2</label>
+                        <label class="radio-inline" >
+                          <input type="radio"  value="3"  name="{{$index}}"/>3</label>
+                        <label class="radio-inline" >
+                          <input type="radio"  value="4"  name="{{$index}}"/>4</label>
+                        <label class="radio-inline" >
+                          <input type="radio"  value="5"  name="{{$index}}"/>5</label>
+                       &nbsp;&nbsp;{{option.high}}</div>
+                    </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
               </div>
+          </div>
+          <hr>
+          
+          <!--MultipleChoices-->
+        <div ng-if= "questionType == 'MultipleChoices'">
+          <h3>Multiple Choices:</h3>
+          <div ng-repeat = "option in questionContent track by $index">
+            <table class="table table-striped">
+               <tbody>
+            <!--Questions-->
+                 <tr>
+                   <td><div ng-repeat = "(key,value) in filterQuestion(option)">
+                  
+                         <label for="">Question: {{value}} </label>
+                      </div>
+                  </td>
+                  </tr>
+            <!--Options-->
+                 <tr>
+                   <td>
+                     <div ng-repeat = "(key,value) in filterOptions(option)">
+                       <label class="radio-inline" for="">
+                        <input type="radio" name="{{$index}}"/>{{value}}</input></label>
+                      </div>
+                  </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!--Paragraph-->
+        <div ng-if= "questionType == 'Paragraph'">
+          <h3>Paragraph:</h3>
+          <div ng-repeat = "option in questionContent track by $index">
+            <table class="table table-striped">
+               <tbody>
+            <!--Questions-->
+                 <tr>
+                   <td><div ng-repeat = "(key,value) in filterQuestion(option)">
+                         <label for="">Question: {{value}} </label>
+                      </div>
+                  </td>
+                  </tr>
+            <!--Options-->
+                 <tr>
+                   <td>
+                      <textarea class="form-control" rows="5" id="comment"></textarea>
+                  </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!--Checkbox-->
+        <div ng-if= "questionType == 'Checkbox'">
+          <h3>Checkbox:</h3>
+          <div ng-repeat = "option in questionContent track by $index">
+            <table class="table table-striped">
+               <tbody>
+            <!--Questions-->
+                 <tr>
+                   <td><div ng-repeat = "(key,value) in filterQuestion(option)">
+                         <label for="">Question: {{value}} </label>
+                      </div>
+                  </td>
+                  </tr>
+            <!--Options-->
+                 <tr>
+                   <td>
+                     <div ng-repeat = "(key,value) in filterOptions(option)">
+                       <label class="radio-inline" for="">
+                        <input type="checkbox">{{value}}</label>
+                      </div>
+                  </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!--Dropdown-->
+        <div ng-if= "questionType == 'Dropdown'">
+          <h3>Dropdown:</h3>
+          <div ng-repeat = "option in questionContent track by $index">
+            <table class="table table-striped">
+               <tbody>
+            <!--Questions-->
+                 <tr>
+                   <td><div ng-repeat = "(key,value) in filterQuestion(option)">
+                         <label for="">Question: {{value}} </label>
+                      </div>
+                  </td>
+                  </tr>
+            <!--Options-->
+                 <tr>
+                   <td>
+                     <!--<div ng-repeat = "(key,value) in filterOptions(option)">-->
+                       <select ng-options="item for item in filterOptions(option)" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
+                          <option value=''>--Options--</option>
+                      </select>
+                      <!--</div>-->
+                  </td>
+                  </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

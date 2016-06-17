@@ -47,7 +47,7 @@ app.controller("authCtrl", function($scope, $firebaseAuth) {
 app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
   function($scope, $firebaseObject, $firebaseArray) {
 
-    $scope.types = ["Linear scale", "Multiple choice", "Paragragh", "Dropdown", "Check box"];
+    $scope.types = ["Linear scale", "Multiple choice", "Paragraph", "Dropdown", "Check box"];
     $scope.question = "Please describe question";
 
     // Linear scale part
@@ -70,15 +70,15 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
     };
 
     // Paragraph part
-    $scope.saveParagragh = function(question) {
+    $scope.saveParagraph = function(question) {
       console.log(question);
       var paragraghQuestion = {
         "question": question,
       };
-      var newKey = firebase.database().ref().child('Questions').child('Paragragh').push().key;
+      var newKey = firebase.database().ref().child('Questions').child('Paragraph').push().key;
 
       var updates = {};
-      updates['/Questions/Paragragh/' + newKey] = paragraghQuestion;
+      updates['/Questions/Paragraph/' + newKey] = paragraghQuestion;
 
       return firebase.database().ref().update(updates);
     };
@@ -174,22 +174,22 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
   function($scope, $firebaseObject, $firebaseArray) {
 
-    var ref = firebase.database().ref();
+    // var ref = firebase.database().ref();
 
-    var obj = $firebaseObject(ref);
+    // var obj = $firebaseObject(ref);
 
-    var list = $firebaseArray(ref);
-    // $scope.list= list;
-    var checkboxRef= ref.child('Questions');
-    var query = checkboxRef.orderByChild("timestamp").limitToLast(10);
-    // to take an action after the data loads, use the $loaded() promise
-    obj.$loaded().then(function() {
-      // console.log("loaded record:", obj.$id, obj.questions);
-      // To iterate the key/value pairs of the object, use angular.forEach()
-      angular.forEach(obj, function(value, key) {
-        console.log(key, value);
-      });
-    });
+    // var list = $firebaseArray(ref);
+    // // $scope.list= list;
+    // var checkboxRef= ref.child('Questions');
+    // var query = checkboxRef.orderByChild("timestamp").limitToLast(10);
+    // // to take an action after the data loads, use the $loaded() promise
+    // obj.$loaded().then(function() {
+    //   // console.log("loaded record:", obj.$id, obj.questions);
+    //   // To iterate the key/value pairs of the object, use angular.forEach()
+    //   angular.forEach(obj, function(value, key) {
+    //     console.log(key, value);
+    //   });
+    // });
     
      $scope.filterQuestion = function(items) {
         var result = {};
@@ -201,6 +201,15 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
         return result;
     } 
     
+     $scope.filterOptions = function(items) {
+        var result = {};
+        angular.forEach(items, function(value, key) {
+            if (key !== "question") {
+                result[key] = value;
+            }
+        });
+        return result;
+    } 
 
     $scope.RetrieveData = function() {
       firebase.database().ref().on('value',function(snapshot) {
@@ -211,7 +220,7 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
           dataArray.push(record.val());
         });
         $scope.list = dataArray;
-        console.log(dataArray);
+        console.log($scope.list);
       });
     };
 
