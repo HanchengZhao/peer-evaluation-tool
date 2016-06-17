@@ -159,20 +159,22 @@
         <!--LinearScale-->
         <div ng-if= "questionType == 'LinearScale'">
           <h3>LinearScale:</h3>
-          <div ng-repeat = "option in questionContent track by $index">
+          <div ng-repeat = "(unique_id, option) in questionContent track by $index">
             <table class="table table-striped">
                <tbody>
                 <tr>
             <!--Questions-->
               <td><div ng-repeat = "(key,value) in filterQuestion(option)">
-                
-                   <label for="">Question: {{value}} </label>
+
+                   <label for="">Question: {{value}}</label>
+                   <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)" >Delete</button>
                   </div>
               </td>
               </tr>
             <!--Options-->
               <tr>
                 <td><div class="col-md-12" id="radio">
+                  {{option.$id}}
                       <div>{{option.low}}&nbsp;&nbsp;
                         <label class="radio-inline" >
                           <input type="radio"  value="1"  name="{{$index}}"/>1</label>
@@ -197,14 +199,14 @@
           <!--MultipleChoices-->
         <div ng-if= "questionType == 'MultipleChoices'">
           <h3>Multiple Choices:</h3>
-          <div ng-repeat = "option in questionContent track by $index">
+          <div ng-repeat = "(unique_id, option) in questionContent track by $index">
             <table class="table table-striped">
                <tbody>
             <!--Questions-->
                  <tr>
                    <td><div ng-repeat = "(key,value) in filterQuestion(option)">
-                  
                          <label for="">Question: {{value}} </label>
+                         <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)" >Delete</button>
                       </div>
                   </td>
                   </tr>
@@ -225,13 +227,14 @@
         <!--Paragraph-->
         <div ng-if= "questionType == 'Paragraph'">
           <h3>Paragraph:</h3>
-          <div ng-repeat = "option in questionContent track by $index">
+          <div ng-repeat = "(unique_id,option) in questionContent track by $index">
             <table class="table table-striped">
                <tbody>
             <!--Questions-->
                  <tr>
                    <td><div ng-repeat = "(key,value) in filterQuestion(option)">
                          <label for="">Question: {{value}} </label>
+                         <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)" >Delete</button>
                       </div>
                   </td>
                   </tr>
@@ -249,13 +252,14 @@
         <!--Checkbox-->
         <div ng-if= "questionType == 'Checkbox'">
           <h3>Checkbox:</h3>
-          <div ng-repeat = "option in questionContent track by $index">
+          <div ng-repeat = "(unique_id, option) in questionContent track by $index">
             <table class="table table-striped">
                <tbody>
             <!--Questions-->
                  <tr>
                    <td><div ng-repeat = "(key,value) in filterQuestion(option)">
                          <label for="">Question: {{value}} </label>
+                        <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)" >Delete</button>
                       </div>
                   </td>
                   </tr>
@@ -264,7 +268,7 @@
                    <td>
                      <div ng-repeat = "(key,value) in filterOptions(option)">
                        <label class="radio-inline" for="">
-                        <input type="checkbox">{{value}}</label>
+                        <input type="checkbox">&nbsp;&nbsp;{{value}}</label>
                       </div>
                   </td>
                   </tr>
@@ -276,13 +280,14 @@
         <!--Dropdown-->
         <div ng-if= "questionType == 'Dropdown'">
           <h3>Dropdown:</h3>
-          <div ng-repeat = "option in questionContent track by $index">
+          <div ng-repeat = "(unique_id,option) in questionContent track by $index">
             <table class="table table-striped">
                <tbody>
             <!--Questions-->
                  <tr>
                    <td><div ng-repeat = "(key,value) in filterQuestion(option)">
                          <label for="">Question: {{value}} </label>
+                         <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)" >Delete</button>
                       </div>
                   </td>
                   </tr>

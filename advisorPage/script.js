@@ -174,11 +174,11 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
   function($scope, $firebaseObject, $firebaseArray) {
 
-    // var ref = firebase.database().ref();
+    var ref = firebase.database().ref();
 
-    // var obj = $firebaseObject(ref);
+    var obj = $firebaseObject(ref);
 
-    // var list = $firebaseArray(ref);
+    var list = $firebaseArray(ref);
     // // $scope.list= list;
     // var checkboxRef= ref.child('Questions');
     // var query = checkboxRef.orderByChild("timestamp").limitToLast(10);
@@ -209,7 +209,17 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
             }
         });
         return result;
-    } 
+    };
+    
+    $scope.deleteQuestion = function(unique_id, questionType){
+      var questionRef = firebase.database().ref('Questions/'+ questionType +'/' + unique_id);
+          questionRef.remove().then(function() {
+              console.log("Remove succeeded.")
+            })
+            .catch(function(error) {
+              console.log("Remove failed: " + error.message)
+            });
+    }
 
     $scope.RetrieveData = function() {
       firebase.database().ref().on('value',function(snapshot) {
