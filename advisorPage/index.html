@@ -9,18 +9,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyAjHp1OIGV2kHqTq2J9eFa88GhtuuVDOpM",
-      authDomain: "project-2114532762902987550.firebaseapp.com",
-      databaseURL: "https://project-2114532762902987550.firebaseio.com",
-      storageBucket: "",
-    };
-    firebase.initializeApp(config);
-  </script>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js"></script>
+  <script src="sortable.js"></script>
 </head>
 
 <body ng-app="advisorApp">
@@ -151,6 +142,7 @@
       <label class=" control-label" for="retrieve">Retrieve data:</label>
       <div>
         <button type="button" class="btn btn-success" ng-click="RetrieveData()">Retrieve</button>
+        <!--<button type="button" class="btn btn-success" ng-click="copyFbRecord(oldRef, newRef)">Copy</button>-->
       </div>
     </div>
     <!--Retrieved-data-->
@@ -159,14 +151,14 @@
         <!--LinearScale-->
         <div ng-if= "questionType == 'LinearScale'">
           <h3>LinearScale:</h3>
-          <div ng-repeat = "(unique_id, option) in questionContent track by $index">
+          <div ng-repeat = "(unique_id, option) in questionContent track by $index" id="list">
             <table class="table table-striped">
                <tbody>
                 <tr>
             <!--Questions-->
-              <td><div ng-repeat = "(key,value) in filterQuestion(option)">
+              <td><div ng-repeat = "(key,value) in filterQuestion(option)" >
 
-                   <label for="">Question: {{value}}</label>
+                   <label for="" >Question: {{value}}</label>
                    <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)" >Delete</button>
                   </div>
               </td>
@@ -199,7 +191,7 @@
           <!--MultipleChoices-->
         <div ng-if= "questionType == 'MultipleChoices'">
           <h3>Multiple Choices:</h3>
-          <div ng-repeat = "(unique_id, option) in questionContent track by $index">
+          <div ng-repeat = "(unique_id, option) in questionContent track by $index" id="list">
             <table class="table table-striped">
                <tbody>
             <!--Questions-->

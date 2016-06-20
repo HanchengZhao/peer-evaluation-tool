@@ -1,3 +1,12 @@
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAjHp1OIGV2kHqTq2J9eFa88GhtuuVDOpM",
+      authDomain: "project-2114532762902987550.firebaseapp.com",
+      databaseURL: "https://project-2114532762902987550.firebaseio.com",
+      storageBucket: "",
+    };
+    firebase.initializeApp(config);
+
 var app = angular.module("advisorApp", ["firebase"]);
 
 app.controller("authCtrl", function($scope, $firebaseAuth) {
@@ -61,10 +70,10 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
         "high": high
       };
       alert("Question saved");
-      var newKey = firebase.database().ref().child('Questions').child('LinearScale').push().key;
+      var newKey = firebase.database().ref().child('Questions-Data/Questions').child('LinearScale').push().key;
 
       var updates = {};
-      updates['/Questions/LinearScale/' + newKey] = linearScaleQuestion;
+      updates['/Questions-Data/Questions/LinearScale/' + newKey] = linearScaleQuestion;
 
       return firebase.database().ref().update(updates);
     };
@@ -75,10 +84,10 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       var paragraghQuestion = {
         "question": question,
       };
-      var newKey = firebase.database().ref().child('Questions').child('Paragraph').push().key;
+      var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Paragraph').push().key;
 
       var updates = {};
-      updates['/Questions/Paragraph/' + newKey] = paragraghQuestion;
+      updates['/Questions-Data/Questions/Paragraph/' + newKey] = paragraghQuestion;
         
       $scope.question = "Please describe question";
       
@@ -110,10 +119,10 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
         console.log($scope.question);
        $scope.multiOptions = ["option1"];
 
-      var newKey = firebase.database().ref().child('Questions').child('MultipleChoices').push().key;
+      var newKey = firebase.database().ref().child('Questions-Data/Questions').child('MultipleChoices').push().key;
 
       var updates = {};
-      updates['/Questions/MultipleChoices/' + newKey] = multiOptionsQuestion;
+      updates['/Questions-Data/Questions/MultipleChoices/' + newKey] = multiOptionsQuestion;
 
       return firebase.database().ref().update(updates);
     };
@@ -134,10 +143,10 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       //recover
       alert('Question saved');
       $scope.dropdowns = ["option1"];
-      var newKey = firebase.database().ref().child('Questions').child('Dropdown').push().key;
+      var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Dropdown').push().key;
 
       var updates = {};
-      updates['/Questions/Dropdown/' + newKey] = dropdownQuestion;
+      updates['/Questions-Data/Questions/Dropdown/' + newKey] = dropdownQuestion;
 
       return firebase.database().ref().update(updates);
     };
@@ -161,10 +170,10 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       $scope.question = "Please describe question";
       $scope.checkboxes = ["option1"];
       alert('Question saved');
-      var newKey = firebase.database().ref().child('Questions').child('Checkbox').push().key;
+      var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Checkbox').push().key;
 
       var updates = {};
-      updates['/Questions/Checkbox/' + newKey] = checkboxQuestion;
+      updates['/Questions-Data/Questions/Checkbox/' + newKey] = checkboxQuestion;
 
       return firebase.database().ref().update(updates);
     };
@@ -181,18 +190,7 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
     var obj = $firebaseObject(ref);
 
     var list = $firebaseArray(ref);
-    // // $scope.list= list;
-    // var checkboxRef= ref.child('Questions');
-    // var query = checkboxRef.orderByChild("timestamp").limitToLast(10);
-    // // to take an action after the data loads, use the $loaded() promise
-    // obj.$loaded().then(function() {
-    //   // console.log("loaded record:", obj.$id, obj.questions);
-    //   // To iterate the key/value pairs of the object, use angular.forEach()
-    //   angular.forEach(obj, function(value, key) {
-    //     console.log(key, value);
-    //   });
-    // });
-    
+  
      $scope.filterQuestion = function(items) {
         var result = {};
         angular.forEach(items, function(value, key) {
@@ -214,7 +212,7 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
     };
     
     $scope.deleteQuestion = function(unique_id, questionType){
-      var questionRef = firebase.database().ref('Questions/'+ questionType +'/' + unique_id);
+      var questionRef = firebase.database().ref('Questions-Data/Questions/'+ questionType +'/' + unique_id);
           questionRef.remove().then(function() {
               console.log("Remove succeeded.")
             })
@@ -224,7 +222,7 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
     }
 
     $scope.RetrieveData = function() {
-      firebase.database().ref().on('value',function(snapshot) {
+      firebase.database().ref("Questions-Data").on('value',function(snapshot) {
         var data = snapshot.val();
         var dataArray = [];
         var dataInJson =JSON.stringify(data);
@@ -235,6 +233,17 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
         console.log($scope.list);
       });
     };
+    // used for Copy data
+//     $scope.oldRef = firebase.database().ref();
+//     $scope.newRef = firebase.database().ref("Questions-Data");
+    
+//     $scope.copyFbRecord = function(oldRef, newRef) {    
+//     oldRef.once('value', function(snap)  {
+//           newRef.set( snap.val(), function(error) {
+//               if( error && typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
+//           });
+//     });
+// }
 
   }
 ]);
