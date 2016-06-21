@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js"   integrity="sha256-55Jz3pBCF8z9jBO1qQ7cIf0L+neuPTD1u7Ytzrp2dqo="   crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js"></script>
   <script src="sortable.js"></script>
@@ -113,7 +114,7 @@
             <input type="text" ng-model="dropdowns[$index]"></input><br>
           </li>
         </div>
-         <hr>
+         <br/>
         <button type="button" class="btn btn-primary" ng-click="saveDropdown(question)">Save</button>
       </div>
     </section>
@@ -149,10 +150,10 @@
     <div ng-repeat = "item in list ">
       <div ng-repeat = "(questionType, questionContent) in item">
         <!--LinearScale-->
-        <div ng-if= "questionType == 'LinearScale'">
+        <div ng-if= "questionType == 'LinearScale'" >
           <h3>LinearScale:</h3>
           <div ng-repeat = "(unique_id, option) in questionContent track by $index" id="list">
-            <table class="table table-striped">
+            <table class="table table-striped" id="sort">
                <tbody>
                 <tr>
             <!--Questions-->
@@ -191,7 +192,7 @@
           <!--MultipleChoices-->
         <div ng-if= "questionType == 'MultipleChoices'">
           <h3>Multiple Choices:</h3>
-          <div ng-repeat = "(unique_id, option) in questionContent track by $index" id="list">
+          <div ng-repeat = "(unique_id, option) in questionContent track by $index" >
             <table class="table table-striped">
                <tbody>
             <!--Questions-->
@@ -201,13 +202,13 @@
                          <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)" >Delete</button>
                       </div>
                   </td>
-                  </tr>
+                 </tr>
             <!--Options-->
                  <tr>
                    <td>
                      <div ng-repeat = "(key,value) in filterOptions(option)">
                        <label class="radio-inline" for="">
-                        <input type="radio" name="{{$index}}"/>{{value}}</input></label>
+                        <input type="radio" name="RadAnswer"/>{{value}}</input></label>
                       </div>
                   </td>
                   </tr>
@@ -299,6 +300,12 @@
         </div>
       </div>
     </div>
+    <!-- <ul class="example">-->
+    <!--  <li>First</li>-->
+    <!--  <li>Second</li>-->
+    <!--  <li>Third</li>-->
+    <!--</ul>-->
+    
   </div>
   <!--<iframe src="https://docs.google.com/forms/d/1r2S3Hpw2Zez0jmVCSIE_lep4GSrtrA-PfUFcxcOL8Cw/viewform?embedded=true" width="800" height="600" frameborder="10" marginheight="20" marginwidth="20" align="middle">Loading...</iframe>-->
 </body>

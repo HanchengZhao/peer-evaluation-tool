@@ -6,6 +6,7 @@
       storageBucket: "",
     };
     firebase.initializeApp(config);
+    
 
 var app = angular.module("advisorApp", ["firebase"]);
 
@@ -184,7 +185,7 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 
 app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
   function($scope, $firebaseObject, $firebaseArray) {
-
+ 
     var ref = firebase.database().ref();
 
     var obj = $firebaseObject(ref);
@@ -244,6 +245,11 @@ app.controller("viewCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 //           });
 //     });
 // }
-
+          //   $(function  () {
+          //   $("ul.example").sortable();
+          // });
+          
+          
+          
   }
 ]);
