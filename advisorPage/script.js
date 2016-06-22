@@ -12,7 +12,6 @@ var app = angular.module("advisorApp", ["firebase"]);
 
 app.controller("authCtrl", function($scope, $firebaseAuth) {
   $scope.authObj = $firebaseAuth();
-    // $scope.userPic = $('#user-pic');
     //login with google
     
     $scope.signIn = function(){
