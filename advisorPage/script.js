@@ -75,7 +75,8 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 
       var updates = {};
       updates['/Questions-Data/Questions/LinearScale/' + newKey] = linearScaleQuestion;
-
+      
+      this.question = "Please describe question";
       return firebase.database().ref().update(updates);
     };
 
@@ -86,12 +87,12 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
         "question": question,
       };
       var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Paragraph').push().key;
-
+    console.log(newKey);
       var updates = {};
       updates['/Questions-Data/Questions/Paragraph/' + newKey] = paragraghQuestion;
         
-      $scope.question = "Please describe question";
-      
+      this.question = "Please describe question";
+      // $scope.$apply();
       return firebase.database().ref().update(updates);
     };
 
@@ -115,9 +116,7 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       })
       
       //recover to original state
-      alert('Question saved');
-        $scope.question = "Please describe question";
-        console.log($scope.question);
+        this.question = "Please describe question";
        $scope.multiOptions = ["option1"];
 
       var newKey = firebase.database().ref().child('Questions-Data/Questions').child('MultipleChoices').push().key;
@@ -141,14 +140,14 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       optionArray.forEach(function(item, index) {
         dropdownQuestion['option' + index] = item;
       })
-      //recover
-      alert('Question saved');
+
       $scope.dropdowns = ["option1"];
       var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Dropdown').push().key;
 
       var updates = {};
       updates['/Questions-Data/Questions/Dropdown/' + newKey] = dropdownQuestion;
 
+      this.question = "Please describe question";
       return firebase.database().ref().update(updates);
     };
 
@@ -168,7 +167,7 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       })
       
       //recover
-      $scope.question = "Please describe question";
+      this.question = "Please describe question";
       $scope.checkboxes = ["option1"];
       alert('Question saved');
       var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Checkbox').push().key;
