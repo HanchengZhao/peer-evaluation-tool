@@ -58,6 +58,42 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 
    $scope.types = ["Linear scale", "Multiple choice", "Paragraph", "Dropdown", "Check box"];
    $scope.question = "Please describe question";
+   
+   
+  firebase.database().ref("Quizzes").on('value', function(snapshot) {
+       var dataArray = [];
+       snapshot.forEach(function(record) {
+         dataArray.push(record.key);
+         console.log(record.key);
+       });
+       $scope.quizzes = dataArray;
+       console.log($scope.quizzes);
+  });
+  
+  $scope.addQuizContent = false;
+  $scope.addQuiz = function(){
+    $scope.addQuizContent = !$scope.addQuizContent;
+  }
+  
+  $scope.saveQuiz = function(quizTitle,startDate,endDate){
+    var quizArray = $scope.quizzes;
+    var length = quizArray.length + 1;
+    var date = new Date();
+    var newQuiz = {
+       "quizTitle": quizTitle,
+       "startDate": startDate,
+       "endDate": endDate,
+       "Created date" : date.toLocaleDateString()
+     };
+    // var newKey = firebase.database().ref().child('Quizzes').push().key;
+
+     var updates = {};
+     updates['/Quizzes/' + "Quiz"+length] = newQuiz;
+
+     return firebase.database().ref().update(updates);
+  }
+
+
 
    // Linear scale part
    $scope.low = "low";

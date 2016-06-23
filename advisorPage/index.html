@@ -28,6 +28,31 @@
   <h2>Advisor page -- Questions Generating</h2>
   <hr />
   <div ng-controller="questionCtrl">
+    
+    <!--Add quiz part-->
+    <section>
+      <h4>Select quiz ID:</h4>
+      <select ng-options="item for item in quizzes" ng-model="selected" class="btn btn-primary dropdown-toggle">
+        <option value=''>--Quizzes--</option>
+      </select>
+      <button type="button" class="btn btn-primary" ng-click="addQuiz()">Add quiz</button>
+      <hr>
+    </section>
+    
+     <section ng-show="addQuizContent">
+      <div class="form-group">
+        <label for="">Quiz title: &nbsp;&nbsp; </label><br>
+        <input type="text" ng-model="quizTitle" placeholder="Quiz title"></input><br>
+        <label for="">Start Date: &nbsp;&nbsp; </label><br>
+        <input type="date" ng-model="startDate" placeholder="Start Date"></input><br>
+        <label for="">End Date: &nbsp;&nbsp; </label><br>
+        <input type="date" ng-model="endDate" placeholder="End Date"></input><br>
+        <hr>
+        <button type="button" class="btn btn-primary" ng-click="saveQuiz(quizTitle,startDate,endDate)">Save</button>
+      </div>
+    </section>
+    <hr>
+    
     <section>
       <h4>Select question type:</h4>
       <select ng-options="item for item in types" ng-model="selected" class="btn btn-primary dropdown-toggle">
@@ -35,6 +60,7 @@
       </select>
       <hr>
     </section>
+    
     <!-- Linear Scale -->
     <section ng-if="selected == 'Linear scale'">
       <div class="form-group">
@@ -138,9 +164,12 @@
         <button type="button" class="btn btn-primary" ng-click="saveCheckbox(question)">Save</button>
       </div>
     </section>
+    <hr>
+    
+    
 
   </div>
-  <hr>
+  
   <div ng-controller="viewCtrl">
     <div class="form-group">
       <label class=" control-label" for="retrieve">Retrieve data:</label>
@@ -149,6 +178,9 @@
         <!--<button type="button" class="btn btn-success" ng-click="copyFbRecord(oldRef, newRef)">Copy</button>-->
       </div>
     </div>
+    
+    
+    
     <!--Retrieved-data-->
     <div ng-repeat="item in list ">
       <div ng-repeat="(questionType, questionContent) in item">
