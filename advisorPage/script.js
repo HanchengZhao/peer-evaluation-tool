@@ -66,8 +66,8 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
          dataArray.push(record.key);
          console.log(record.key);
        });
-       $scope.quizzes = dataArray;
-       console.log($scope.quizzes);
+       $scope.quizzesID = dataArray;
+       console.log($scope.quizzesID);
   });
   
   $scope.addQuizContent = false;
@@ -76,7 +76,7 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
   }
   
   $scope.saveQuiz = function(quizTitle,startDate,endDate){
-    var quizArray = $scope.quizzes;
+    var quizArray = $scope.quizzesID;
     var length = quizArray.length + 1;
     var date = new Date();
     var newQuiz = {
@@ -95,11 +95,9 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
       $scope.endDate = "";
 
      return firebase.database().ref().update(updates);
-  }
+  };
 
 
-   ;
-       console.log("quizid:" + $scope.quizSelected);
    // Linear scale part
    $scope.low = "low";
    $scope.high = "high";
@@ -126,7 +124,7 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
    $scope.saveParagraph = function(question) {
      console.log(question);
      var paragraghQuestion = {
-       "question": question,
+       "questionText": question,
        "type": "Paragraph",
        "currentPostion": "?"
      };
@@ -156,9 +154,9 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
        "options":{}
      }
      optionArray.forEach(function(item, index) {
-       multiOptionsQuestion.options.push({'option'+ index : item});
+       multiOptionsQuestion["options"]+={index : item};
      })
-
+    console.log(multiOptionsQuestion["options"]);
      //recover to original state
      this.question = "Please describe question";
      $scope.multiOptions = ["option1"];

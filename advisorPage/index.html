@@ -32,7 +32,7 @@
     <!--Add quiz part-->
     <section>
       <h4>Select quiz ID:</h4>
-      <select ng-options="item for item in quizzes" ng-model="quizSelected" class="btn btn-primary dropdown-toggle">
+      <select ng-options="item for item in quizzesID" ng-model="quizSelected" class="btn btn-primary dropdown-toggle">
         <option value=''>--Quizzes--</option>
       </select>
       <button type="button" class="btn btn-primary" ng-click="addQuiz()">Add quiz</button>
