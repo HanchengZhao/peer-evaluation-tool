@@ -89,27 +89,34 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 
      var updates = {};
      updates['/Quizzes/' + "Quiz"+length] = newQuiz;
+     
+      $scope.quizTitle = "";
+      $scope.startDate = "";
+      $scope.endDate = "";
 
      return firebase.database().ref().update(updates);
   }
 
 
-
+   ;
+       console.log("quizid:" + $scope.quizSelected);
    // Linear scale part
    $scope.low = "low";
    $scope.high = "high";
    $scope.saveLinearScale = function(question, low, high) {
      console.log(question);
      var linearScaleQuestion = {
-       "question": question,
-       "low": low,
-       "high": high
+       "questionText": question,
+       "options":{"low":low, "high":high},
+       "type": "LinearScale",
+       "currentPostion": "?"
      };
      alert("Question saved");
-     var newKey = firebase.database().ref().child('Questions-Data/Questions').child('LinearScale').push().key;
+
+     var newKey = firebase.database().ref().child('Quizzes/' + quizID).push().key;
 
      var updates = {};
-     updates['/Questions-Data/Questions/LinearScale/' + newKey] = linearScaleQuestion;
+     updates['/Quizzes/' +quizID+'/'+ newKey] = linearScaleQuestion;
 
      this.question = "Please describe question";
      return firebase.database().ref().update(updates);

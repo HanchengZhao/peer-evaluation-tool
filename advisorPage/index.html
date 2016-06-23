@@ -32,7 +32,7 @@
     <!--Add quiz part-->
     <section>
       <h4>Select quiz ID:</h4>
-      <select ng-options="item for item in quizzes" ng-model="selected" class="btn btn-primary dropdown-toggle">
+      <select ng-options="item for item in quizzes" ng-model="quizSelected" class="btn btn-primary dropdown-toggle">
         <option value=''>--Quizzes--</option>
       </select>
       <button type="button" class="btn btn-primary" ng-click="addQuiz()">Add quiz</button>
@@ -53,7 +53,8 @@
     </section>
     <hr>
     
-    <section>
+    <section ng-show="addQuizContent && quizSelected">
+      <h3>Add question for {{quizSelected}}:</h3>
       <h4>Select question type:</h4>
       <select ng-options="item for item in types" ng-model="selected" class="btn btn-primary dropdown-toggle">
         <option value=''>--Types--</option>
