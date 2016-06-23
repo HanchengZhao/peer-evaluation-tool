@@ -53,7 +53,7 @@
     </section>
     <hr>
     
-    <section ng-show="addQuizContent && quizSelected">
+    <section ng-show="quizSelected">
       <h3>Add question for {{quizSelected}}:</h3>
       <h4>Select question type:</h4>
       <select ng-options="item for item in types" ng-model="selected" class="btn btn-primary dropdown-toggle">

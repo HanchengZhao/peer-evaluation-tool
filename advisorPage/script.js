@@ -113,10 +113,10 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
      };
      alert("Question saved");
 
-     var newKey = firebase.database().ref().child('Quizzes/' + quizID).push().key;
+     var newKey = firebase.database().ref().child('Quizzes/' + $scope.quizSelected).push().key;
 
      var updates = {};
-     updates['/Quizzes/' +quizID+'/'+ newKey] = linearScaleQuestion;
+     updates['/Quizzes/' +$scope.quizSelected+'/'+ newKey] = linearScaleQuestion;
 
      this.question = "Please describe question";
      return firebase.database().ref().update(updates);
@@ -127,14 +127,15 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
      console.log(question);
      var paragraghQuestion = {
        "question": question,
+       "type": "Paragraph",
+       "currentPostion": "?"
      };
-     var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Paragraph').push().key;
+     var newKey = firebase.database().ref().child('Quizzes/' + $scope.quizSelected).push().key;
      console.log(newKey);
      var updates = {};
-     updates['/Questions-Data/Questions/Paragraph/' + newKey] = paragraghQuestion;
+     updates['/Quizzes/' +$scope.quizSelected+'/'+ newKey] = paragraghQuestion;
 
      this.question = "Please describe question";
-     // $scope.$apply();
      return firebase.database().ref().update(updates);
    };
 
@@ -152,19 +153,20 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
      var optionArray = $scope.multiOptions;
      var multiOptionsQuestion = {
        "question": question,
+       "options":{}
      }
      optionArray.forEach(function(item, index) {
-       multiOptionsQuestion['option' + index + 1] = item;
+       multiOptionsQuestion.options.push({'option'+ index : item});
      })
 
      //recover to original state
      this.question = "Please describe question";
      $scope.multiOptions = ["option1"];
 
-     var newKey = firebase.database().ref().child('Questions-Data/Questions').child('MultipleChoices').push().key;
+     var newKey = firebase.database().ref().child('Quizzes/' + $scope.quizSelected).push().key;
 
      var updates = {};
-     updates['/Questions-Data/Questions/MultipleChoices/' + newKey] = multiOptionsQuestion;
+     updates['/Quizzes/' +$scope.quizSelected+'/'+ newKey] = multiOptionsQuestion;
 
      return firebase.database().ref().update(updates);
    };
