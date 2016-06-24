@@ -62,12 +62,15 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
    
   firebase.database().ref("Quizzes").on('value', function(snapshot) {
        var dataArray = [];
+       var quizArray = [];
        snapshot.forEach(function(record) {
          dataArray.push(record.key);
-         console.log(record.key);
+         quizArray.push(record.val())
+         console.log(record.val());
        });
+       $scope.quizzes = quizArray;
        $scope.quizzesID = dataArray;
-       console.log($scope.quizzesID);
+       console.log($scope.quizzes);
   });
   
   $scope.addQuizContent = false;
@@ -153,8 +156,11 @@ app.controller("questionCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
        "question": question,
        "options":{}
      }
+    
      optionArray.forEach(function(item, index) {
-       multiOptionsQuestion["options"]+={index : item};
+       var options={};
+       options["option"+index]=item;
+       multiOptionsQuestion["options"]=options;
      })
     console.log(multiOptionsQuestion["options"]);
      //recover to original state

@@ -168,6 +168,64 @@
     <hr>
     
     
+    <!--Quiz content-->
+    <section ng-if="quizSelected">
+        <h3>Questions in {{quizSelected}}:</h3>
+      <div ng-repeat="(quizID, quizConent) in quizzes">
+        <div>{{quizID}}</div>
+        <div ng-if="quizSelected == quizID">
+          <!--LinearScale-->
+          <h3>LinearScale:</h3>
+          <div ng-repeat="question in quizConent track by $index" id="list">
+            
+                    <div class="col-md-12" id="radio">
+                      {{question.$id}}
+                      <div>{{question.options.low}}&nbsp;&nbsp;
+                        <label class="radio-inline">
+                          <input type="radio" value="1" name="{{$index}}" />1</label>
+                        <label class="radio-inline">
+                          <input type="radio" value="2" name="{{$index}}" />2</label>
+                        <label class="radio-inline">
+                          <input type="radio" value="3" name="{{$index}}" />3</label>
+                        <label class="radio-inline">
+                          <input type="radio" value="4" name="{{$index}}" />4</label>
+                        <label class="radio-inline">
+                          <input type="radio" value="5" name="{{$index}}" />5</label>
+                        &nbsp;&nbsp;{{question.options.high}}</div>
+                    </div>
+          </div>
+        </div>
+        <hr>
+        
+        <!--Paragraph-->
+        <div ng-if="questionType == 'Paragraph'">
+          <h3>Paragraph:</h3>
+          <div ng-repeat="(unique_id,option) in questionContent track by $index">
+            <table class="table table-striped">
+              <tbody>
+                <!--Questions-->
+                <tr>
+                  <td>
+                    <div ng-repeat="(key,value) in filterQuestion(option)">
+                      <label for="">Question: {{value}} </label>
+                      <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <!--Options-->
+                <tr>
+                  <td>
+                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr>
+    
 
   </div>
   
