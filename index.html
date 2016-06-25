@@ -5,7 +5,7 @@
   <title>Peer Evaluation</title>
   <meta charset="UTF-8">
   
-  <!--Dependencies-->
+  <!--Dependencies via CDN-->
   <script data-require="angularjs@1.5.0" data-semver="1.5.0" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.2/angular-route.min.js"></script>
   <script data-require="jquery@*" data-semver="2.2.0" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -23,6 +23,7 @@
   <script src="js/services.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/directives.js"></script>
+  <script src="js/config.js"></script>
 </head>
 
 <body>
@@ -55,23 +56,17 @@
               <!--<li><a href="#">One more separated link</a></li>-->
             </ul>
           </li>
-          <li><a href="#">FAQ <span class="sr-only">(current)</span></a></li>
+          <li><a href="#">About <span class="sr-only">(current)</span></a></li>
           <li><a href="#">Contact</a></li>
         </ul>
-        <!--<form class="navbar-form navbar-left" role="search">-->
-        <!--  <div class="form-group">-->
-        <!--    <input type="text" class="form-control" placeholder="Search">-->
-        <!--  </div>-->
-        <!--  <button type="submit" class="btn btn-default">Submit</button>-->
-        <!--</form>-->
         <ul class="nav navbar-nav navbar-right">
-          <li>
-            <!--<div id="user-pic"></div>-->
+          <li ng-controller="authCtrl">
+            <div id="user-pic"></div>
              <a href="#" ng-if="!firebaseUser"  ng-click="signIn()">Sign in with google</a>
             
-            <!--<div ng-if="firebaseUser">-->
-            <!-- {{ displayName || email }} | <a href="#" ng-click="authObj.$signOut()">Sign out</a>-->
-            <!--</div>-->
+            <div ng-if="firebaseUser" class="container-fluid">
+             {{ displayName || email }} | <a href="#" ng-click="authObj.$signOut()">Sign out</a>
+            <div>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Advisors <span class="caret"></span></a>
@@ -89,6 +84,8 @@
   </nav>
   </header>
   
-  
+  <div ng-view>
+    
+  </div>
   
 </body>
