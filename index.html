@@ -56,18 +56,6 @@
               <!--<li><a href="#">One more separated link</a></li>-->
             </ul>
           </li>
-          <li><a href="#">About <span class="sr-only">(current)</span></a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li ng-controller="authCtrl">
-            <div id="user-pic"></div>
-             <a href="#" ng-if="!firebaseUser"  ng-click="signIn()">Sign in with google</a>
-            
-            <div ng-if="firebaseUser" class="container-fluid">
-             {{ displayName || email }} | <a href="#" ng-click="authObj.$signOut()">Sign out</a>
-            <div>
-          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Advisors <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -78,6 +66,14 @@
               <li><a href="#">Separated link</a></li>
             </ul>
           </li>
+          <li><a href="#/about">About <span class="sr-only">(current)</span></a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" ng-controller="authCtrl">
+          <li ><img id="user-pic"></img></li>
+          <li><a href="#" ng-if="!firebaseUser"  ng-click="signIn()">Sign in with google</a></li>
+          <li ng-if="firebaseUser"><a>{{ displayName || email }}</a> </li>
+          <li ng-if="firebaseUser"><a href="#" ng-click="authObj.$signOut()">Sign out</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
