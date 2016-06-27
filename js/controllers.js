@@ -1,5 +1,6 @@
 // CONTROLLERS
 app.controller("authCtrl", function($scope, $firebaseAuth) {
+  
   $scope.authObj = $firebaseAuth();
   //login with google
   $scope.signIn = function() {
@@ -44,6 +45,229 @@ app.controller("authCtrl", function($scope, $firebaseAuth) {
 
 app.controller('homeCtrl', ['$scope', '$location', function($scope, $location) {
     
+}]);
+
+app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
+ function($scope, $firebaseObject, $firebaseArray) {
+   $scope.types = ["Linear scale", "Multiple choice", "Paragraph", "Dropdown", "Check box"];
+   $scope.question = "Please describe question";
+   
+   
+  firebase.database().ref("Quizzes").on('value', function(snapshot) {
+       var dataArray = [];
+       var quizArray = [];
+       snapshot.forEach(function(record) {
+         dataArray.push(record.key);
+         quizArray.push(record.val())
+         console.log(record.val());
+       });
+       $scope.quizzes = quizArray;
+       $scope.quizzesID = dataArray;
+       console.log($scope.quizzes);
+  });
+  
+  $scope.addQuizContent = false;
+  $scope.addQuiz = function(){
+    $scope.addQuizContent = !$scope.addQuizContent;
+  }
+  
+  $scope.saveQuiz = function(quizTitle,startDate,endDate){
+    var quizArray = $scope.quizzesID;
+    var length = quizArray.length + 1;
+    var date = new Date();
+    var newQuiz = {
+       "quizTitle": quizTitle,
+       "startDate": startDate,
+       "endDate": endDate,
+       "Created date" : date.toLocaleDateString()
+     };
+    // var newKey = firebase.database().ref().child('Quizzes').push().key;
+
+     var updates = {};
+     updates['/Quizzes/' + "Quiz"+length] = newQuiz;
+     
+      $scope.quizTitle = "";
+      $scope.startDate = "";
+      $scope.endDate = "";
+
+     return firebase.database().ref().update(updates);
+  };
+
+
+   // Linear scale part
+   $scope.low = "low";
+   $scope.high = "high";
+   $scope.saveLinearScale = function(question, low, high) {
+     console.log(question);
+     var linearScaleQuestion = {
+       "questionText": question,
+       "options":{"low":low, "high":high},
+       "type": "LinearScale",
+       "currentPostion": "?"
+     };
+     alert("Question saved");
+
+     var newKey = firebase.database().ref().child('Quizzes/' + $scope.quizSelected).push().key;
+
+     var updates = {};
+     updates['/Quizzes/' +$scope.quizSelected+'/'+ newKey] = linearScaleQuestion;
+
+     this.question = "Please describe question";
+     return firebase.database().ref().update(updates);
+   };
+
+   // Paragraph part
+   $scope.saveParagraph = function(question) {
+     console.log(question);
+     var paragraghQuestion = {
+       "questionText": question,
+       "type": "Paragraph",
+       "currentPostion": "?"
+     };
+     var newKey = firebase.database().ref().child('Quizzes/' + $scope.quizSelected).push().key;
+     console.log(newKey);
+     var updates = {};
+     updates['/Quizzes/' +$scope.quizSelected+'/'+ newKey] = paragraghQuestion;
+
+     this.question = "Please describe question";
+     return firebase.database().ref().update(updates);
+   };
+
+   //Multiple choice
+   $scope.multiOptions = ["option1"];
+
+   $scope.addOption = function(array) {
+     var len = array.length;
+     len = len + 1;
+     array.push("option" + len);
+   }
+
+   $scope.saveMultichoice = function(question) {
+     console.log(question);
+     var optionArray = $scope.multiOptions;
+     var multiOptionsQuestion = {
+       "question": question,
+       "options":{}
+     }
+    
+     optionArray.forEach(function(item, index) {
+       var options={};
+       options["option"+index]=item;
+       multiOptionsQuestion["options"]=options;
+     })
+    console.log(multiOptionsQuestion["options"]);
+     //recover to original state
+     this.question = "Please describe question";
+     $scope.multiOptions = ["option1"];
+
+     var newKey = firebase.database().ref().child('Quizzes/' + $scope.quizSelected).push().key;
+
+     var updates = {};
+     updates['/Quizzes/' +$scope.quizSelected+'/'+ newKey] = multiOptionsQuestion;
+
+     return firebase.database().ref().update(updates);
+   };
+
+
+   // Dropdown
+   $scope.dropdowns = ["option1"];
+
+   $scope.saveDropdown = function(question) {
+     console.log(question);
+     var optionArray = $scope.dropdowns;
+     var dropdownQuestion = {
+       "question": question,
+     }
+     optionArray.forEach(function(item, index) {
+       dropdownQuestion['option' + index] = item;
+     })
+
+     $scope.dropdowns = ["option1"];
+     var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Dropdown').push().key;
+
+     var updates = {};
+     updates['/Questions-Data/Questions/Dropdown/' + newKey] = dropdownQuestion;
+
+     this.question = "Please describe question";
+     return firebase.database().ref().update(updates);
+   };
+
+
+
+   // Check box
+   $scope.checkboxes = ["option1"];
+
+   $scope.saveCheckbox = function(question) {
+     console.log(question);
+     var optionArray = $scope.checkboxes;
+     var checkboxQuestion = {
+       "question": question,
+     }
+     optionArray.forEach(function(item, index) {
+       checkboxQuestion['option' + index] = item;
+     })
+
+     //recover
+     this.question = "Please describe question";
+     $scope.checkboxes = ["option1"];
+     alert('Question saved');
+     var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Checkbox').push().key;
+
+     var updates = {};
+     updates['/Questions-Data/Questions/Checkbox/' + newKey] = checkboxQuestion;
+
+     return firebase.database().ref().update(updates);
+   };
+   
+  // show questions
+  var ref = firebase.database().ref();
+
+   var obj = $firebaseObject(ref);
+
+   var list = $firebaseArray(ref);
+
+   $scope.filterQuestion = function(items) {
+     var result = {};
+     angular.forEach(items, function(value, key) {
+       if (key == "question") {
+         result[key] = value;
+       }
+     });
+     return result;
+   }
+
+   $scope.filterOptions = function(items) {
+     var result = {};
+     angular.forEach(items, function(value, key) {
+       if (key !== "question") {
+         result[key] = value;
+       }
+     });
+     return result;
+   };
+
+   $scope.deleteQuestion = function(unique_id, questionType) {
+     var questionRef = firebase.database().ref('Questions-Data/Questions/' + questionType + '/' + unique_id);
+     questionRef.remove().then(function() {
+         console.log("Remove succeeded.")
+       })
+       .catch(function(error) {
+         console.log("Remove failed: " + error.message)
+       });
+   }
+
+   $scope.RetrieveData = function() {
+     firebase.database().ref("Questions-Data").on('value', function(snapshot) {
+       var data = snapshot.val();
+       var dataArray = [];
+       var dataInJson = JSON.stringify(data);
+       snapshot.forEach(function(record) {
+         dataArray.push(record.val());
+       });
+       $scope.list = dataArray;
+       console.log($scope.list);
+     });
+   };
 }]);
 
 app.controller('studentCtrl', ['$scope', function($scope) {

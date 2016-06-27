@@ -12,6 +12,11 @@ app.config(function($routeProvider){
         controller: 'advisorCtrl'
     })
     
+    .when('/questions-generate',{
+        templateUrl: 'pages/questionsGenerate.html',
+        controller: 'questionsGenerateCtrl'
+    })
+    
     .when('/student-page',{
         templateUrl: 'pages/studentPage.html',
         controller: 'studentCtrl'
