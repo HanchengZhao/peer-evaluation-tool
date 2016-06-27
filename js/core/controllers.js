@@ -50,8 +50,12 @@ app.controller('homeCtrl', ['$scope', '$location', function($scope, $location) {
     
 }]);
 
-app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
- function($scope, $firebaseObject, $firebaseArray) {
+app.controller('advisorCtrl', ['$scope', '$location','firebaseService', function($scope, $location, firebaseService) {
+    
+}]);
+
+app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebaseArray",'firebaseService',
+ function($scope, $firebaseObject, $firebaseArray , firebaseService) {
    $scope.types = ["Linear scale", "Multiple choice", "Paragraph", "Dropdown", "Check box"];
    $scope.question = "Please describe question";
    
@@ -84,16 +88,13 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "endDate": endDate,
        "Created date" : date.toLocaleDateString()
      };
-    // var newKey = firebase.database().ref().child('Quizzes').push().key;
-
-     var updates = {};
-     updates['/Quizzes/' + "Quiz"+length] = newQuiz;
-     
+    var ref = '/Quizzes/' + "Quiz" + length;
+    
+    firebaseService.pushData(ref, newQuiz);
+    
       $scope.quizTitle = "";
       $scope.startDate = "";
       $scope.endDate = "";
-
-     return firebase.database().ref().update(updates);
   };
 
 
@@ -110,13 +111,9 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
      };
      alert("Question saved");
 
-     var newKey = firebase.database().ref().child('Quizzes/' + $scope.quizSelected).push().key;
-
-     var updates = {};
-     updates['/Quizzes/' +$scope.quizSelected+'/'+ newKey] = linearScaleQuestion;
-
+    var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+    firebaseService.pushDataWithUniqueID(ref, linearScaleQuestion);
      this.question = "Please describe question";
-     return firebase.database().ref().update(updates);
    };
 
    // Paragraph part
@@ -127,13 +124,9 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "type": "Paragraph",
        "currentPostion": "?"
      };
-     var newKey = firebase.database().ref().child('Quizzes/' + $scope.quizSelected).push().key;
-     console.log(newKey);
-     var updates = {};
-     updates['/Quizzes/' +$scope.quizSelected+'/'+ newKey] = paragraghQuestion;
-
+     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+     firebaseService.pushDataWithUniqueID(ref, paragraghQuestion);
      this.question = "Please describe question";
-     return firebase.database().ref().update(updates);
    };
 
    //Multiple choice
@@ -260,19 +253,12 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
    }
 
    $scope.RetrieveData = function() {
-     firebase.database().ref("Questions-Data").on('value', function(snapshot) {
-       var data = snapshot.val();
-       var dataArray = [];
-       var dataInJson = JSON.stringify(data);
-       snapshot.forEach(function(record) {
-         dataArray.push(record.val());
-       });
-       $scope.list = dataArray;
+       $scope.list = firebaseService.retrieveData("Questions-Data");
        console.log($scope.list);
-     });
    };
 }]);
 
-app.controller('studentCtrl', ['$scope', function($scope) {
-    
+app.controller('studentCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+    $scope.questionData = firebaseService.retrieveData("Questions-Data");
+    console.log($scope.questionData);
 }]);
