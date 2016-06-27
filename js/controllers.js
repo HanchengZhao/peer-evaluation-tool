@@ -1,7 +1,9 @@
 // CONTROLLERS
-app.controller("authCtrl", function($scope, $firebaseAuth) {
+app.controller("authCtrl", function($scope, $firebaseAuth, $route) {
   
   $scope.authObj = $firebaseAuth();
+  
+  $scope.route = $route;
   //login with google
   $scope.signIn = function() {
       $scope.authObj.$signInWithPopup("google").then(function(firebaseUser) {
@@ -30,6 +32,7 @@ app.controller("authCtrl", function($scope, $firebaseAuth) {
       $scope.userPic = $('#user-pic');
       $scope.userPic.css('background-image', 'url(' + $scope.profilePicUrl + ')');
       console.log("Signed in as:", firebaseUser.displayName);
+      $scope.route.reload();
 
     } else {
       $scope.firebaseUser = false;
