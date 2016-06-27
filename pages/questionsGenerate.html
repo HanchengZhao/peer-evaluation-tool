@@ -143,12 +143,12 @@
     <!--Quiz content-->
     <section ng-if="quizSelected">
         <h3>Questions in {{quizSelected}}:</h3>
-      <div ng-repeat="(quizID, quizConent) in quizzes">
-        <div>{{quizID}}</div>
-        <div ng-if="quizSelected == quizID">
+      <div ng-repeat="(quizID, quizContent) in quizzes">
+        <div>{{quizContent}}</div>
+        <div ng-if="quizSelected">
           <!--LinearScale-->
           <h3>LinearScale:</h3>
-          <div ng-repeat="question in quizConent track by $index" id="list">
+          <div ng-repeat="question in quizContent track by $index" id="list">
             
                     <div class="col-md-12" id="radio">
                       {{question.$id}}

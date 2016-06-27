@@ -63,14 +63,20 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
   firebase.database().ref("Quizzes").on('value', function(snapshot) {
        var dataArray = [];
        var quizArray = [];
+       var recordArray = [];
        snapshot.forEach(function(record) {
          dataArray.push(record.key);
-         quizArray.push(record.val())
-         console.log(record.val());
+         quizArray.push(record.val());
+         recordArray.push(record);
+         console.log("record.val():" +record.val());
+         console.log("record:" +record);
+         console.log("record.key:" +record.key);
        });
        $scope.quizzes = quizArray;
        $scope.quizzesID = dataArray;
        console.log($scope.quizzes);
+       console.log("dataArray: " + dataArray);
+       console.log("recordArray.key: " + recordArray.key);
   });
   
   $scope.addQuizContent = false;
