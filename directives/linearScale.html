@@ -1,6 +1,8 @@
-<div class="panel panel-success">
+<!--LinearScale panel-->
+<div class="panel panel-info">
   <div class="panel-heading">
       <label for="">Question: {{question}} &nbsp;&nbsp; </label>
+      <div ng-show="{{show}}">show or not</div>
   </div>
   <div class="panel-body">
      <div id="radio">
@@ -18,5 +20,22 @@
           &nbsp;&nbsp;{{high}}</div>
          </div>
       </div>
+</div>
+<!--input part-->
+<div ng-show={{inputShow}}>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">Question:</span>
+      <input type="text"  ng-model="question" class="form-control" placeholder="Please describe the question here" aria-describedby="basic-addon1">
+    </div>
+    
+    <div class="input-group">
+      <span class="input-group-addon">1:</span>
+      <input type="text"  ng-model="low" class="form-control" placeholder="lower point's meaning" aria-describedby="basic-addon1">
+    </div>
+    
+    <div class="input-group">
+      <span class="input-group-addon">5:</span>
+      <input type="text"  ng-model="high" class="form-control" placeholder="higher point's meaning" aria-describedby="basic-addon1">
+    </div>
 </div>
 

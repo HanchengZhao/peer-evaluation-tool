@@ -5,10 +5,11 @@ app.directive("linearScale", function(){
         templateUrl: 'directives/linearScale.html',
         replace: false,
         scope:{
-            question: "@",
-            low: "@",
-            high: "@",
-            name: "@"
+            question: "=",
+            low: "=",
+            high: "=",
+            name: "@",
+            inputShow: "@"
         }
     }
 });
