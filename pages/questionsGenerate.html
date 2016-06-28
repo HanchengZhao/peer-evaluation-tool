@@ -38,27 +38,14 @@
     <section ng-if="selected == 'Linear scale'">
       <div class="form-group">
         <h3>{{selected}}:</h3>
-        <label for="">Questions: &nbsp;&nbsp; </label>
-        <input type="text" ng-model="question" placeholder="Please describe the question here"></input>
-        <br>
-        <div class="col-md-12" id="radio">
-          <div>{{low}}&nbsp;&nbsp;
-            <label class="radio-inline">
-              <input type="radio" value="1" name="radSelecet" />1</label>
-            <label class="radio-inline">
-              <input type="radio" value="2" name="radSelecet" />2</label>
-            <label class="radio-inline">
-              <input type="radio" value="3" name="radSelecet" />3</label>
-            <label class="radio-inline">
-              <input type="radio" value="4" name="radSelecet" />4</label>
-            <label class="radio-inline">
-              <input type="radio" value="5" name="radSelecet" />5</label>
-            &nbsp;&nbsp;{{high}}</div>
+        <linear-scale question="{{question}}" low="{{low}}" high="{{high}}" name="radSelect"></linear-scale>
+        <div class="col-md-12">Question:
+          <input type="text" ng-model="question" placeholder="Please describe the question here"></input>
         </div>
-        <div class="col-md-8">1:
+        <div class="col-md-12">1: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
           <input type="text" name="low" ng-model="low" />
         </div>
-        <div class="col-md-8">5:
+        <div class="col-md-12">5: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
           <input type="text" name="high" ng-model="high" />
         </div>
         <hr>
