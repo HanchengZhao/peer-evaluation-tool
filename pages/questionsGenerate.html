@@ -38,7 +38,7 @@
     <section ng-if="selected == 'Linear scale'">
       <div class="form-group">
         <h3>{{selected}}:</h3>
-        <linear-scale question="question" low="low" high="high" name="radSelect" input-show="true"></linear-scale>
+        <linear-scale question="question" low="low" high="high" name="radSelect" input-show="true" button-show="false"></linear-scale>
         <hr>
         <button type="button" class="btn btn-primary" ng-click="saveLinearScale(question,low,high)">Save</button>
       </div>
@@ -122,42 +122,45 @@
     <section ng-if="quizSelected">
         <h3>Questions in {{quizSelected}}:</h3>
       <div ng-repeat="(quizID, quizContent) in quizzes">
-        <div ng-if="quizSelected == quizID">
-          <div ng-repeat="question in quizContent.questions track by $index" id="list">
-          <!--LinearScale-->
-          <h3>LinearScale:</h3>
+        <div ng-if="quizID == quizSelected">
+          <div ng-repeat="(questionId, question) in quizContent.questions track by $index" id="list">
+             <!--LinearScale-->
             <div ng-if="question.type == 'LinearScale'">
-              <linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" input-show="false"></linear-scale>
+              <linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" 
+              input-show="false"></linear-scale>
+              <!--<linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" -->
+              <!--input-show="false" button-show="true" delete-question="deleteQuestion(questionId)"></linear-scale>-->
+              <div class="panel panel-info">
+                <div class="panel-body">
+                  Question type: linearScale
+                </div>
+              </div>
             </div>
             
-            <!--Paragraph-->
-        <div ng-if="question.type == 'Paragraph'">
-          <h3>Paragraph:</h3>
-          <div ng-repeat="(unique_id,option) in questionContent track by $index">
-            <table class="table table-striped">
-              <tbody>
-                <!--Questions-->
-                <tr>
-                  <td>
-                    <div ng-repeat="(key,value) in filterQuestion(option)">
-                      <label for="">Question: {{value}} </label>
-                      <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>
-                    </div>
-                  </td>
-                </tr>
-                <!--Options-->
-                <tr>
-                  <td>
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-          </div>
-        </div>
-        <hr>
+              <!--Paragraph-->
+            <div ng-if="question.type == 'Paragraph'">
+                <table class="table table-striped">
+                  <tbody>
+                    <!--Questions-->
+                    <tr>
+                      <td>
+                          <label for="">Question: {{question.questionText}} </label>
+                          <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(questionId)">Delete</button>
+                      </td>
+                    </tr>
+                    <!--Options-->
+                    <tr>
+                      <td>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            
+            </div>
+              </div>
+            </div>
+            <hr>
         
         
       </div>
@@ -166,178 +169,178 @@
     
 
   
-  <div>
-    <div class="form-group">
-      <label class=" control-label" for="retrieve">Retrieve data:</label>
-      <div>
-        <button type="button" class="btn btn-success" ng-click="RetrieveData()">Retrieve</button>
+  <!--<div>-->
+  <!--  <div class="form-group">-->
+  <!--    <label class=" control-label" for="retrieve">Retrieve data:</label>-->
+  <!--    <div>-->
+  <!--      <button type="button" class="btn btn-success" ng-click="RetrieveData()">Retrieve</button>-->
         <!--<button type="button" class="btn btn-success" ng-click="copyFbRecord(oldRef, newRef)">Copy</button>-->
-      </div>
-    </div>
+  <!--    </div>-->
+  <!--  </div>-->
     
     
     
     <!--Retrieved-data-->
-    <div ng-repeat="item in list ">
-      <div ng-repeat="(questionType, questionContent) in item">
+    <!--<div ng-repeat="item in list ">-->
+    <!--  <div ng-repeat="(questionType, questionContent) in item">-->
         <!--LinearScale-->
-        <div ng-if="questionType == 'LinearScale'">
-          <h3>LinearScale:</h3>
-          <div ng-repeat="(unique_id, option) in questionContent track by $index" id="list">
-            <table class="table table-striped" id="sort">
-              <tbody>
-                <tr>
+    <!--    <div ng-if="questionType == 'LinearScale'">-->
+    <!--      <h3>LinearScale:</h3>-->
+    <!--      <div ng-repeat="(unique_id, option) in questionContent track by $index" id="list">-->
+    <!--        <table class="table table-striped" id="sort">-->
+    <!--          <tbody>-->
+    <!--            <tr>-->
                   <!--Questions-->
-                  <td>
-                    <div ng-repeat="(key,value) in filterQuestion(option)">
+    <!--              <td>-->
+    <!--                <div ng-repeat="(key,value) in filterQuestion(option)">-->
 
-                      <label for="">Question: {{value}}</label>
-                      <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>
-                    </div>
-                  </td>
-                </tr>
+    <!--                  <label for="">Question: {{value}}</label>-->
+    <!--                  <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>-->
+    <!--                </div>-->
+    <!--              </td>-->
+    <!--            </tr>-->
                 <!--Options-->
-                <tr>
-                  <td>
-                    <div class="col-md-12" id="radio">
-                      {{option.$id}}
-                      <div>{{option.low}}&nbsp;&nbsp;
-                        <label class="radio-inline">
-                          <input type="radio" value="1" name="{{$index}}" />1</label>
-                        <label class="radio-inline">
-                          <input type="radio" value="2" name="{{$index}}" />2</label>
-                        <label class="radio-inline">
-                          <input type="radio" value="3" name="{{$index}}" />3</label>
-                        <label class="radio-inline">
-                          <input type="radio" value="4" name="{{$index}}" />4</label>
-                        <label class="radio-inline">
-                          <input type="radio" value="5" name="{{$index}}" />5</label>
-                        &nbsp;&nbsp;{{option.high}}</div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <hr>
+    <!--            <tr>-->
+    <!--              <td>-->
+    <!--                <div class="col-md-12" id="radio">-->
+    <!--                  {{option.$id}}-->
+    <!--                  <div>{{option.low}}&nbsp;&nbsp;-->
+    <!--                    <label class="radio-inline">-->
+    <!--                      <input type="radio" value="1" name="{{$index}}" />1</label>-->
+    <!--                    <label class="radio-inline">-->
+    <!--                      <input type="radio" value="2" name="{{$index}}" />2</label>-->
+    <!--                    <label class="radio-inline">-->
+    <!--                      <input type="radio" value="3" name="{{$index}}" />3</label>-->
+    <!--                    <label class="radio-inline">-->
+    <!--                      <input type="radio" value="4" name="{{$index}}" />4</label>-->
+    <!--                    <label class="radio-inline">-->
+    <!--                      <input type="radio" value="5" name="{{$index}}" />5</label>-->
+    <!--                    &nbsp;&nbsp;{{option.high}}</div>-->
+    <!--                </div>-->
+    <!--              </td>-->
+    <!--            </tr>-->
+    <!--          </tbody>-->
+    <!--        </table>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--    <hr>-->
 
         <!--MultipleChoices-->
-        <div ng-if="questionType == 'MultipleChoices'">
-          <h3>Multiple Choices:</h3>
-          <div ng-repeat="(unique_id, option) in questionContent track by $index">
-            <table class="table table-striped">
-              <tbody>
+    <!--    <div ng-if="questionType == 'MultipleChoices'">-->
+    <!--      <h3>Multiple Choices:</h3>-->
+    <!--      <div ng-repeat="(unique_id, option) in questionContent track by $index">-->
+    <!--        <table class="table table-striped">-->
+    <!--          <tbody>-->
                 <!--Questions-->
-                <tr>
-                  <td>
-                    <div ng-repeat="(key,value) in filterQuestion(option)">
-                      <label for="">Question: {{value}} </label>
-                      <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>
-                    </div>
-                  </td>
-                </tr>
+    <!--            <tr>-->
+    <!--              <td>-->
+    <!--                <div ng-repeat="(key,value) in filterQuestion(option)">-->
+    <!--                  <label for="">Question: {{value}} </label>-->
+    <!--                  <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>-->
+    <!--                </div>-->
+    <!--              </td>-->
+    <!--            </tr>-->
                 <!--Options-->
-                <tr>
-                  <td>
-                    <div ng-repeat="(key,value) in filterOptions(option)">
-                      <label class="radio-inline" for="">
-                        <input type="radio" name="RadAnswer" />{{value}}</input>
-                      </label>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <!--            <tr>-->
+    <!--              <td>-->
+    <!--                <div ng-repeat="(key,value) in filterOptions(option)">-->
+    <!--                  <label class="radio-inline" for="">-->
+    <!--                    <input type="radio" name="RadAnswer" />{{value}}</input>-->
+    <!--                  </label>-->
+    <!--                </div>-->
+    <!--              </td>-->
+    <!--            </tr>-->
+    <!--          </tbody>-->
+    <!--        </table>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
         <!--Paragraph-->
-        <div ng-if="questionType == 'Paragraph'">
-          <h3>Paragraph:</h3>
-          <div ng-repeat="(unique_id,option) in questionContent track by $index">
-            <table class="table table-striped">
-              <tbody>
+    <!--    <div ng-if="questionType == 'Paragraph'">-->
+    <!--      <h3>Paragraph:</h3>-->
+    <!--      <div ng-repeat="(unique_id,option) in questionContent track by $index">-->
+    <!--        <table class="table table-striped">-->
+    <!--          <tbody>-->
                 <!--Questions-->
-                <tr>
-                  <td>
-                    <div ng-repeat="(key,value) in filterQuestion(option)">
-                      <label for="">Question: {{value}} </label>
-                      <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>
-                    </div>
-                  </td>
-                </tr>
+    <!--            <tr>-->
+    <!--              <td>-->
+    <!--                <div ng-repeat="(key,value) in filterQuestion(option)">-->
+    <!--                  <label for="">Question: {{value}} </label>-->
+    <!--                  <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>-->
+    <!--                </div>-->
+    <!--              </td>-->
+    <!--            </tr>-->
                 <!--Options-->
-                <tr>
-                  <td>
-                    <textarea class="form-control" rows="5" id="comment"></textarea>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <!--            <tr>-->
+    <!--              <td>-->
+    <!--                <textarea class="form-control" rows="5" id="comment"></textarea>-->
+    <!--              </td>-->
+    <!--            </tr>-->
+    <!--          </tbody>-->
+    <!--        </table>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
         <!--Checkbox-->
-        <div ng-if="questionType == 'Checkbox'">
-          <h3>Checkbox:</h3>
-          <div ng-repeat="(unique_id, option) in questionContent track by $index">
-            <table class="table table-striped">
-              <tbody>
+    <!--    <div ng-if="questionType == 'Checkbox'">-->
+    <!--      <h3>Checkbox:</h3>-->
+    <!--      <div ng-repeat="(unique_id, option) in questionContent track by $index">-->
+    <!--        <table class="table table-striped">-->
+    <!--          <tbody>-->
                 <!--Questions-->
-                <tr>
-                  <td>
-                    <div ng-repeat="(key,value) in filterQuestion(option)">
-                      <label for="">Question: {{value}} </label>
-                      <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>
-                    </div>
-                  </td>
-                </tr>
+    <!--            <tr>-->
+    <!--              <td>-->
+    <!--                <div ng-repeat="(key,value) in filterQuestion(option)">-->
+    <!--                  <label for="">Question: {{value}} </label>-->
+    <!--                  <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>-->
+    <!--                </div>-->
+    <!--              </td>-->
+    <!--            </tr>-->
                 <!--Options-->
-                <tr>
-                  <td>
-                    <div ng-repeat="(key,value) in filterOptions(option)">
-                      <label class="radio-inline" for="">
-                        <input type="checkbox">&nbsp;&nbsp;{{value}}</label>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <!--            <tr>-->
+    <!--              <td>-->
+    <!--                <div ng-repeat="(key,value) in filterOptions(option)">-->
+    <!--                  <label class="radio-inline" for="">-->
+    <!--                    <input type="checkbox">&nbsp;&nbsp;{{value}}</label>-->
+    <!--                </div>-->
+    <!--              </td>-->
+    <!--            </tr>-->
+    <!--          </tbody>-->
+    <!--        </table>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
         <!--Dropdown-->
-        <div ng-if="questionType == 'Dropdown'">
-          <h3>Dropdown:</h3>
-          <div ng-repeat="(unique_id,option) in questionContent track by $index">
-            <table class="table table-striped">
-              <tbody>
+    <!--    <div ng-if="questionType == 'Dropdown'">-->
+    <!--      <h3>Dropdown:</h3>-->
+    <!--      <div ng-repeat="(unique_id,option) in questionContent track by $index">-->
+    <!--        <table class="table table-striped">-->
+    <!--          <tbody>-->
                 <!--Questions-->
-                <tr>
-                  <td>
-                    <div ng-repeat="(key,value) in filterQuestion(option)">
-                      <label for="">Question: {{value}} </label>
-                      <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>
-                    </div>
-                  </td>
-                </tr>
+    <!--            <tr>-->
+    <!--              <td>-->
+    <!--                <div ng-repeat="(key,value) in filterQuestion(option)">-->
+    <!--                  <label for="">Question: {{value}} </label>-->
+    <!--                  <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(unique_id, questionType)">Delete</button>-->
+    <!--                </div>-->
+    <!--              </td>-->
+    <!--            </tr>-->
                 <!--Options-->
-                <tr>
-                  <td>
+    <!--            <tr>-->
+    <!--              <td>-->
                     <!--<div ng-repeat = "(key,value) in filterOptions(option)">-->
-                    <select ng-options="item for item in filterOptions(option)" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
-                      <option value=''>--Options--</option>
-                    </select>
+    <!--                <select ng-options="item for item in filterOptions(option)" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">-->
+    <!--                  <option value=''>--Options--</option>-->
+    <!--                </select>-->
                     <!--</div>-->
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!--              </td>-->
+    <!--            </tr>-->
+    <!--          </tbody>-->
+    <!--        </table>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--</div>-->
     <!-- <ul class="example">-->
     <!--  <li>First</li>-->
     <!--  <li>Second</li>-->

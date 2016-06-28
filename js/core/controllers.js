@@ -106,7 +106,6 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "type": "LinearScale",
        "currentPostion": "?"
      };
-     alert("Question saved");
 
     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
     firebaseService.pushDataWithUniqueID(ref, linearScaleQuestion);
@@ -239,8 +238,8 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
      return result;
    };
 
-   $scope.deleteQuestion = function(unique_id, questionType) {
-     var questionRef = firebase.database().ref('Questions-Data/Questions/' + questionType + '/' + unique_id);
+   $scope.deleteQuestion = function(unique_id) {
+     var questionRef = firebase.database().ref('Quizzes/'+ $scope.quizSelected +'/questions/' +  unique_id);
      questionRef.remove().then(function() {
          console.log("Remove succeeded.")
        })

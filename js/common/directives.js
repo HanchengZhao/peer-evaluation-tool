@@ -9,7 +9,10 @@ app.directive("linearScale", function(){
             low: "=",
             high: "=",
             name: "@",
-            inputShow: "@"
+            inputShow: "@",
+            // buttonShow: "@",
+            // deleteQuestion: "&"
+            // uniqueId:"@"
         }
     }
 });
