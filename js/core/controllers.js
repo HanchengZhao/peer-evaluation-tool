@@ -239,7 +239,7 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
    };
 
    $scope.deleteQuestion = function(unique_id) {
-       console.log( 'Quizzes/'+ $scope.quizSelected +'/questions/' +  unique_id);
+       console.log('Quizzes/'+ $scope.quizSelected +'/questions/' +  unique_id);
      var questionRef = firebase.database().ref('Quizzes/'+ $scope.quizSelected +'/questions/' +  unique_id);
      questionRef.remove().then(function() {
          console.log("Remove succeeded.")
