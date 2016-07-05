@@ -240,13 +240,13 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
 
    $scope.deleteQuestion = function(unique_id) {
        console.log('Quizzes/'+ $scope.quizSelected +'/questions/' +  unique_id);
-     var questionRef = firebase.database().ref('Quizzes/'+ $scope.quizSelected +'/questions/' +  unique_id);
-     questionRef.remove().then(function() {
-         console.log("Remove succeeded.")
-       })
-       .catch(function(error) {
-         console.log("Remove failed: " + error.message)
-       });
+    //  var questionRef = firebase.database().ref('Quizzes/'+ $scope.quizSelected +'/questions/' +  unique_id);
+    //  questionRef.remove().then(function() {
+    //      console.log("Remove succeeded.")
+    //   })
+    //   .catch(function(error) {
+    //      console.log("Remove failed: " + error.message)
+    //   });
    }
 
    $scope.RetrieveData = function() {

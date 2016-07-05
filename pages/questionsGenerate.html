@@ -126,10 +126,10 @@
           <div ng-repeat="(questionId, question) in quizContent.questions track by $index" id="list">
              <!--LinearScale-->
             <div ng-if="question.type == 'LinearScale'">
-              <linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" 
-              input-show="false"></linear-scale>
               <!--<linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" -->
-              <!--input-show="false" button-show="true" delete-question="deleteQuestion(questionId)"></linear-scale>-->
+              <!--input-show="false"></linear-scale>-->
+              <linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" 
+              input-show="false" button-show="true" delete-question="deleteQuestion(questionId)"></linear-scale>
               <div class="panel panel-info">
                 <div class="panel-body">
                   Question type: linearScale

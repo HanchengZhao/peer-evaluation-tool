@@ -2,7 +2,7 @@
 app.directive("linearScale", function(){
     return{
         restrict: 'E',
-        templateUrl: 'directives/linearScale.html',
+        templateUrl: 'directives/linearScale.1.html',
         replace: false,
         scope:{
             question: "=",
@@ -10,9 +10,9 @@ app.directive("linearScale", function(){
             high: "=",
             name: "@",
             inputShow: "@",
-            // buttonShow: "@",
-            // deleteQuestion: "&"
-            // uniqueId:"@"
+            buttonShow: "@",
+            deleteQuestion: "&",
+            uniqueId:"@"
         }
     }
 });
