@@ -129,7 +129,7 @@
               <!--<linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" -->
               <!--input-show="false"></linear-scale>-->
               <linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" 
-              input-show="false" button-show="true" delete-question="deleteQuestion(questionId)"></linear-scale>
+              input-show="false" button-show="true" unique-id="questionId" delete-question-function="deleteQuestion(qid)"></linear-scale>
               <div class="panel panel-info">
                 <div class="panel-body">
                   Question type: linearScale

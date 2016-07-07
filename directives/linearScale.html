@@ -2,7 +2,7 @@
 <div class="panel panel-info">
   <div class="panel-heading">
       <label for="">Question: {{question}} &nbsp;&nbsp; </label>
-      <button type="button" ng-show="{{buttonShow}}" class="btn btn-danger pull-right" ng-click="{{deleteQuestion()}}">Delete</button>
+      <button type="button" ng-show="{{buttonShow}}" class="btn btn-danger pull-right" ng-click="deleteQuestionFunction({ qid: uniqueId })">Delete</button>
   </div>
   <div class="panel-body">
      <div id="radio">
