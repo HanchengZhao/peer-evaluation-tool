@@ -137,27 +137,27 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
    $scope.saveMultichoice = function(question) {
      console.log(question);
      var optionArray = $scope.multiOptions;
+     var options={};
+     optionArray.forEach(function(item, index) {
+       options["option"+index]=item;
+     }); 
+     
      var multiOptionsQuestion = {
-       "question": question,
-       "options":{}
+       "questionText": question,
+       "options":options,
+       "type": "MultipleChoices",
+       "currentPostion": "?"
      }
     
-     optionArray.forEach(function(item, index) {
-       var options={};
-       options["option"+index]=item;
-       multiOptionsQuestion["options"]=options;
-     })
-    console.log(multiOptionsQuestion["options"]);
+    
+     
+    console.log(multiOptionsQuestion);
      //recover to original state
      this.question = "Please describe question";
      $scope.multiOptions = ["option1"];
 
-     var newKey = firebase.database().ref().child('Quizzes/' + $scope.quizSelected).push().key;
-
-     var updates = {};
-     updates['/Quizzes/' +$scope.quizSelected+'/'+ newKey] = multiOptionsQuestion;
-
-     return firebase.database().ref().update(updates);
+     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+    firebaseService.pushDataWithUniqueID(ref, multiOptionsQuestion);
    };
 
 
@@ -167,21 +167,20 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
    $scope.saveDropdown = function(question) {
      console.log(question);
      var optionArray = $scope.dropdowns;
-     var dropdownQuestion = {
-       "question": question,
-     }
+     var options={};
      optionArray.forEach(function(item, index) {
-       dropdownQuestion['option' + index] = item;
-     })
+       options["option"+index]=item;
+     }); 
+     var dropdownQuestion = {
+       "questionText": question,
+       "options":options,
+       "type": "dropdown",
+       "currentPostion": "?"
+     };
 
      $scope.dropdowns = ["option1"];
-     var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Dropdown').push().key;
-
-     var updates = {};
-     updates['/Questions-Data/Questions/Dropdown/' + newKey] = dropdownQuestion;
-
-     this.question = "Please describe question";
-     return firebase.database().ref().update(updates);
+     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+    firebaseService.pushDataWithUniqueID(ref, dropdownQuestion);
    };
 
 
@@ -192,23 +191,22 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
    $scope.saveCheckbox = function(question) {
      console.log(question);
      var optionArray = $scope.checkboxes;
-     var checkboxQuestion = {
-       "question": question,
-     }
+     var options={};
      optionArray.forEach(function(item, index) {
-       checkboxQuestion['option' + index] = item;
-     })
+       options["option"+index]=item;
+     }); 
+     var checkboxQuestion = {
+       "questionText": question,
+       "options":options,
+       "type": "checkbox",
+       "currentPostion": "?"
+     }
 
      //recover
      this.question = "Please describe question";
      $scope.checkboxes = ["option1"];
-     alert('Question saved');
-     var newKey = firebase.database().ref().child('Questions-Data/Questions').child('Checkbox').push().key;
-
-     var updates = {};
-     updates['/Questions-Data/Questions/Checkbox/' + newKey] = checkboxQuestion;
-
-     return firebase.database().ref().update(updates);
+     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+    firebaseService.pushDataWithUniqueID(ref, checkboxQuestion);
    };
    
   // show questions
