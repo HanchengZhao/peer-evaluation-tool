@@ -16,3 +16,19 @@ app.directive("linearScale", function(){
         }
     }
 });
+
+app.directive("paragraph", function(){
+    return{
+        restrict: 'E',
+        templateUrl: 'directives/paragraph.html',
+        replace: false,
+        scope:{
+            question: "=",
+            rows: "=",
+            inputShow: "@",
+            buttonShow: "@",
+            deleteQuestionFunction: "&",
+            uniqueId:"="
+        }
+    }
+});

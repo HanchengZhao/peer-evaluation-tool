@@ -46,15 +46,12 @@
 
     <!--Paragraph-->
     <section ng-if="selected == 'Paragraph'">
-      <input type="text" name="question" ng-model="question" placeholder="Please describe the question here"></input>
-      <br>
-      <form role="form">
-        <div class="form-group">
-          <label for="comment">{{question}}:</label>
-          <textarea class="form-control" rows="5" id="comment"></textarea>
-        </div>
-      </form>
-      <button type="button" class="btn btn-primary" ng-click="saveParagraph(question)">Save</button>
+      <div class="form-group" >
+        <h3>{{selected}}:</h3>
+        <paragraph question="question" input-show="true" button-show="false"></paragraph>
+        <hr />
+        <button type="button" class="btn btn-primary" ng-click="saveParagraph(question)">Save</button>
+      </div>
     </section>
 
     <!-- Multiple choice -->
@@ -139,24 +136,12 @@
             
               <!--Paragraph-->
             <div ng-if="question.type == 'Paragraph'">
-                <table class="table table-striped">
-                  <tbody>
-                    <!--Questions-->
-                    <tr>
-                      <td>
-                          <label for="">Question: {{question.questionText}} </label>
-                          <button type="button" class="btn btn-danger pull-right" ng-click="deleteQuestion(questionId)">Delete</button>
-                      </td>
-                    </tr>
-                    <!--Options-->
-                    <tr>
-                      <td>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-            
+                <paragraph question="question.questionText"  input-show="false" button-show="true" unique-id="questionId" delete-question-function="deleteQuestion(qid)"></paragraph>
+                <div class="panel panel-info">
+                <div class="panel-body">
+                  Question type: paragraph
+                </div>
+              </div>
             </div>
               </div>
             </div>
