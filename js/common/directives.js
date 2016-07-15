@@ -32,3 +32,19 @@ app.directive("paragraph", function(){
         }
     }
 });
+
+app.directive("multiChoices", function(){
+    return{
+        restrict: 'E',
+        templateUrl: 'directives/multiChoices.html',
+        replace: false,
+        scope:{
+            question: "=",
+            rows: "=",
+            inputShow: "@",
+            buttonShow: "@",
+            deleteQuestionFunction: "&",
+            uniqueId:"="
+        }
+    }
+});

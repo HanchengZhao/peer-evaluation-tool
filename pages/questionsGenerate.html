@@ -58,16 +58,9 @@
     <section ng-if="selected == 'Multiple choice'">
       <div class="form-group">
         <h3>{{selected}}:</h3>
-        <label for="">Questions: &nbsp;&nbsp; </label>
-        <input type="text" ng-model="question" placeholder="Please describe the question here"></input>
-        <br>
-        <button type="button" class="btn btn-info" ng-click="addOption(multiOptions)">Add Option</button>
-        <div class="col-md-12" id="radio" ng-repeat="option in multiOptions track by $index">
-          <label class="radio-inline" for="">
-            <input type="radio" name="radioAnswer" />
-            <input type="text" ng-model="multiOptions[$index]"></input>
-        </div>
+        <multi-choices question="question" input-show="true" button-show="false"></multi-choices>
         <hr>
+        <button type="button" class="btn btn-info" ng-click="addOption(multiOptions)">Add Option</button>
         <button type="button" class="btn btn-primary" ng-click="saveMultichoice(question)">Save</button>
       </div>
     </section>
