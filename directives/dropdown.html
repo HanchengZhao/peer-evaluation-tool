@@ -5,7 +5,7 @@
         <button type="button" ng-show="{{buttonShow}}" class="btn btn-danger pull-right" ng-click="deleteQuestionFunction({ qid: uniqueId })">Delete</button>
     </div>
     <div class="panel-body">
-     <div class="col-md-12" ng-repeat="option in {{multiOptions}} track by $index">
+     <div class="col-md-12" id="radio" ng-repeat="option in multiOptions track by $index">
           <label class="radio-inline">
             <span class="input-group-addon" id="basic-addon1">
             <input type="radio" value="multiOptions[$index]" name="radioAnswer" /></span>

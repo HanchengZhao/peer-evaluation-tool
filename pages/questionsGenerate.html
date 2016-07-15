@@ -58,7 +58,7 @@
     <section ng-if="selected == 'Multiple choice'">
       <div class="form-group">
         <h3>{{selected}}:</h3>
-        <multi-choices question="question" input-show="true" button-show="false"></multi-choices>
+        <multi-choices question="question" input-show="true" button-show="false" multi-options="multiOptions"></multi-choices>
         <hr>
         <button type="button" class="btn btn-info" ng-click="addOption(multiOptions)">Add Option</button>
         <button type="button" class="btn btn-primary" ng-click="saveMultichoice(question)">Save</button>
