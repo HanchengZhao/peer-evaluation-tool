@@ -5,14 +5,14 @@
         <button type="button" ng-show="{{buttonShow}}" class="btn btn-danger pull-right" ng-click="deleteQuestionFunction({ qid: uniqueId })">Delete</button>
     </div>
     <div class="panel-body">
-     <div class="col-md-12" ng-repeat="option in multiOptions track by $index">
+     <div ng-repeat="option in multiOptions track by $index">
           <label class="radio-inline">
-            <span class="input-group-addon" id="basic-addon1">
-            <input type="radio" value="multiOptions[$index]" name="radioAnswer" /></span>
+            <input type="radio" value="multiOptions[$index]" name="radioAnswer" />
             <!--show up for editting the options-->
             <input type="text" class="form-control" ng-model="multiOptions[$index]" ng-show={{inputShow}}></input>
             <!--show up for displaying the options-->
             <div ng-model="multiOptions[$index]" ng-show=!{{inputShow}}></div>
+          </label>
         </div>
     </div>
 </div>

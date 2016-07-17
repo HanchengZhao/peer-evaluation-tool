@@ -36,7 +36,7 @@ app.directive("paragraph", function(){
 app.directive("multiChoices", function(){
     return{
         restrict: 'E',
-        templateUrl: 'directives/multiChoices.html',
+        templateUrl: 'directives/multiChoices.1.html',
         replace: false,
         scope:{
             question: "=",
@@ -44,7 +44,8 @@ app.directive("multiChoices", function(){
             inputShow: "@",
             buttonShow: "@",
             deleteQuestionFunction: "&",
-            uniqueId:"="
+            uniqueId:"=",
+            multiOptions:"="
         }
     }
 });
