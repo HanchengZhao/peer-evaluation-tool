@@ -36,7 +36,7 @@ app.directive("paragraph", function(){
 app.directive("multiChoices", function(){
     return{
         restrict: 'E',
-        templateUrl: 'directives/multiChoices.1.html',
+        templateUrl: 'directives/multiChoices.html',
         replace: false,
         scope:{
             question: "=",
@@ -46,6 +46,23 @@ app.directive("multiChoices", function(){
             deleteQuestionFunction: "&",
             uniqueId:"=",
             multiOptions:"="
+        }
+    }
+});
+
+app.directive("dropdown", function(){
+    return{
+        restrict: 'E',
+        templateUrl: 'directives/dropdown.html',
+        replace: false,
+        scope:{
+            question: "=",
+            rows: "=",
+            inputShow: "@",
+            buttonShow: "@",
+            deleteQuestionFunction: "&",
+            uniqueId:"=",
+            dropdowns:"="
         }
     }
 });

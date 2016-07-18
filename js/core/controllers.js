@@ -149,8 +149,6 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "currentPostion": "?"
      }
     
-    
-     
     console.log(multiOptionsQuestion);
      //recover to original state
      this.question = "Please describe question";
@@ -177,7 +175,9 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "type": "dropdown",
        "currentPostion": "?"
      };
-
+     
+     console.log(dropdownQuestion);
+     this.question = "Please describe question";
      $scope.dropdowns = ["option1"];
      var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
     firebaseService.pushDataWithUniqueID(ref, dropdownQuestion);

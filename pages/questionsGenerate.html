@@ -68,21 +68,9 @@
     <section ng-if="selected == 'Dropdown'">
       <div class="form-group">
         <h3>{{selected}}:</h3>
-        <label for="">Questions: &nbsp;&nbsp; </label>
-        <input type="text" ng-model="question" placeholder="Discription"></input>
-        <br>
+       <dropdown question="question" input-show="true" button-show="false" dropdowns="dropdowns"></dropdown>
+       <hr>
         <button type="button" class="btn btn-info" ng-click="addOption(dropdowns)">Add Option</button>
-        <select ng-options="item for item in dropdowns" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
-          <option value=''>--Options--</option>
-        </select>
-        <hr>
-        <div class="col-md-12" ng-repeat="item in dropdowns track by $index">
-          <li>
-            <input type="text" ng-model="dropdowns[$index]"></input>
-            <br>
-          </li>
-        </div>
-        <br/>
         <button type="button" class="btn btn-primary" ng-click="saveDropdown(question)">Save</button>
       </div>
     </section>
@@ -116,8 +104,6 @@
           <div ng-repeat="(questionId, question) in quizContent.questions track by $index" id="list">
              <!--LinearScale-->
             <div ng-if="question.type == 'LinearScale'">
-              <!--<linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" -->
-              <!--input-show="false"></linear-scale>-->
               <linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" 
               input-show="false" button-show="true" unique-id="questionId" delete-question-function="deleteQuestion(qid)"></linear-scale>
               <div class="panel panel-info">
@@ -136,9 +122,19 @@
                 </div>
               </div>
             </div>
+              
+        <!--multiChoices-->
+            <div ng-if="question.type == 'MultipleChoices'">
+              <multi-choices question="question.questionText" input-show="false" button-show="true" unique-id="questionId" delete-question-function="deleteQuestion(qid)" multi-options="question.options"></multi-choices>
+              <div class="panel panel-info">
+                <div class="panel-body">
+                  Question type: MultipleChoices
+                  <div ng-model="question.options"></div>
+                </div>
               </div>
             </div>
-            <hr>
+         </div>   
+        </div>
         
         
       </div>
