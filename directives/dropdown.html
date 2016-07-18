@@ -1,11 +1,11 @@
-<!-- Multiple choice -->
+<!-- Dropdown -->
 <div class="panel panel-info">
     <div class="panel-heading clearfix">
         <label>Questions: {{question}}&nbsp;&nbsp;</label>
         <button type="button" ng-show="{{buttonShow}}" class="btn btn-danger pull-right" ng-click="deleteQuestionFunction({ qid: uniqueId })">Delete</button>
     </div>
     <div class="panel-body">
-     <div class="col-md-12" id="radio" ng-repeat="option in multiOptions track by $index">
+     <div ng-repeat="option in multiOptions track by $index">
           <label class="radio-inline">
             <span class="input-group-addon" id="basic-addon1">
             <input type="radio" value="multiOptions[$index]" name="radioAnswer" /></span>
@@ -24,3 +24,21 @@
     </div>
 </div>
     
+    
+    
+
+<label for="">Questions: &nbsp;&nbsp; </label>
+        <input type="text" ng-model="question" placeholder="Discription"></input>
+        <br>
+        <button type="button" class="btn btn-info" ng-click="addOption(dropdowns)">Add Option</button>
+        <select ng-options="item for item in dropdowns" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
+          <option value=''>--Options--</option>
+        </select>
+        <hr>
+        <div class="col-md-12" ng-repeat="item in dropdowns track by $index">
+          <li>
+            <input type="text" ng-model="dropdowns[$index]"></input>
+            <br>
+          </li>
+        </div>
+        <br/>
