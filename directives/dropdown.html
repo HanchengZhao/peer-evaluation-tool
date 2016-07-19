@@ -5,17 +5,14 @@
         <button type="button" ng-show="{{buttonShow}}" class="btn btn-danger pull-right" ng-click="deleteQuestionFunction({ qid: uniqueId })">Delete</button>
     </div>
     <div class="panel-body">
-        <select ng-options="item for item in dropdowns track by $index" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
-          <option value='item'>--Options--</option>
+        <select ng-options="item for item in dropdowns" ng-model="dropdownSelected" class="btn btn-success dropdown-toggle">
+          <option value=''>--Options--</option>
         </select>
-        <hr>
-        <div ng-repeat="item in dropdowns track by $index">
+        <div ng-show={{inputShow}} ng-repeat="option in dropdowns track by $index">
           <li>
             <input type="text" ng-model="dropdowns[$index]"></input>
             <br>
           </li>
-        </div>
-            <div ng-show=!{{inputShow}}>{{option}}</div>
         </div>
     </div>
 </div>

@@ -79,17 +79,9 @@
     <section ng-if="selected == 'Check box'">
       <div class="form-group">
         <h3>{{selected}}:</h3>
-        <label for="">Questions: &nbsp;&nbsp; </label>
-        <input type="text" ng-model="question" placeholder="Discription"></input>
-        <br>
-        <button type="button" class="btn btn-info" ng-click="addOption(checkboxes)">Add Option</button>
-        <div class="checkbox" ng-repeat="option in checkboxes track by $index">
-          <label>
-            <input type="checkbox">
-            <input type="text" ng-model="checkboxes[$index]"></input>
-          </label>
-        </div>
+        <checkbox question="question" input-show="true" button-show="false" checkboxes="checkboxes"></checkbox>
         <hr>
+        <button type="button" class="btn btn-info" ng-click="addOption(checkboxes)">Add Option</button>
         <button type="button" class="btn btn-primary" ng-click="saveCheckbox(question)">Save</button>
       </div>
     </section>
@@ -128,11 +120,36 @@
               <multi-choices question="question.questionText" input-show="false" button-show="true" unique-id="questionId" delete-question-function="deleteQuestion(qid)" multi-options="question.options"></multi-choices>
               <div class="panel panel-info">
                 <div class="panel-body">
-                  Question type: MultipleChoices
-                  <div ng-model="question.options"></div>
+                  Question type: multipleChoice
                 </div>
               </div>
             </div>
+            
+            <!--dropdown-->
+            <div ng-if="question.type == 'dropdown'">
+              <dropdown question="question.questionText" input-show="false" button-show="true" unique-id="questionId" delete-question-function="deleteQuestion(qid)" dropdowns="question.options"></dropdown>
+              <div class="panel panel-info">
+                <div class="panel-body">
+                  Question type: dropdown
+                </div>
+              </div>
+            </div>
+            
+            <!--checkbox-->
+            <div ng-if="question.type == 'checkbox'">
+              <checkbox question="question.questionText" input-show="false" button-show="true" unique-id="questionId" delete-question-function="deleteQuestion(qid)" checkboxes="question.options"></checkbox>
+              <div class="panel panel-info">
+                <div class="panel-body">
+                  Question type: checkbox
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
          </div>   
         </div>
         

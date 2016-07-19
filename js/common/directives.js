@@ -66,3 +66,20 @@ app.directive("dropdown", function(){
         }
     }
 });
+
+app.directive("checkbox", function(){
+    return{
+        restrict: 'E',
+        templateUrl: 'directives/checkBox.html',
+        replace: false,
+        scope:{
+            question: "=",
+            rows: "=",
+            inputShow: "@",
+            buttonShow: "@",
+            deleteQuestionFunction: "&",
+            uniqueId:"=",
+            checkboxes:"="
+        }
+    }
+});

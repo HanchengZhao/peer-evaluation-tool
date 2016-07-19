@@ -1,20 +1,19 @@
-<!-- Multiple choice -->
+<!-- check box -->
 <div class="panel panel-info">
     <div class="panel-heading clearfix">
         <label>Questions: {{question}}&nbsp;&nbsp;</label>
         <button type="button" ng-show="{{buttonShow}}" class="btn btn-danger pull-right" ng-click="deleteQuestionFunction({ qid: uniqueId })">Delete</button>
     </div>
     <div class="panel-body">
-     <div class="col-md-12" id="radio" ng-repeat="option in multiOptions track by $index">
-          <label class="radio-inline">
-            <span class="input-group-addon" id="basic-addon1">
-            <input type="radio" value="multiOptions[$index]" name="radioAnswer" /></span>
+        <div class="checkbox" ng-repeat="option in checkboxes track by $index">
+          <label>
+            <input type="checkbox" value="{{option}}">
             <!--show up for editting the options-->
-            <input type="text" class="form-control" ng-model="multiOptions[$index]" ng-show={{inputShow}}></input>
+            <input type="text" class="form-control" ng-model="checkboxes[$index]" ng-show={{inputShow}}></input>
             <!--show up for displaying the options-->
-            <div ng-model="multiOptions[$index]" ng-show=!{{inputShow}}></div>
+            <div ng-show=!{{inputShow}}>{{option}}</div>
+          </label>
         </div>
-    </div>
 </div>
 <hr />
 <div ng-show={{inputShow}}>
@@ -24,3 +23,21 @@
     </div>
 </div>
     
+ <!--Check box-->
+    <!--<section ng-if="selected == 'Check box'">-->
+    <!--  <div class="form-group">-->
+    <!--    <h3>{{selected}}:</h3>-->
+    <!--    <label for="">Questions: &nbsp;&nbsp; </label>-->
+    <!--    <input type="text" ng-model="question" placeholder="Discription"></input>-->
+    <!--    <br>-->
+    <!--    <button type="button" class="btn btn-info" ng-click="addOption(checkboxes)">Add Option</button>-->
+    <!--    <div class="checkbox" ng-repeat="option in checkboxes track by $index">-->
+    <!--      <label>-->
+    <!--        <input type="checkbox">-->
+    <!--        <input type="text" ng-model="checkboxes[$index]"></input>-->
+    <!--      </label>-->
+    <!--    </div>-->
+    <!--    <hr>-->
+    <!--    <button type="button" class="btn btn-primary" ng-click="saveCheckbox(question)">Save</button>-->
+    <!--  </div>-->
+    <!--</section>-->
