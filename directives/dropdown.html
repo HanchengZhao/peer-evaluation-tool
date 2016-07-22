@@ -10,7 +10,7 @@
         </select>
         <div ng-show={{inputShow}} ng-repeat="option in dropdowns track by $index">
           <li>
-            <input type="text" ng-model="dropdowns[$index]"></input>
+            <input type="text" class="form-control" ng-model="dropdowns[$index]"></input>
             <br>
           </li>
         </div>
