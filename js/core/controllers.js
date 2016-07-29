@@ -254,6 +254,54 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
 }]);
 
 
+app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+
+    $scope.members = firebaseService.retrieveData('Members');
+    
+    $scope.addMemeberContent = false;
+    $scope.addMemeber = function(){
+    $scope.addMemeberContent = !$scope.addMemeberContent;
+    };
+    
+    $scope.saveMember = function(){
+    var Lastname = $scope.Lastname;
+    var Firstname = $scope.Fastname;
+    var Credits = $scope.Credits;
+    var Class = $scope.Fastname;
+    var Major = $scope.Major;
+    var Semesters = $scope.Semesters;
+    var Email = $scope.Email;
+    var Team = $scope.Team;
+    
+    var newMember = {
+       "lastname": Lastname,
+       "firstname": Firstname,
+       "credits": Credits,
+       "class": Class,
+       "major": Major,
+       "semesters": Semesters,
+       "Email": Email
+     };
+    var ref = '/Memebers/' + Team;
+    
+    firebaseService.pushDataWithUniqueID(ref, newMember);
+    
+       
+    $scope.Lastname='';
+    $scope.Fastname='';
+    $scope.Credits='';
+    $scope.Fastname='';
+    $scope.Major='';
+    $scope.Semesters='';
+    $scope.Email='';
+    $scope.Team = 'Team'
+  };
+
+    
+    
+}]);
+
+
 app.controller('studentCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
     $scope.questionData = firebaseService.retrieveData("Questions-Data");
     console.log($scope.questionData);

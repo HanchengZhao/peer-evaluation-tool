@@ -1,0 +1,65 @@
+<div class="container">
+    <!--add team members-->
+
+     <button type="button" class="btn btn-primary glyphicon glyphicon-plus" ng-click="addMemeber()">Add quiz</button>
+    
+     <section ng-show="addMemeberContent">
+      <div class="form-group">
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <div class="panel-heading">Memeber's Information</div>
+        
+          <!-- Table -->
+          <table class="table">
+            <tr> 
+                <th>Lastname</th> 
+                <th>Firstname</th> 
+                <th>Credits</th>
+                <th>Class</th>
+                <th>Major</th>
+                <th>Semesters</th>
+                <th>Email</th>
+                <th>Team</th>
+            </tr> 
+            <tr> 
+                <td><input type="text" class="form-control" ng-model="Lastname"></input></td> 
+                <td><input type="text" class="form-control" ng-model="Firstname"></input></td>  
+                <td><input type="text" class="form-control" ng-model="Credits"></input></td>
+                <td><input type="text" class="form-control" ng-model="Class"></input></td> 
+                <td><input type="text" class="form-control" ng-model="Major"></input></td> 
+                <td><input type="text" class="form-control" ng-model="Semesters"></input></td> 
+                <td><input type="text" class="form-control" ng-model="Email"></input></td> 
+                <td><div class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" ng-model="Team">Team</a>
+                        <ul class="dropdown-menu">
+                          <li>Grid Integrated-Vehicles</li>
+                          <li>E-Textiles</li>
+                          <li>Cloud Crypto</li>
+                        </ul>
+                      </div>
+                </td> 
+            </tr> 
+            
+          </table>
+        </div>
+        <hr />
+        
+        <button type="button" class="btn btn-primary" ng-click="saveMember()">Save</button>
+      </div>
+    </section>
+    <hr>
+    
+    
+    <!--members table-->
+    
+</div>
+
+
+
+
+
+<ul>
+    <li>add members</li>
+    <li>use a table to show</li>
+</ul>
+<img style="width:800px; height:500px" src="images/student_table.png"></img>

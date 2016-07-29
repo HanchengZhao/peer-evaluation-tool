@@ -1,4 +1,4 @@
-// DIRECTIVES
+// question types
 app.directive("linearScale", function(){
     return{
         restrict: 'E',
@@ -80,6 +80,27 @@ app.directive("checkbox", function(){
             deleteQuestionFunction: "&",
             uniqueId:"=",
             checkboxes:"="
+        }
+    }
+});
+
+
+//member table
+
+app.directive("membersTable", function(){
+    return{
+        restrict: 'E',
+        templateUrl: 'directives/membersTable.html',
+        replace: false,
+        scope:{
+            firstname: "=",
+            lastname: "=",
+            Class: "=",
+            credits: "=",
+            major :"=",
+            semesters :"=",
+            email:"=",
+            team:"="
         }
     }
 });
