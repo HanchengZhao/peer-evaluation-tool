@@ -87,20 +87,20 @@ app.directive("checkbox", function(){
 
 //member table
 
-app.directive("membersTable", function(){
-    return{
-        restrict: 'E',
-        templateUrl: 'directives/membersTable.html',
-        replace: false,
-        scope:{
-            firstname: "=",
-            lastname: "=",
-            Class: "=",
-            credits: "=",
-            major :"=",
-            semesters :"=",
-            email:"=",
-            team:"="
-        }
-    }
-});
+// app.directive("membersTable", function(){
+//     return{
+//         restrict: 'E',
+//         templateUrl: 'directives/membersTable.html',
+//         replace: false,
+//         scope:{
+//             firstname: "=",
+//             lastname: "=",
+//             Class: "=",
+//             credits: "=",
+//             major :"=",
+//             semesters :"=",
+//             email:"=",
+//             team:"="
+//         }
+//     }
+// });
