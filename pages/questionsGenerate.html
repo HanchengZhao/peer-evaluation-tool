@@ -93,6 +93,7 @@
         <h3>Questions in {{quizSelected}}:</h3>
       <div ng-repeat="(quizID, quizContent) in quizzes">
         <div ng-if="quizID == quizSelected">
+          <!--<ul id="sortable">-->
           <div ng-repeat="(questionId, question) in quizContent.questions track by $index" id="list">
              <!--LinearScale-->
             <div ng-if="question.type == 'LinearScale'">
@@ -154,6 +155,7 @@
                 </div>
               </div>
             </div>
+            <!--</ul><!--Sortable part-->
         
          </div>   
         </div>

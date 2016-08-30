@@ -1,59 +1,3 @@
-// CONTROLLERS
-app.controller("authCtrl", function($scope, $firebaseAuth, $route) {
-  
-  $scope.authObj = $firebaseAuth();
-  
-  $scope.route = $route;
-  //login with google
-  $scope.signIn = function() {
-      $scope.authObj.$signInWithPopup("google").then(function(firebaseUser) {
-        console.log("Signed in as:", firebaseUser.displayName);
-      }).catch(function(error) {
-        console.error("Authentication failed:", error);
-      });
-    }
-    
-    //sign-out
-  $scope.authObj.$signOut(function() {
-
-    firebase.auth().signOut().then(function() {
-      // Sign-out successful.
-    }, function(error) {
-      // An error happened.
-    });
-  })
-  //display the image and username
-  $scope.authObj.$onAuthStateChanged(function(firebaseUser) {
-    if (firebaseUser) {
-      $scope.firebaseUser = firebaseUser;
-      $scope.displayName = firebaseUser.displayName;
-      $scope.profilePicUrl = firebaseUser.photoURL || 'images/profile_placeholder.png';
-      $scope.email = firebaseUser.email;
-      $scope.userPic = $('#user-pic');
-      $scope.userPic.css('background-image', 'url(' + $scope.profilePicUrl + ')');
-      console.log("Signed in as:", firebaseUser.displayName);
-      $scope.route.reload();
-
-    } else {
-      $scope.firebaseUser = false;
-      console.log("Signed out");
-      $scope.userPic.css('background-image', 'url(/images/profile_placeholder.png)');
-
-    }
-  });
-
-});
-
-
-
-app.controller('homeCtrl', ['$scope', '$location', function($scope, $location) {
-    
-}]);
-
-app.controller('advisorCtrl', ['$scope', '$location','firebaseService', function($scope, $location, firebaseService) {
-    
-}]);
-
 app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebaseArray",'firebaseService',
  function($scope, $firebaseObject, $firebaseArray , firebaseService) {
    $scope.types = ["Linear scale", "Multiple choice", "Paragraph", "Dropdown", "Check box"];
@@ -104,7 +48,7 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "questionText": question,
        "options":{"low":low, "high":high},
        "type": "LinearScale",
-       "currentPostion": "?"
+       "currentPosition": "?"
      };
 
     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
@@ -118,7 +62,7 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
      var paragraghQuestion = {
        "questionText": question,
        "type": "Paragraph",
-       "currentPostion": "?"
+       "currentPosition": "?"
      };
      var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
      firebaseService.pushDataWithUniqueID(ref, paragraghQuestion);
@@ -146,7 +90,7 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "questionText": question,
        "options":options,
        "type": "MultipleChoices",
-       "currentPostion": "?"
+       "currentPosition": "?"
      }
     
     console.log(multiOptionsQuestion);
@@ -173,7 +117,7 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "questionText": question,
        "options":options,
        "type": "dropdown",
-       "currentPostion": "?"
+       "currentPosition": "?"
      };
      
      console.log(dropdownQuestion);
@@ -199,7 +143,7 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "questionText": question,
        "options":options,
        "type": "checkbox",
-       "currentPostion": "?"
+       "currentPosition": "?"
      }
 
      //recover
@@ -251,82 +195,6 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        $scope.list = firebaseService.retrieveData("Questions-Data");
        console.log($scope.list);
    };
-}]);
-
-
-app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
-    
-    $scope.team = ['Grid Integrated-Vehicles','E-Textiles', 'Cloud Crypto']
-    
-    
-    firebase.database().ref("Members").on('value', function(snapshot) {
-       $scope.members = snapshot.val();
-       console.log(snapshot.val());
-  });
-    
-    $scope.addMemeberContent = false;
-    $scope.addMemeber = function(){
-    $scope.addMemeberContent = !$scope.addMemeberContent;
-    setToDefault();
-    };
-    
-    var setToDefault = function(){
-        $scope.Lastname='';
-        $scope.Firstname='';
-        $scope.Credits='';
-        $scope.Class='';
-        $scope.Major='';
-        $scope.Semesters='';
-        $scope.Email='';
-        $scope.teamSelected = 'Team';
-    };
-    
-    $scope.saveMember = function(){
-    var Lastname = $scope.Lastname;
-    var Firstname = $scope.Firstname;
-    var Credits = $scope.Credits;
-    var Class = $scope.Class;
-    var Major = $scope.Major;
-    var Semesters = $scope.Semesters;
-    var Email = $scope.Email;
-    var Team = $scope.teamSelected;
-    
-    var newMember = {
-       "lastname": Lastname,
-       "firstname": Firstname,
-       "credits": Credits,
-       "class": Class,
-       "major": Major,
-       "semesters": Semesters,
-       "email": Email,
-       "team": Team
-     };
-     
-     console.log(newMember);//debug
-    var ref = '/Members/';
-    
-    firebaseService.pushDataWithUniqueID(ref, newMember);
-    
-    setToDefault();
-  };
-  
-  $scope.deleteMember = function(team, unique_id) {
-    console.log('Members/'+  unique_id);//debug
-      var memberRef = firebase.database().ref('Members/'+  unique_id);
-      memberRef.remove().then(function() {
-          console.log("Remove succeeded.")
-       })
-       .catch(function(error) {
-          console.log("Remove failed: " + error.message)
-       });
-   }
-
-    
-    
-}]);
-
-
-app.controller('studentCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
-    $scope.questionData = firebaseService.retrieveData("Questions-Data");
-    console.log($scope.questionData);
+   
+   $("#sortable").sortable();//jquery ui sortable
 }]);
