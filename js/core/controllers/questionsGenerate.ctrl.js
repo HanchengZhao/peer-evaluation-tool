@@ -5,13 +5,13 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
    
    //console.log the quizzes on any changes
   firebase.database().ref("Quizzes").on('value', function(snapshot) {
-       var dataArray = [];;
+       var dataArray = [];
        $scope.quizzes = snapshot.val();
        console.log(snapshot.val());
        snapshot.forEach(function(record) {
          dataArray.push(record.key);
-       $scope.quizzesID = dataArray;
        });
+       $scope.quizzesID = dataArray;
   });
   
   $scope.addQuizContent = false;
@@ -196,5 +196,5 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        console.log($scope.list);
    };
    
-   $("#sortable").sortable();//jquery ui sortable
+   // $("#sortable").sortable();//jquery ui sortable
 }]);

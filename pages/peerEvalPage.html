@@ -1,0 +1,86 @@
+<div class="container">
+  
+  <h3 class="center">Student Peer Evaluation</h2>
+  <br />
+  <p class="col-md-1">Progress:</p>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+      60%
+    </div>
+  </div>
+  <!--questions-->
+  <div class="panel panel-default">
+    <div class="panel-heading">Panel heading without title</div>
+    <div class="panel-body">
+      Panel content
+      <table class="table table-condensed">
+        <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Email</th>
+        </tr>
+        </thead>
+      <tbody>
+        <tr>
+          <td>John</td>
+          <td>Doe</td>
+          <td>john@example.com</td>
+        </tr>
+        <tr>
+          <td>Mary</td>
+          <td>Moe</td>
+          <td>mary@example.com</td>
+        </tr>
+        <tr>
+          <td>July</td>
+          <td>Dooley</td>
+          <td>july@example.com</td>
+        </tr>
+    </table>
+    </div>
+  </div>
+  <div class="pull-right">
+    <button type="button" class="btn btn-default">Previous</button>
+    <button type="button" class="btn btn-default">Next</button>
+  </div>
+  
+</div>
+  
+  
+    <!-- <section>-->
+    <!--  <h4>Select a peer:</h4>-->
+    <!--  <select ng-options="peer for peer in peers" ng-model="peerSelected" class="btn btn-primary dropdown-toggle">-->
+    <!--    <option value=''>--Peers--</option>-->
+    <!--  </select>-->
+    <!--  <hr>-->
+    <!--</section>-->
+    <!--    <div ng-repeat="(questionId, question) in questions track by $index" id="list">-->
+           <!--LinearScale-->
+    <!--      <div ng-if="question.type == 'LinearScale'">-->
+    <!--        <linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" -->
+    <!--        input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)"></linear-scale>-->
+    <!--      </div>-->
+          
+            <!--Paragraph-->
+    <!--      <div ng-if="question.type == 'Paragraph'">-->
+    <!--          <paragraph question="question.questionText"  input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)"></paragraph>-->
+    <!--      </div>-->
+            
+      <!--multiChoices-->
+    <!--      <div ng-if="question.type == 'MultipleChoices'">-->
+    <!--        <multi-choices question="question.questionText" input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)" multi-options="question.options"></multi-choices>-->
+    <!--      </div>-->
+          
+          <!--dropdown-->
+    <!--      <div ng-if="question.type == 'dropdown'">-->
+    <!--        <dropdown question="question.questionText" input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)" dropdowns="question.options"></dropdown>-->
+    <!--      </div>-->
+          
+          <!--checkbox-->
+    <!--      <div ng-if="question.type == 'checkbox'">-->
+    <!--        <checkbox question="question.questionText" input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)" checkboxes="question.options"></checkbox>-->
+    <!--      </div>-->
+    <!--   </div><!--questions-->   
+       
+    <!--   <button type="button" class="btn btn-primary pull-right">Submit</button>-->

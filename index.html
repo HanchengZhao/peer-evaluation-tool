@@ -2,8 +2,9 @@
 <html lang="en-us" ng-app="peerEvalApp">
 
 <head>
-  <title>Peer Evaluation</title>
+  <title>VIP Peer Evaluation</title>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!--Dependencies via CDN-->
   <script data-require="angularjs@1.5.0" data-semver="1.5.0" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.js"></script>
@@ -17,6 +18,7 @@
   <script src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js" integrity="sha256-55Jz3pBCF8z9jBO1qQ7cIf0L+neuPTD1u7Ytzrp2dqo=" crossorigin="anonymous"></script>
   
   <!--local files-->
+  <link rel="icon" type="image/png" href="/images/favicon.png"/>
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/core/app.js"></script>
   <script src="js/core/routes.js"></script>
@@ -30,10 +32,23 @@
   <script src="js/core/controllers/membersManagement.ctrl.js"></script>
   <script src="js/core/controllers/questionsGenerate.ctrl.js"></script>
   <script src="js/core/controllers/student.ctrl.js"></script>
+  <script src="js/core/controllers/peerEval.ctrl.js"></script>
 </head>
 
 <body>
+  <div id="content">
   <header>
+  <!--UD header-->
+  <div id="ud-header" class="hidden-print">
+      <div id="ud-header-identity">
+        <a href="http://www.udel.edu" data-no-instant>
+          <img src="/images/ud-logo-white.png" id="ud-logo"
+          alt="University of Delaware">
+        </a>
+        <img src="/images/ud-seal-3-white.png" id="ud-seal" alt="UD Seal">
+      </div>
+  </div>
+  <!--navbar-->
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -86,8 +101,28 @@
   </nav>
   </header>
   
-  <div ng-view>
+  <div class="container">
+    <div ng-view>
     
+    </div>
   </div>
+
   
+  </div>
+    <div class="eecis-footer-container hidden-print">
+      <div class="container footer-styles">
+        <div class="row">
+          <div class="clearfix"></div>
+          <p class="copyright">University of Delaware &mdash;
+            All Rights Reserved &bull; Newark, DE 19716 &bull;
+            USA &bull; 2015 &bull; <small>Website by Andy Novocin & Hancheng Zhao</small></p>
+          <p class="copyright">
+            <a data-no-instant href="mailto:andynovo@udel.edu">Comments</a> &bull;
+            <a data-no-instant href="http://www.udel.edu/aboutus/legalnotices.html">
+              Legal Notices</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
 </body>
