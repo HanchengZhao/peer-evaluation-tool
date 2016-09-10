@@ -1,4 +1,4 @@
-app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebaseArray",'firebaseService',
+app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebaseArray","firebaseService",
  function($scope, $firebaseObject, $firebaseArray , firebaseService) {
    $scope.types = ["Linear scale", "Multiple choice", "Paragraph", "Dropdown", "Check box"];
    $scope.question = "Please describe question";
@@ -37,21 +37,32 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
       $scope.startDate = "";
       $scope.endDate = "";
   };
-
+  
+  
+//save question
+var countChildren = function (ref) {
+    var count;
+   firebase.database().ref(ref).once('value', function(snapshot) {
+       count =  snapshot.numChildren();
+  });
+   return count;
+}
 
    // Linear scale part
    $scope.low = "low";
    $scope.high = "high";
    $scope.saveLinearScale = function(question, low, high) {
      console.log(question);
+     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+     var position = countChildren(ref) + 1;
      var linearScaleQuestion = {
        "questionText": question,
        "options":{"low":low, "high":high},
        "type": "LinearScale",
-       "currentPosition": "?"
+       "currentPosition": position
      };
 
-    var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+    
     firebaseService.pushDataWithUniqueID(ref, linearScaleQuestion);
      this.question = "Please describe question";
    };
@@ -59,12 +70,14 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
    // Paragraph part
    $scope.saveParagraph = function(question) {
      console.log(question);
+     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+     var position = countChildren(ref) + 1;
      var paragraghQuestion = {
        "questionText": question,
        "type": "Paragraph",
-       "currentPosition": "?"
+       "currentPosition": position
      };
-     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+     
      firebaseService.pushDataWithUniqueID(ref, paragraghQuestion);
      this.question = "Please describe question";
    };
@@ -80,6 +93,8 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
 
    $scope.saveMultichoice = function(question) {
      console.log(question);
+     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+     var position = countChildren(ref) + 1;
      var optionArray = $scope.multiOptions;
      var options={};
      optionArray.forEach(function(item, index) {
@@ -90,7 +105,7 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "questionText": question,
        "options":options,
        "type": "MultipleChoices",
-       "currentPosition": "?"
+       "currentPosition": position
      }
     
     console.log(multiOptionsQuestion);
@@ -98,7 +113,7 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
      this.question = "Please describe question";
      $scope.multiOptions = ["option1"];
 
-     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+     
     firebaseService.pushDataWithUniqueID(ref, multiOptionsQuestion);
    };
 
@@ -108,6 +123,8 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
 
    $scope.saveDropdown = function(question) {
      console.log(question);
+     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+     var position = countChildren(ref) + 1;
      var optionArray = $scope.dropdowns;
      var options={};
      optionArray.forEach(function(item, index) {
@@ -117,13 +134,12 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "questionText": question,
        "options":options,
        "type": "dropdown",
-       "currentPosition": "?"
+       "currentPosition": position
      };
      
      console.log(dropdownQuestion);
      this.question = "Please describe question";
      $scope.dropdowns = ["option1"];
-     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
     firebaseService.pushDataWithUniqueID(ref, dropdownQuestion);
    };
 
@@ -134,6 +150,8 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
 
    $scope.saveCheckbox = function(question) {
      console.log(question);
+     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
+     var position = countChildren(ref) + 1;
      var optionArray = $scope.checkboxes;
      var options={};
      optionArray.forEach(function(item, index) {
@@ -143,13 +161,12 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        "questionText": question,
        "options":options,
        "type": "checkbox",
-       "currentPosition": "?"
+       "currentPosition": position
      }
 
      //recover
      this.question = "Please describe question";
      $scope.checkboxes = ["option1"];
-     var ref = 'Quizzes/' + $scope.quizSelected +'/questions';
     firebaseService.pushDataWithUniqueID(ref, checkboxQuestion);
    };
    
@@ -196,5 +213,13 @@ app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebase
        console.log($scope.list);
    };
    
+//   $scope.update = function() {
+//       var updates = {};
+//     updates['/options/low/'] = "Unable or unwilling";
+//     updates['/options/high/'] = "Outstanding";
+//     console.log(updates);
+//     return firebase.database().ref('Quizzes/Quiz4/questions/-KR59B2an_7AJPvsllTE').update(updates);
+    
+//   }
    // $("#sortable").sortable();//jquery ui sortable
 }]);

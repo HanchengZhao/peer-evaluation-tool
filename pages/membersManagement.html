@@ -1,40 +1,34 @@
 <div class="container">
     <!--add team members-->
 
-     <button type="button" class="btn btn-primary glyphicon glyphicon-plus" ng-click="addMemeber()">Add Memeber</button>
+     <button type="button" class="btn btn-primary glyphicon glyphicon-plus" ng-click="addMemeber()">&nbsp;Add Student</button>
      <div>&nbsp;</div> <!--new line-->
      
      <section ng-show="addMemeberContent">
       <div class="form-group">
         <div class="panel panel-default">
           <!-- Default panel contents -->
-          <div class="panel-heading">Member's Information</div>
+          <div class="panel-heading">Student's Information</div>
         
           <!-- Table -->
           <table class="table">
             <tr> 
-                <th>Lastname</th> 
-                <th>Firstname</th> 
-                <th>Credits</th>
-                <th>Class</th>
-                <th>Major</th>
-                <th>Semesters</th>
-                <th>Email</th>
-                <th>Team</th>
+                <th>Name</th> 
+                <th>Email Adress</th> 
+                <th>ID</th>
+                <th>Level</th>
+                <th>Grade Basis</th>
+                <th>Program and Plan</th>
+                <th>Units</th>
             </tr> 
             <tr> 
-                <td><input type="text" class="form-control" ng-model="Lastname" required></input></td> 
-                <td><input type="text" class="form-control" ng-model="Firstname" required></input></td>  
-                <td><input type="text" class="form-control" ng-model="Credits" required></input></td>
-                <td><input type="text" class="form-control" ng-model="Class" required></input></td> 
-                <td><input type="text" class="form-control" ng-model="Major" required></input></td> 
-                <td><input type="text" class="form-control" ng-model="Semesters" required></input></td> 
-                <td><input type="email" class="form-control" ng-model="Email" required></input></td> 
-                <td>
-                    <select ng-options="item for item in team" ng-model="teamSelected" class="btn btn-default dropdown-toggle">
-                      <option value=''>--Team--</option>
-                    </select>
-                </td> 
+                <td><input type="text" class="form-control" ng-model="Name" required></input></td> 
+                <td><input type="text" class="form-control" ng-model="Email_Address" required></input></td>  
+                <td><input type="text" class="form-control" ng-model="ID" required></input></td>
+                <td><input type="text" class="form-control" ng-model="Level" required></input></td> 
+                <td><input type="text" class="form-control" ng-model="Grade_Basis" required></input></td> 
+                <td><input type="text" class="form-control" ng-model="Program_and_Plan" required></input></td> 
+                <td><input type="text" class="form-control" ng-model="Units" required></input></td> 
             </tr> 
             
           </table>
@@ -48,28 +42,25 @@
     
     <!--members table-->
     <div class="panel panel-default">
-        <div class="panel-heading">Member's Information</div>
+        <div class="panel-heading">Students' Information</div>
             <table class="table">
             <tr> 
-                <th>Lastname</th> 
-                <th>Firstname</th> 
-                <th>Credits</th>
-                <th>Class</th>
-                <th>Major</th>
-                <th>Semesters</th>
-                <th>Email</th>
-                <th>Team</th>
-                <th></th>
+                <th>Name</th> 
+                <th>Email Adress</th> 
+                <th>ID</th>
+                <th>Level</th>
+                <th>Grade Basis</th>
+                <th>Program and Plan</th>
+                <th>Units</th>
             </tr>
             <tr ng-repeat="(memberID, memberAttr) in members">
-                <td>{{memberAttr.lastname}}</td> 
-                <td>{{memberAttr.firstname}}</td>  
-                <td>{{memberAttr.credits}}</td>
-                <td>{{memberAttr.class}}</td> 
-                <td>{{memberAttr.major}}</td> 
-                <td>{{memberAttr.semesters}}</td> 
-                <td>{{memberAttr.email}}</td> 
-                <td>{{memberAttr.team}}</td>
+                <td>{{memberAttr.Name}}</td> 
+                <td>{{memberAttr.Email_Address}}</td>  
+                <td>{{memberAttr.ID}}</td>
+                <td>{{memberAttr.Level}}</td> 
+                <td>{{memberAttr.Grade_Basis}}</td> 
+                <td>{{memberAttr.Program_and_Plan}}</td> 
+                <td>{{memberAttr.Units}}</td> 
                 <td><button type="button" class="btn btn-danger" ng-click="deleteMember(memberAttr.team, memberID)">Delete</button>
                 </td>
             </tr>

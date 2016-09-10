@@ -3,7 +3,7 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
     $scope.team = ['Grid Integrated-Vehicles','E-Textiles', 'Cloud Crypto']
     
     
-    firebase.database().ref("Members").on('value', function(snapshot) {
+    firebase.database().ref("Students").on('value', function(snapshot) {
        $scope.members = snapshot.val();
        console.log(snapshot.val());
   });
@@ -15,39 +15,36 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
     };
     
     var setToDefault = function(){
-        $scope.Lastname='';
-        $scope.Firstname='';
-        $scope.Credits='';
-        $scope.Class='';
-        $scope.Major='';
-        $scope.Semesters='';
-        $scope.Email='';
-        $scope.teamSelected = 'Team';
+        $scope.Name='';
+        $scope.Email_Address='';
+        $scope.ID='';
+        $scope.Level='';
+        $scope.Grade_Basis='';
+        $scope.Program_and_Plan='';
+        $scope.Units='';
     };
     
     $scope.saveMember = function(){
-    var Lastname = $scope.Lastname;
-    var Firstname = $scope.Firstname;
-    var Credits = $scope.Credits;
-    var Class = $scope.Class;
-    var Major = $scope.Major;
-    var Semesters = $scope.Semesters;
-    var Email = $scope.Email;
-    var Team = $scope.teamSelected;
+    var Name    = $scope.Name;
+    var Email   = $scope.Email_Address;
+    var ID     = $scope.ID;
+    var Level       = $scope.Level;
+    var Grade_Basis       = $scope.Grade_Basis;
+    var Program_and_Plan   = $scope.Program_and_Plan;
+    var Units       = $scope.Units;
     
     var newMember = {
-       "lastname": Lastname,
-       "firstname": Firstname,
-       "credits": Credits,
-       "class": Class,
-       "major": Major,
-       "semesters": Semesters,
-       "email": Email,
-       "team": Team
+       "Name": Name,
+       "Email_Address": Email,
+       "ID": ID,
+       "Level": Level,
+       "Grade_Basis": Grade_Basis,
+       "Program_and_Plan": Program_and_Plan,
+       "Units": Units
      };
      
      console.log(newMember);//debug
-    var ref = '/Members/';
+    var ref = '/Students/';
     
     firebaseService.pushDataWithUniqueID(ref, newMember);
     
@@ -55,8 +52,8 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
   };
   
   $scope.deleteMember = function(team, unique_id) {
-    console.log('Members/'+  unique_id);//debug
-      var memberRef = firebase.database().ref('Members/'+  unique_id);
+    console.log('/Students/'+  unique_id);//debug
+      var memberRef = firebase.database().ref('/Students/'+  unique_id);
       memberRef.remove().then(function() {
           console.log("Remove succeeded.")
        })

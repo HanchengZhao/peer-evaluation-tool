@@ -1,4 +1,4 @@
-app.controller("authCtrl", function($scope, $firebaseAuth, $route) {
+app.controller("authCtrl", function($scope, $firebaseAuth, $route, $location) {
   
   $scope.authObj = $firebaseAuth();
   
@@ -37,6 +37,7 @@ app.controller("authCtrl", function($scope, $firebaseAuth, $route) {
       $scope.firebaseUser = false;
       console.log("Signed out");
       $scope.userPic.css('background-image', 'url(/images/profile_placeholder.png)');
+      $location.path("/");
 
     }
   });

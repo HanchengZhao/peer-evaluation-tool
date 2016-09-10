@@ -4,45 +4,60 @@
   <br />
   <p class="col-md-1">Progress:</p>
   <div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-      60%
+    <div class="progress-bar" role="progressbar" aria-valuenow="{{process}}" aria-valuemin="0" aria-valuemax="100" style="width: {{process}};">
+      {{process}}
     </div>
   </div>
   <!--questions-->
   <div class="panel panel-default">
-    <div class="panel-heading">Panel heading without title</div>
+    <div class="panel-heading">{{questionText}}</div>
     <div class="panel-body">
-      Panel content
-      <table class="table table-condensed">
+
+      <table class="table table-hover table-striped">
         <thead>
         <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Email</th>
+          <th class="col-md-2">Name</th>
+          <th class="col-md-2">{{low}}</th>
+          <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th class="col-md-2">{{high}}</th>
         </tr>
         </thead>
       <tbody>
         <tr>
-          <td>John</td>
-          <td>Doe</td>
-          <td>john@example.com</td>
+          <td>John Doe</td>
+          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;1</label></td>
+          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;2</label></td>
+          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;3</label></td>
+          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;4</label></td>
+          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;5</label></td>
         </tr>
-        <tr>
-          <td>Mary</td>
-          <td>Moe</td>
-          <td>mary@example.com</td>
+         <tr>
+          <td>Jane Doe</td>
+          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;1</label></td>
+          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;2</label></td>
+          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;3</label></td>
+          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;4</label></td>
+          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;5</label></td>
         </tr>
-        <tr>
-          <td>July</td>
-          <td>Dooley</td>
-          <td>july@example.com</td>
+         <tr>
+          <td>Jack Doe</td>
+          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;1</label></td>
+          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;2</label></td>
+          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;3</label></td>
+          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;4</label></td>
+          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;5</label></td>
         </tr>
     </table>
     </div>
   </div>
   <div class="pull-right">
-    <button type="button" class="btn btn-default">Previous</button>
-    <button type="button" class="btn btn-default">Next</button>
+    <button type="button" id="previous-btn" class="btn btn-default" ng-click="previous()" disabled>Previous</button>
+    <button type="button" id="next-btn" class="btn btn-default" ng-click="next()">Next</button>
+    <br>
+    <br>
+    <button type="button" id="submit-btn" class="btn btn-success" ng-click="submit()" ng-show ="submitShow">Submit</button>
   </div>
   
 </div>
