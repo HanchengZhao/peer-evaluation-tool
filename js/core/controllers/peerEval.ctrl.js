@@ -4,6 +4,18 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
      $scope.process = 0;
      $scope.submitShow = false;
      
+    var user = firebase.auth().currentUser;
+    var name, email;
+    
+    if (user != null) {
+      name = user.displayName;
+      console.log(name);
+      email = user.email;
+      console.log(email);
+    }else{
+        $location.path("/");
+    }
+     
      //fetch all members' data
     firebase.database().ref("Students").on('value', function(snapshot) {
         var peerArray = [];
@@ -16,6 +28,16 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         })
         $scope.peers = nameArray;
     });
+    
+    
+     var display_questions = function(index){
+    
+    $scope.questionText = $scope.questionsArray[index].questionText;
+    $scope.low = ($scope.questionsArray[index].options !==undefined) ? $scope.questionsArray[index].options.low : '';
+    $scope.high = ($scope.questionsArray[index].options !==undefined) ? $scope.questionsArray[index].options.high : '';
+    console.log($scope.questionText);
+    
+    }
     
     firebase.database().ref("Quizzes/Quiz4/questions").once('value', function(snapshot) {
         var questionsArray = [];
@@ -34,17 +56,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             //   console.log(i + ':' + questions[i]);
           }
       })();
-      
-    var display_questions = function(index){
-    
-    $scope.questionText = $scope.questionsArray[index].questionText;
-    $scope.low = ($scope.questionsArray[index].options !==undefined) ? $scope.questionsArray[index].options.low : '';
-    $scope.high = ($scope.questionsArray[index].options !==undefined) ? $scope.questionsArray[index].options.high : '';
-    console.log($scope.questionText);
-    
-    }
-    
-    
+     
     var adjustProcess =function(index, length){
         $scope.process = Math.floor((index / length) * 100) + '%';
     }
@@ -62,7 +74,6 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         adjustProcess($scope.index, 13);
         
     }
-    
     
     $scope.next = function(){
         $scope.index += 1;

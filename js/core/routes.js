@@ -36,4 +36,10 @@ app.config(function($routeProvider){
         templateUrl: 'pages/about.html',
         controller: 'aboutCtrl'
     })
+    
+    .when('/invalid-login',{
+        templateUrl: 'pages/invalid_login.html',
+        controller: 'invalidCtrl'
+    })
+    
 })

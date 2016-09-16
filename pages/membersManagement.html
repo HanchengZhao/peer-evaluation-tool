@@ -14,12 +14,13 @@
           <table class="table">
             <tr> 
                 <th>Name</th> 
-                <th>Email Adress</th> 
+                <th>Email Address</th> 
                 <th>ID</th>
                 <th>Level</th>
                 <th>Grade Basis</th>
                 <th>Program and Plan</th>
                 <th>Units</th>
+                <th>Class</th>
             </tr> 
             <tr> 
                 <td><input type="text" class="form-control" ng-model="Name" required></input></td> 
@@ -28,7 +29,8 @@
                 <td><input type="text" class="form-control" ng-model="Level" required></input></td> 
                 <td><input type="text" class="form-control" ng-model="Grade_Basis" required></input></td> 
                 <td><input type="text" class="form-control" ng-model="Program_and_Plan" required></input></td> 
-                <td><input type="text" class="form-control" ng-model="Units" required></input></td> 
+                <td><input type="text" class="form-control" ng-model="Units" required></input></td>
+                <td><input type="text" class="form-control" ng-model="Class" required></input></td>
             </tr> 
             
           </table>
@@ -46,12 +48,13 @@
             <table class="table">
             <tr> 
                 <th>Name</th> 
-                <th>Email Adress</th> 
+                <th>Email Address</th> 
                 <th>ID</th>
                 <th>Level</th>
                 <th>Grade Basis</th>
                 <th>Program and Plan</th>
                 <th>Units</th>
+                <th>Class</th>
             </tr>
             <tr ng-repeat="(memberID, memberAttr) in members">
                 <td>{{memberAttr.Name}}</td> 
@@ -60,7 +63,8 @@
                 <td>{{memberAttr.Level}}</td> 
                 <td>{{memberAttr.Grade_Basis}}</td> 
                 <td>{{memberAttr.Program_and_Plan}}</td> 
-                <td>{{memberAttr.Units}}</td> 
+                <td>{{memberAttr.Units}}</td>
+                <td>{{memberAttr.Class}}</td>
                 <td><button type="button" class="btn btn-danger" ng-click="deleteMember(memberAttr.team, memberID)">Delete</button>
                 </td>
             </tr>

@@ -22,6 +22,7 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
         $scope.Grade_Basis='';
         $scope.Program_and_Plan='';
         $scope.Units='';
+        $scope.Class='';
     };
     
     $scope.saveMember = function(){
@@ -32,6 +33,7 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
     var Grade_Basis       = $scope.Grade_Basis;
     var Program_and_Plan   = $scope.Program_and_Plan;
     var Units       = $scope.Units;
+    var Class = $scope.Class;
     
     var newMember = {
        "Name": Name,
@@ -40,7 +42,8 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
        "Level": Level,
        "Grade_Basis": Grade_Basis,
        "Program_and_Plan": Program_and_Plan,
-       "Units": Units
+       "Units": Units,
+       "Class": Class
      };
      
      console.log(newMember);//debug

@@ -1,4 +1,4 @@
-app.controller("authCtrl", function($scope, $firebaseAuth, $route, $location) {
+app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",function($scope, $firebaseAuth, $route, $location, $q) {
   
   $scope.authObj = $firebaseAuth();
   
@@ -21,6 +21,28 @@ app.controller("authCtrl", function($scope, $firebaseAuth, $route, $location) {
       // An error happened.
     });
   })
+  
+  
+  $scope.isEmailValid = function(email){
+    var deferred = $q.defer();
+    firebase.database().ref("Students/")
+    .orderByChild('Email_Address')
+    .startAt(email)
+    .endAt(email)
+    .once('value').then(function(snapshot) {
+        if(!snapshot.val()){
+          deferred.resolve(false);
+        }else {
+          deferred.reject(true);
+        }
+    })
+    
+    return deferred.promise;
+  };
+  
+  
+
+  // }
   //display the image and username
   $scope.authObj.$onAuthStateChanged(function(firebaseUser) {
     if (firebaseUser) {
@@ -28,11 +50,20 @@ app.controller("authCtrl", function($scope, $firebaseAuth, $route, $location) {
       $scope.displayName = firebaseUser.displayName;
       $scope.profilePicUrl = firebaseUser.photoURL || 'images/profile_placeholder.png';
       $scope.email = firebaseUser.email;
+      console.log($scope.email);
+      
+      $scope.isEmailValid($scope.email).then(function(res){
+        //the email address is not valid
+        $location.path("/invalid-login");
+        },function(res){
+          //the email address is valid
+          $location.path("/peer-evaluation");
+      });
+      
       $scope.userPic = $('#user-pic');
       $scope.userPic.css('background-image', 'url(' + $scope.profilePicUrl + ')');
       console.log("Signed in as:", firebaseUser.displayName);
       $scope.route.reload();
-
     } else {
       $scope.firebaseUser = false;
       console.log("Signed out");
@@ -41,5 +72,9 @@ app.controller("authCtrl", function($scope, $firebaseAuth, $route, $location) {
 
     }
   });
+  
+ 
+  
 
-});
+
+}]);

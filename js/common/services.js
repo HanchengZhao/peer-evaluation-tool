@@ -22,4 +22,8 @@ app.service('firebaseService', function() {
         updates[ref +'/'+ newKey] = obj;
         return firebase.database().ref().update(updates);
     }
+    
+    // this.getAuthEmail = function(){
+    //     return firebase.UserInfo.email;
+    // }
 });
