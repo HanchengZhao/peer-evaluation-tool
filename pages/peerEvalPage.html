@@ -9,7 +9,7 @@
     </div>
   </div>
   <!--questions-->
-  <div class="panel panel-default">
+  <div class="panel panel-default" id="question">
     <div class="panel-heading">{{questionText}}</div>
     <div class="panel-body">
 
@@ -25,29 +25,13 @@
         </tr>
         </thead>
       <tbody>
-        <tr>
-          <td>John Doe</td>
-          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;1</label></td>
-          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;2</label></td>
-          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;3</label></td>
-          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;4</label></td>
-          <td><label><input type="radio" name="optradio">&nbsp;&nbsp;5</label></td>
-        </tr>
-         <tr>
-          <td>Jane Doe</td>
-          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;1</label></td>
-          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;2</label></td>
-          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;3</label></td>
-          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;4</label></td>
-          <td><label><input type="radio" name="optradio1">&nbsp;&nbsp;5</label></td>
-        </tr>
-         <tr>
-          <td>Jack Doe</td>
-          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;1</label></td>
-          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;2</label></td>
-          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;3</label></td>
-          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;4</label></td>
-          <td><label><input type="radio" name="optradio2">&nbsp;&nbsp;5</label></td>
+        <tr ng-repeat = "name in peers">
+          <td>{{name}}</td>
+          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='1'>&nbsp;&nbsp;1</label></td>
+          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='2'>&nbsp;&nbsp;2</label></td>
+          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='3'>&nbsp;&nbsp;3</label></td>
+          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='4'>&nbsp;&nbsp;4</label></td>
+          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='5'>&nbsp;&nbsp;5</label></td>
         </tr>
     </table>
     </div>

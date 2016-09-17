@@ -23,7 +23,8 @@ app.service('firebaseService', function() {
         return firebase.database().ref().update(updates);
     }
     
-    // this.getAuthEmail = function(){
-    //     return firebase.UserInfo.email;
+    // this.getStudentsData = function(){
+    //     firebase
     // }
+    
 });

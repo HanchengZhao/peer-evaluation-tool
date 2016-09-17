@@ -1,33 +1,84 @@
-app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$firebaseObject", "$firebaseArray", function($scope, $location, firebaseService, $firebaseObject, $firebaseArray ) {
+app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$firebaseObject", "$firebaseArray","$q", "$route",function($scope, $location, firebaseService, $firebaseObject, $firebaseArray, $q, $route) {
      
      $scope.index = 0;
      $scope.process = 0;
      $scope.submitShow = false;
-     
+     $scope.user;
     var user = firebase.auth().currentUser;
     var name, email;
     
     if (user != null) {
       name = user.displayName;
-      console.log(name);
       email = user.email;
-      console.log(email);
     }else{
         $location.path("/");
     }
-     
-     //fetch all members' data
-    firebase.database().ref("Students").on('value', function(snapshot) {
-        var peerArray = [];
-        var nameArray = [];
-        snapshot.forEach(function(record) {
-            peerArray.push(record.val()); // peerArray contains objects
-        });
-        peerArray.forEach(function(peer){
-            nameArray.push(peer.Name); 
-        })
-        $scope.peers = nameArray;
+    
+    $scope.getClassInfo = function(email){
+    var deferred = $q.defer();
+    firebase.database().ref("Students/ELEG_267")
+    .orderByChild("Email_Address")
+    .startAt(email)
+    .endAt(email)
+    .once('value').then(function(snapshot) {
+        if(snapshot.val()!== null){
+          deferred.resolve('ELEG_267');
+        }else {
+          firebase.database().ref("Students/ELEG_367")
+            .orderByChild("Email_Address")
+            .startAt(email)
+            .endAt(email)
+            .once('value').then(function(snapshot) {
+                if(snapshot.val()!== null){
+                  deferred.resolve('ELEG_367');
+                }else {
+                  firebase.database().ref("Students/ELEG_467")
+                  .orderByChild("Email_Address")
+                  .startAt(email)
+                  .endAt(email)
+                  .once('value').then(function(snapshot) {
+                      if(snapshot.val()!== null){
+                        deferred.resolve('ELEG_467');
+                      }else {
+                        deferred.reject(false);
+                      }
+                    });
+                }
+            });
+        }
     });
+    console.log(deferred.promise);
+    return deferred.promise;
+  };
+  
+   $scope.getClassInfo(email).then(function(res){
+       //the email address is valid
+          console.log("promise:" + res);
+          $scope.class = res;
+          fetchPeersName($scope.class);
+         
+        },function(res){
+          console.log("error" + res);
+      });;
+    
+     //fetch all members' data
+     var fetchPeersName = function(Class){
+        firebase.database().ref("Students/" + Class).once('value', function(snapshot) {
+            var peerArray = [];
+            var nameArray = [];
+            snapshot.forEach(function(record) {
+                peerArray.push(record.val()); // peerArray contains objects
+            });
+            peerArray.forEach(function(peer){
+                nameArray.push(peer.Name); 
+            })
+            $scope.peers = nameArray;
+            console.log($scope.peers);
+            $scope.$apply();//let angular know the change
+        
+        });
+     }
+    
     
     
      var display_questions = function(index){
@@ -49,13 +100,13 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     });
     
      
-      (function(){
-        var ref = firebase.database().ref("Quizzes/Quiz4/questions");
-      var questions = $firebaseArray(ref);
-          for(var i in questions){
-            //   console.log(i + ':' + questions[i]);
-          }
-      })();
+    //   (function(){
+    //     var ref = firebase.database().ref("Quizzes/Quiz4/questions");
+    //   var questions = $firebaseArray(ref);
+    //       for(var i in questions){
+    //         //   console.log(i + ':' + questions[i]);
+    //       }
+    //   })();
      
     var adjustProcess =function(index, length){
         $scope.process = Math.floor((index / length) * 100) + '%';
@@ -70,6 +121,8 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         // $scope.submitShow = false;
         if($scope.index === 0){
             $('#previous-btn').prop('disabled', true);
+        }else{
+            $("html, body").animate({ scrollTop: 0 }, "fast"); // scoll to the top of the page
         }
         adjustProcess($scope.index, 13);
         
@@ -82,8 +135,11 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
          if($scope.index >= 13){
             $('#next-btn').prop('disabled', true);
             $scope.submitShow = true;
+        }else{
+            $("html, body").animate({ scrollTop: 0 }, "fast");
         }
         adjustProcess($scope.index, 13);
+        
     }
   
 }]);
