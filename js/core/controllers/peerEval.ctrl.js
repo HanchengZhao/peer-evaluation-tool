@@ -4,10 +4,14 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
      $scope.process = 0;
      $scope.submitShow = false;
      $scope.user;
+     $scope.scale = true;
+     $scope.bonus = false;
+     $scope.comment = false;
+     
     var user = firebase.auth().currentUser;
     var name, email;
     
-    if (user != null) {
+    if (user != null) {//verify whether the user has logged in
       name = user.displayName;
       email = user.email;
     }else{
@@ -22,6 +26,10 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     .endAt(email)
     .once('value').then(function(snapshot) {
         if(snapshot.val()!== null){
+            //get the user's name
+            snapshot.forEach(function(record){
+                $scope.username = record.val().Name;
+            })
           deferred.resolve('ELEG_267');
         }else {
           firebase.database().ref("Students/ELEG_367")
@@ -30,6 +38,11 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             .endAt(email)
             .once('value').then(function(snapshot) {
                 if(snapshot.val()!== null){
+                    //get the user's name
+                    snapshot.forEach(function(record){
+                        $scope.username = record.val().Name;
+                    })
+                    
                   deferred.resolve('ELEG_367');
                 }else {
                   firebase.database().ref("Students/ELEG_467")
@@ -38,6 +51,10 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
                   .endAt(email)
                   .once('value').then(function(snapshot) {
                       if(snapshot.val()!== null){
+                        //get the user's name
+                        snapshot.forEach(function(record){
+                            $scope.username = record.val().Name;
+                        })
                         deferred.resolve('ELEG_467');
                       }else {
                         deferred.reject(false);
@@ -47,13 +64,13 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             });
         }
     });
-    console.log(deferred.promise);
+    // console.log(deferred.promise);
     return deferred.promise;
   };
   
    $scope.getClassInfo(email).then(function(res){
        //the email address is valid
-          console.log("promise:" + res);
+        //   console.log("promise:" + res);
           $scope.class = res;
           fetchPeersName($scope.class);
          
@@ -72,8 +89,12 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             peerArray.forEach(function(peer){
                 nameArray.push(peer.Name); 
             })
+            
+            var index = nameArray.indexOf($scope.username);
+            nameArray.splice(index,1);//get rid of user's name
+            
             $scope.peers = nameArray;
-            console.log($scope.peers);
+            // console.log($scope.peers);
             $scope.$apply();//let angular know the change
         
         });
@@ -86,7 +107,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     $scope.questionText = $scope.questionsArray[index].questionText;
     $scope.low = ($scope.questionsArray[index].options !==undefined) ? $scope.questionsArray[index].options.low : '';
     $scope.high = ($scope.questionsArray[index].options !==undefined) ? $scope.questionsArray[index].options.high : '';
-    console.log($scope.questionText);
+    // console.log($scope.questionText);
     
     }
     
@@ -99,14 +120,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         display_questions($scope.index);
     });
     
-     
-    //   (function(){
-    //     var ref = firebase.database().ref("Quizzes/Quiz4/questions");
-    //   var questions = $firebaseArray(ref);
-    //       for(var i in questions){
-    //         //   console.log(i + ':' + questions[i]);
-    //       }
-    //   })();
+    
      
     var adjustProcess =function(index, length){
         $scope.process = Math.floor((index / length) * 100) + '%';
@@ -119,6 +133,20 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         display_questions($scope.index);
         $('#next-btn').prop('disabled', false);
         // $scope.submitShow = false;
+        if($scope.index === 12 ){
+            $scope.scale = false;
+            $scope.bonus = true;
+            $scope.comment = false;
+        }else if($scope.index === 13){
+            $scope.scale = false;
+            $scope.bonus = false;
+            $scope.comment = true;
+        }else{
+            $scope.scale = true;
+            $scope.bonus = false;
+            $scope.comment = false;
+        }
+        
         if($scope.index === 0){
             $('#previous-btn').prop('disabled', true);
         }else{
@@ -132,11 +160,24 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         $scope.index += 1;
         display_questions($scope.index);
         $('#previous-btn').prop('disabled', false);
+        $("html, body").animate({ scrollTop: 0 }, "fast");
+        if($scope.index === 12 ){
+            $scope.scale = false;
+            $scope.bonus = true;
+            $scope.comment = false;
+        }else if($scope.index === 13){
+            $scope.scale = false;
+            $scope.bonus = false;
+            $scope.comment = true;
+        }else{
+            $scope.scale = true;
+            $scope.bonus = false;
+            $scope.comment = false;
+        }
          if($scope.index >= 13){
             $('#next-btn').prop('disabled', true);
             $scope.submitShow = true;
-        }else{
-            $("html, body").animate({ scrollTop: 0 }, "fast");
+            
         }
         adjustProcess($scope.index, 13);
         

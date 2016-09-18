@@ -1,5 +1,15 @@
 app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
     
+    var user = firebase.auth().currentUser;
+    var name, email;
+    
+    if (user != null) {//verify whether the user has logged in
+      name = user.displayName;
+      email = user.email;
+    }else{
+        $location.path("/");
+    }
+    
     $scope.team = ['ELEG_267','ELEG_367', 'ELEG_467']
     $scope.teamSelected;
     firebase.database().ref("Students").on('value', function(snapshot) {

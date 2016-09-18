@@ -7,7 +7,7 @@
     <div class="progress-bar" role="progressbar" aria-valuenow="{{process}}" aria-valuemin="0" aria-valuemax="100" style="width: {{process}};">
       {{process}}
     </div>
-  </div>
+  </div> 
   <!--questions-->
   <div class="panel panel-default" id="question">
     <div class="panel-heading">{{questionText}}</div>
@@ -17,21 +17,30 @@
         <thead>
         <tr>
           <th class="col-md-2">Name</th>
-          <th class="col-md-2">{{low}}</th>
-          <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-          <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-          <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-          <th class="col-md-2">{{high}}</th>
+          <!--scale questions-->
+          <th ng-if = "scale" class="col-md-2">{{low}}</th>
+          <th ng-if = "scale">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th ng-if = "scale">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th ng-if = "scale">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+          <th ng-if = "scale" class="col-md-2">{{high}}</th>
+          
+          <th ng-if = "bonus" class="col-md-2">Bonus</th>
+          <th ng-if = "comment" class="col-md-2">Comments</th>
         </tr>
         </thead>
       <tbody>
         <tr ng-repeat = "name in peers">
           <td>{{name}}</td>
-          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='1'>&nbsp;&nbsp;1</label></td>
-          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='2'>&nbsp;&nbsp;2</label></td>
-          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='3'>&nbsp;&nbsp;3</label></td>
-          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='4'>&nbsp;&nbsp;4</label></td>
-          <td><label><input type="radio" name="{{questionText}} for {{name}}" value='5'>&nbsp;&nbsp;5</label></td>
+          <!--scale question-->
+          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='1'>&nbsp;&nbsp;1</label></td>
+          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='2'>&nbsp;&nbsp;2</label></td>
+          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='3'>&nbsp;&nbsp;3</label></td>
+          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='4'>&nbsp;&nbsp;4</label></td>
+          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='5'>&nbsp;&nbsp;5</label></td>
+          
+          <th ng-if = "bonus"><label for=""><input type="number" min="0" max="10000" id="{{name}}'s bonus" value="0"></input></label></th>
+          <th ng-if = "comment"><textarea class="form-control" rows="2" id="{{name}}'s comment"></textarea></th>
+        
         </tr>
     </table>
     </div>
@@ -41,8 +50,30 @@
     <button type="button" id="next-btn" class="btn btn-default" ng-click="next()">Next</button>
     <br>
     <br>
-    <button type="button" id="submit-btn" class="btn btn-success" ng-click="submit()" ng-show ="submitShow">Submit</button>
+    <button type="button" id="submit-btn" class="btn btn-success" ng-click="submit()" ng-show ="submitShow" data-toggle="modal" data-target="#submitModal">Submit</button>
   </div>
+  
+   <!-- Modal -->
+  <div class="modal fade" id="submitModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Thanks for your time!</h4>
+        </div>
+        <div class="modal-body">
+          <p>Your answers have been submitted.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
   
 </div>
   

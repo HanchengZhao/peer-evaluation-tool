@@ -22,23 +22,6 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
     });
   })
   
-  
-  // $scope.isEmailValid = function(email){
-  //   var deferred = $q.defer();
-  //   firebase.database().ref("Students/All_Members")
-  //   .orderByChild("Email_Address")
-  //   .startAt(email)
-  //   .endAt(email)
-  //   .once('value').then(function(snapshot) {
-  //       if(snapshot.val()!== null){
-  //         deferred.resolve(true);
-  //       }else {
-  //         deferred.reject(false);
-  //       }
-  //   })
-    
-  //   return deferred.promise;
-  // };
    $scope.isEmailValid = function(email){
     var deferred = $q.defer();
     firebase.database().ref("Students/ELEG_267")
