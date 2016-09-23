@@ -7,6 +7,9 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
      $scope.scale = true;
      $scope.bonus = false;
      $scope.comment = false;
+     $scope.answers = {
+         
+     };
      
     var user = firebase.auth().currentUser;
     var name, email;
@@ -100,7 +103,9 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         });
      }
     
-    
+    $scope.radiovalue = function(answers){
+        console.log(answers);
+    }
     
      var display_questions = function(index){
     
@@ -117,6 +122,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             questionsArray.push(record.val());
         });
         $scope.questionsArray = questionsArray;
+        console.log($scope.questionsArray);
         display_questions($scope.index);
     });
     
@@ -182,5 +188,22 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         adjustProcess($scope.index, 13);
         
     }
-  
+    $scope.lastQuestion = function(){
+        $scope.index = 13
+        $scope.scale = false;
+        $scope.bonus = false;
+        $scope.comment = true;
+        $('#previous-btn').prop('disabled', false);
+        $('#next-btn').prop('disabled', true);
+        $scope.submitShow = true;
+        adjustProcess($scope.index, 13);
+    }
+    
+    $scope.submit = function(){
+        var ref = "Answers/" + $scope.class + "/" + $scope.username;
+        firebaseService.pushData(ref,$scope.answers);
+    }
+    
+    
+    
 }]);

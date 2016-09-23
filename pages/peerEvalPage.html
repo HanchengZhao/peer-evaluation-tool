@@ -12,7 +12,6 @@
   <div class="panel panel-default" id="question">
     <div class="panel-heading">{{questionText}}</div>
     <div class="panel-body">
-
       <table class="table table-hover table-striped">
         <thead>
         <tr>
@@ -32,22 +31,23 @@
         <tr ng-repeat = "name in peers">
           <td>{{name}}</td>
           <!--scale question-->
-          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='1'>&nbsp;&nbsp;1</label></td>
-          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='2'>&nbsp;&nbsp;2</label></td>
-          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='3'>&nbsp;&nbsp;3</label></td>
-          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='4'>&nbsp;&nbsp;4</label></td>
-          <td ng-if = "scale"><label><input type="radio" name="{{questionText}} for {{name}}" value='5'>&nbsp;&nbsp;5</label></td>
-          
-          <th ng-if = "bonus"><label for=""><input type="number" min="0" max="10000" id="{{name}}'s bonus" value="0"></input></label></th>
-          <th ng-if = "comment"><textarea class="form-control" rows="2" id="{{name}}'s comment"></textarea></th>
+          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='1' ng-click="radiovalue(answers)">&nbsp;&nbsp;1</label></td>
+          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='2' ng-click="radiovalue(answers)">&nbsp;&nbsp;2</label></td>
+          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='3' ng-click="radiovalue(answers)">&nbsp;&nbsp;3</label></td>
+          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='4' ng-click="radiovalue(answers)">&nbsp;&nbsp;4</label></td>
+          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='5' ng-click="radiovalue(answers)">&nbsp;&nbsp;5</label></td>
+      
+          <td ng-if = "bonus"><label for=""><input type="number" min="0" max="10000" id="{{name}}'s bonus" ng-model = "answers[name][index+1]" value="0"></input></label></td>
+          <td ng-if = "comment"><textarea class="form-control" rows="2" id="{{name}}'s comment" ng-model = "answers[name][index+1]"></textarea></td>
         
         </tr>
     </table>
     </div>
   </div>
   <div class="pull-right">
-    <button type="button" id="previous-btn" class="btn btn-default" ng-click="previous()" disabled>Previous</button>
-    <button type="button" id="next-btn" class="btn btn-default" ng-click="next()">Next</button>
+    <button type="button" id="previous-btn" class="btn btn-default" ng-click="previous()" disabled> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>Previous</button>
+    <button type="button" id="next-btn" class="btn btn-default" ng-click="next()">Next <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button>
+    <button type="button" id="lastQuestion-btn" class="btn btn-default " ng-click="lastQuestion()"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>&nbsp;The last quetion</button>
     <br>
     <br>
     <button type="button" id="submit-btn" class="btn btn-success" ng-click="submit()" ng-show ="submitShow" data-toggle="modal" data-target="#submitModal">Submit</button>
@@ -78,39 +78,3 @@
 </div>
   
   
-    <!-- <section>-->
-    <!--  <h4>Select a peer:</h4>-->
-    <!--  <select ng-options="peer for peer in peers" ng-model="peerSelected" class="btn btn-primary dropdown-toggle">-->
-    <!--    <option value=''>--Peers--</option>-->
-    <!--  </select>-->
-    <!--  <hr>-->
-    <!--</section>-->
-    <!--    <div ng-repeat="(questionId, question) in questions track by $index" id="list">-->
-           <!--LinearScale-->
-    <!--      <div ng-if="question.type == 'LinearScale'">-->
-    <!--        <linear-scale question="question.questionText" low="question.options.low" high="question.options.high" name="{{$index}}" -->
-    <!--        input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)"></linear-scale>-->
-    <!--      </div>-->
-          
-            <!--Paragraph-->
-    <!--      <div ng-if="question.type == 'Paragraph'">-->
-    <!--          <paragraph question="question.questionText"  input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)"></paragraph>-->
-    <!--      </div>-->
-            
-      <!--multiChoices-->
-    <!--      <div ng-if="question.type == 'MultipleChoices'">-->
-    <!--        <multi-choices question="question.questionText" input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)" multi-options="question.options"></multi-choices>-->
-    <!--      </div>-->
-          
-          <!--dropdown-->
-    <!--      <div ng-if="question.type == 'dropdown'">-->
-    <!--        <dropdown question="question.questionText" input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)" dropdowns="question.options"></dropdown>-->
-    <!--      </div>-->
-          
-          <!--checkbox-->
-    <!--      <div ng-if="question.type == 'checkbox'">-->
-    <!--        <checkbox question="question.questionText" input-show="false" button-show="false" unique-id="questionId" delete-question-function="deleteQuestion(qid)" checkboxes="question.options"></checkbox>-->
-    <!--      </div>-->
-    <!--   </div><!--questions-->   
-       
-    <!--   <button type="button" class="btn btn-primary pull-right">Submit</button>-->
