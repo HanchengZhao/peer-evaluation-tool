@@ -76,32 +76,41 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         //   console.log("promise:" + res);
           $scope.class = res;
           fetchPeersName($scope.class);
+          fetchSubmittedAnswers();
          
         },function(res){
           console.log("error" + res);
       });;
     
      //fetch all members' data
-     var fetchPeersName = function(Class){
-        firebase.database().ref("Students/" + Class).once('value', function(snapshot) {
-            var peerArray = [];
-            var nameArray = [];
-            snapshot.forEach(function(record) {
-                peerArray.push(record.val()); // peerArray contains objects
-            });
-            peerArray.forEach(function(peer){
-                nameArray.push(peer.Name); 
-            })
-            
-            var index = nameArray.indexOf($scope.username);
-            nameArray.splice(index,1);//get rid of user's name
-            
-            $scope.peers = nameArray;
-            // console.log($scope.peers);
-            $scope.$apply();//let angular know the change
-        
+    var fetchPeersName = function(Class){
+    firebase.database().ref("Students/" + Class).once('value', function(snapshot) {
+        var peerArray = [];
+        var nameArray = [];
+        snapshot.forEach(function(record) {
+            peerArray.push(record.val()); // peerArray contains objects
         });
-     }
+        peerArray.forEach(function(peer){
+            nameArray.push(peer.Name); 
+        })
+        
+        var index = nameArray.indexOf($scope.username);
+        nameArray.splice(index,1);//get rid of user's name
+        
+        $scope.peers = nameArray;
+        // console.log($scope.peers);
+        $scope.$apply();//let angular know the change
+    
+    });
+    }
+    
+    var fetchSubmittedAnswers = function(){
+           // get students submitted answers
+        firebase.database().ref("Answers/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
+            $scope.answers = snapshot.val();
+             $scope.$apply();
+        })
+    }
     
     $scope.radiovalue = function(answers){
         console.log(answers);
@@ -125,6 +134,10 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         console.log($scope.questionsArray);
         display_questions($scope.index);
     });
+    
+  ;
+    
+    
     
     
      
@@ -195,13 +208,14 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         $scope.comment = true;
         $('#previous-btn').prop('disabled', false);
         $('#next-btn').prop('disabled', true);
+        $("html, body").animate({ scrollTop: 0 }, "fast");
         $scope.submitShow = true;
         adjustProcess($scope.index, 13);
     }
     
     $scope.submit = function(){
         var ref = "Answers/" + $scope.class + "/" + $scope.username;
-        firebaseService.pushData(ref,$scope.answers);
+        firebaseService.pushData(ref, $scope.answers);
     }
     
     

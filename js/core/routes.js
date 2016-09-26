@@ -22,6 +22,11 @@ app.config(function($routeProvider){
         controller: 'membersManagementCtrl'
     })
     
+    .when('/evaluation-results',{
+        templateUrl: 'pages/evaluationResults.html',
+        controller: 'evaluationResultsCtrl'
+    })
+    
     .when('/student-page',{
         templateUrl: 'pages/studentPage.html',
         controller: 'studentCtrl'

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="jumbotron">
+      <h1 style="text-align: center">Peer Evaluation Result</h1>
+    </div>
+    <ol class="breadcrumb">
+      <li>
+        <select ng-model="teamSelected" class="btn btn-default dropdown-toggle">
+            <option value=''>--Choose the Group--</option>
+            <option value='ELEG_267'>E-Textile</option>
+            <option value='ELEG_367'>Cloud Crypto</option>
+            <option value='ELEG_467'>Grid-Integrated Vehicles</option>
+        </select>
+      </li>
+      <li>
+        <select ng-options="item for item in students" ng-model="studentName" class="btn btn-default dropdown-toggle pull-right">
+            <option value=''>--Choose a student--</option>
+        </select>
+      </li>
+     
+    </ol>
+    
+    
+</div>

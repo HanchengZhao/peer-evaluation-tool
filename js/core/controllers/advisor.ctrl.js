@@ -1,4 +1,4 @@
-app.controller('advisorCtrl', ['$scope', 'firebaseService', function($scope, firebaseService) {
+app.controller('advisorCtrl', ['$scope', 'firebaseService', '$location', function($scope, firebaseService, $location) {
     var user = firebase.auth().currentUser;
     var name, email;
     
