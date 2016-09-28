@@ -166,7 +166,19 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
   ;
     
     
-    
+    // bonus part:
+    $scope.money = 10000;
+    var bonusChange = function(){
+        var bonus = 0;
+        $(".bonus input[type=number]").each(function(index){
+              bonus += parseInt($(this).val());
+          });
+         if (bonus > 10000){
+              alert("You have paid more than $10000, please fix before getting broke!");
+          }
+        $scope.money -= bonus;
+    }
+    $(".bonus input[type=number]").change(bonusChange);
     
      
     var adjustProcess =function(index, length){

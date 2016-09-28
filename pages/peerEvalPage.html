@@ -45,6 +45,7 @@
     <div class="panel panel-default" id="question" >
       <div class="panel-heading">{{questionText}}</div>
       <div class="panel-body">
+        <h5 ng-if= "bonus">You have <span class="label label-warning">${{money}}</span> left</h5>
         <table class="table table-hover table-striped">
           <thead>
           <tr>
@@ -70,7 +71,7 @@
             <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='4' ng-click="radiovalue(answers)" required>&nbsp;&nbsp;4</label></td>
             <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='5' ng-click="radiovalue(answers)" required>&nbsp;&nbsp;5</label></td>
         
-            <td ng-if = "bonus"><label for=""><input type="number" min="0" max="10000" id="{{name}}'s bonus" ng-model = "answers[name][index+1]" value="0" required></input></label></td>
+            <td ng-if = "bonus"><label for=""><input type="number" min="0" max="10000" class = "bonus" ng-model = "answers[name][index+1]" value="0" required></input></label></td>
             <td ng-if = "comment"><textarea class="form-control" rows="3" id="{{name}}'s comment" ng-model = "answers[name][index+1]" required></textarea></td>
           
           </tr>
