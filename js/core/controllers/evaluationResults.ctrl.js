@@ -56,5 +56,20 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
     console.log(report["Betters,Mark Nathan"].results);
     
     
+    firebase.database().ref("Quizzes/Quiz4/questions").once('value', function(snapshot) {
+        var questionsArray = [];
+        snapshot.forEach(function(record) {
+            questionsArray.push(record.val());
+        });
+        getQuestionText(questionsArray);
+    });
+    
+    var getQuestionText = function(questionsArray){
+      $scope.questions = [];
+      for(var i = 0; i <= 13; i++){
+        $scope.questions.push(questionsArray[i].questionText);
+      }
+    }
+    
     
 }]);

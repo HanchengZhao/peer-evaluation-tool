@@ -1,15 +1,17 @@
 app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$firebaseObject", "$firebaseArray","$q", "$route",function($scope, $location, firebaseService, $firebaseObject, $firebaseArray, $q, $route) {
      
-     $scope.index = 0;
-     $scope.process = 0;
-     $scope.submitShow = false;
-     $scope.user;
-     $scope.scale = true;
-     $scope.bonus = false;
-     $scope.comment = false;
-     $scope.answers = {
-         
-     };
+    $scope.index = 0;
+    $scope.process = 0;
+    $scope.submitted = false;
+    $scope.submitShow = false;
+    $scope.user;
+    $scope.scale = true;
+    $scope.bonus = false;
+    $scope.comment = false;
+    $scope.subgroup = [];
+    $scope.answers = {
+        
+    };
      
     var user = firebase.auth().currentUser;
     var name, email;
@@ -76,8 +78,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         //   console.log("promise:" + res);
           $scope.class = res;
           fetchPeersName($scope.class);
-          fetchSubmittedAnswers();
-         
+          fetchSubgroup();
         },function(res){
           console.log("error" + res);
       });;
@@ -104,11 +105,38 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     });
     }
     
+    
+    
+    $scope.addToSubgroup = function(name){
+        $scope.subgroup.push(name);
+        console.log($scope.subgroup);
+    }
+    
+    $scope.chosenSub = function(){
+        $scope.submitted = true;
+        var ref = "Subgroups/" + $scope.class + "/" + $scope.username;
+        firebaseService.pushData(ref, $scope.subgroup);
+    }
+    
+    var fetchSubgroup = function(){
+        firebase.database().ref("Subgroups/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
+            if(snapshot.val() !== null){
+                $scope.submitted = true;
+                $scope.subgroup = snapshot.val();
+                fetchSubmittedAnswers();
+            }
+            $scope.$apply();
+        })
+    }
+    
     var fetchSubmittedAnswers = function(){
            // get students submitted answers
         firebase.database().ref("Answers/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
             $scope.answers = snapshot.val();
-             $scope.$apply();
+            $scope.$apply();
+        },function(err){
+            console.log(err);
+            
         })
     }
     
@@ -214,6 +242,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     }
     
     $scope.submit = function(){
+        console.log($scope.answers);
         var ref = "Answers/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.answers);
     }

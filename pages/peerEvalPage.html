@@ -2,56 +2,96 @@
   
   <h3 class="center">Student Peer Evaluation</h2>
   <br />
-  <p class="col-md-1">Progress:</p>
-  <div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="{{process}}" aria-valuemin="0" aria-valuemax="100" style="width: {{process}};">
-      {{process}}
-    </div>
-  </div> 
-  <!--questions-->
-  <div class="panel panel-default" id="question">
-    <div class="panel-heading">{{questionText}}</div>
-    <div class="panel-body">
-      <table class="table table-hover table-striped">
-        <thead>
-        <tr>
-          <th class="col-md-2">Name</th>
-          <!--scale questions-->
-          <th ng-if = "scale" class="col-md-2">{{low}}</th>
-          <th ng-if = "scale">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-          <th ng-if = "scale">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-          <th ng-if = "scale">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-          <th ng-if = "scale" class="col-md-2">{{high}}</th>
-          
-          <th ng-if = "bonus" class="col-md-2">Bonus</th>
-          <th ng-if = "comment" class="col-md-2">Comments</th>
-        </tr>
-        </thead>
-      <tbody>
-        <tr ng-repeat = "name in peers">
-          <td>{{name}}</td>
-          <!--scale question-->
-          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='1' ng-click="radiovalue(answers)">&nbsp;&nbsp;1</label></td>
-          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='2' ng-click="radiovalue(answers)">&nbsp;&nbsp;2</label></td>
-          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='3' ng-click="radiovalue(answers)">&nbsp;&nbsp;3</label></td>
-          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='4' ng-click="radiovalue(answers)">&nbsp;&nbsp;4</label></td>
-          <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='5' ng-click="radiovalue(answers)">&nbsp;&nbsp;5</label></td>
-      
-          <td ng-if = "bonus"><label for=""><input type="number" min="0" max="10000" id="{{name}}'s bonus" ng-model = "answers[name][index+1]" value="0"></input></label></td>
-          <td ng-if = "comment"><textarea class="form-control" rows="2" id="{{name}}'s comment" ng-model = "answers[name][index+1]"></textarea></td>
+  
+  <div ng-if="!submitted">
+    <!--Choose subgroup peers-->
+    <p class="col-md-1" ng-if="class == 'ELEG_467'"><label >Here are peers from Grid Integrated-Vehicles</label></p>
+    <p class="col-md-1" ng-if="class == 'ELEG_267'"><label>Here are peers from E-Textiles</label></p>
+    <p class="col-md-1" ng-if="class == 'ELEG_367'"><label>Here are peers from Cloud Crypto</label></p>
+    <div class="panel panel-default" id="question">
+      <div class="panel-heading">Do you Know this person? Please choose the guy in your subgroup.</div>
+      <div class="panel-body">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th class="col-md-2">Name</th>
+              <th class="col-md-2">Click if you know her/him.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat = "name in peers">
+              <td>{{name}}</td>
+              <!--scale question-->
+              <td><input type="checkbox" name="{{name}}" value='{{name}}' ng-click="addToSubgroup(name)">&nbsp;&nbsp;&nbsp; I know this person</td>
+            </tr>
+          <tbody>
+        </table>
+        <button type="button" class="btn btn-success pull-right" ng-click="chosenSub()"> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>Done</button>
+      </div>
+    </div><!--questions-->
+  </div>
+  
+  
+  <div ng-if="submitted">
+    <p class="col-md-1"><label>Progress:</label></p>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{process}}" aria-valuemin="0" aria-valuemax="100" style="width: {{process}};">
+        {{process}}
+      </div>
+    </div> 
+    <!--questions-->
+    <form name = "myForm">
+    <!--<p>{{myForm.$valid}}</p>-->
+    <div class="panel panel-default" id="question" >
+      <div class="panel-heading">{{questionText}}</div>
+      <div class="panel-body">
+        <table class="table table-hover table-striped">
+          <thead>
+          <tr>
+            <th class="col-md-2">Name</th>
+            <!--scale questions-->
+            <th ng-if = "scale" class="col-md-2">{{low}}</th>
+            <th ng-if = "scale">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th ng-if = "scale">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th ng-if = "scale">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th ng-if = "scale" class="col-md-2">{{high}}</th>
+            
+            <th ng-if = "bonus" class="col-md-2">Bonus</th>
+            <th ng-if = "comment" class="col-md-2">Comments</th>
+          </tr>
+          </thead>
+        <tbody>
+          <tr ng-repeat = "name in subgroup" >
+            <td>{{name}}</td>
+            <!--scale question-->
+            <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='1' ng-click="radiovalue(answers)" required>&nbsp;&nbsp;1</label></td>
+            <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='2' ng-click="radiovalue(answers)" required>&nbsp;&nbsp;2</label></td>
+            <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='3' ng-click="radiovalue(answers)" required>&nbsp;&nbsp;3</label></td>
+            <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='4' ng-click="radiovalue(answers)" required>&nbsp;&nbsp;4</label></td>
+            <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='5' ng-click="radiovalue(answers)" required>&nbsp;&nbsp;5</label></td>
         
-        </tr>
-    </table>
-    </div>
-  </div>
-  <div class="pull-right">
-    <button type="button" id="previous-btn" class="btn btn-default" ng-click="previous()" disabled> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>Previous</button>
-    <button type="button" id="next-btn" class="btn btn-default" ng-click="next()">Next <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button>
-    <button type="button" id="lastQuestion-btn" class="btn btn-default " ng-click="lastQuestion()"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>&nbsp;The last quetion</button>
-    <br>
-    <br>
-    <button type="button" id="submit-btn" class="btn btn-success" ng-click="submit()" ng-show ="submitShow" data-toggle="modal" data-target="#submitModal">Submit</button>
-  </div>
+            <td ng-if = "bonus"><label for=""><input type="number" min="0" max="10000" id="{{name}}'s bonus" ng-model = "answers[name][index+1]" value="0" required></input></label></td>
+            <td ng-if = "comment"><textarea class="form-control" rows="3" id="{{name}}'s comment" ng-model = "answers[name][index+1]" required></textarea></td>
+          
+          </tr>
+        <tbody>
+      </table>
+      </div>
+    </div><!--questions-->
+    <div class="pull-right">
+      <button type="button" id="previous-btn" class="btn btn-default" ng-click="previous()" disabled> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>Previous</button>
+      <button type="button" id="next-btn" class="btn btn-default" ng-click="next()">Next <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button>
+      <button type="button" id="lastQuestion-btn" class="btn btn-default " ng-click="lastQuestion()"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>&nbsp;The last quetion</button>
+      <br>
+      <br>
+      <button type="button" id="submit-btn" class="btn btn-success pull-right" ng-click="submit()" ng-show ="submitShow" data-toggle="modal" data-target="#submitModal">Submit</button>
+      <br>
+      <br>
+    </div><!--buttons-->
+  </div><!--questionaire-->
+  </form>
+  
+  
   
    <!-- Modal -->
   <div class="modal fade" id="submitModal" role="dialog">
