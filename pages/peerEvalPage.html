@@ -5,9 +5,10 @@
   
   <div ng-if="!submitted">
     <!--Choose subgroup peers-->
-    <p class="col-md-1" ng-if="class == 'ELEG_467'"><label >Here are peers from Grid Integrated-Vehicles</label></p>
-    <p class="col-md-1" ng-if="class == 'ELEG_267'"><label>Here are peers from E-Textiles</label></p>
-    <p class="col-md-1" ng-if="class == 'ELEG_367'"><label>Here are peers from Cloud Crypto</label></p>
+    <p class="center" ng-if="class == 'ELEG_467'"><label >Here are peers from Grid Integrated-Vehicles</label></p>
+    <p class="center" ng-if="class == 'ELEG_267'"><label>Here are peers from E-Textiles</label></p>
+    <p class="center" ng-if="class == 'ELEG_367'"><label>Here are peers from Cloud Crypto</label></p>
+    
     <div class="panel panel-default" id="question">
       <div class="panel-heading">Do you Know this person? Please choose the guy in your subgroup.</div>
       <div class="panel-body">
@@ -71,38 +72,36 @@
             <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='4' ng-click="radiovalue(answers)" required>&nbsp;&nbsp;4</label></td>
             <td ng-if = "scale"><label><input type="radio" name="{{name}}_q{{index}}" ng-model = "answers[name][index+1]" value='5' ng-click="radiovalue(answers)" required>&nbsp;&nbsp;5</label></td>
         
-            <td ng-if = "bonus"><label for=""><input type="number" min="0" max="10000" class = "bonus" ng-model = "answers[name][index+1]" value="0" required></input></label></td>
+            <td ng-if = "bonus"><label><input type="number" min="0" max="10000" ng-change="bonusChange()" ng-model = "answers[name][index+1]" value="0" required></label></td>
             <td ng-if = "comment"><textarea class="form-control" rows="3" id="{{name}}'s comment" ng-model = "answers[name][index+1]" required></textarea></td>
-          
+            
           </tr>
-        <tbody>
+        </tbody>
       </table>
       </div>
     </div><!--questions-->
     <div class="pull-right">
       <button type="button" id="previous-btn" class="btn btn-default" ng-click="previous()" disabled> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>Previous</button>
-      <button type="button" id="next-btn" class="btn btn-default" ng-click="next()">Next <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button>
+      <button type="button" id="next-btn" class="btn btn-default" ng-click="next(myForm.$valid)">Next <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button>
       <button type="button" id="lastQuestion-btn" class="btn btn-default " ng-click="lastQuestion()"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>&nbsp;The last quetion</button>
       <br>
       <br>
-      <button type="button" id="submit-btn" class="btn btn-success pull-right" ng-click="submit()" ng-show ="submitShow" data-toggle="modal" data-target="#submitModal">Submit</button>
+      <button type="button" id="submit-btn" class="btn btn-success pull-right" ng-click="submit(myForm.$valid)" ng-show ="submitShow && myForm.$valid" data-toggle="modal" data-target="#submitModal">Submit</button>
       <br>
       <br>
     </div><!--buttons-->
   </div><!--questionaire-->
-  </form>
   
   
-  
-   <!-- Modal -->
+     <!-- Modal -->
   <div class="modal fade" id="submitModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
-      <div class="modal-content">
+      <div class="modal-content" >
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Thanks for your time!</h4>
+          <h4 class="modal-title" >Thanks for your time!</h4>
         </div>
         <div class="modal-body">
           <p>Your answers have been submitted.</p>
@@ -114,6 +113,11 @@
       
     </div>
   </div>
+  </form>
+  
+  
+  
+
   
   
 </div>

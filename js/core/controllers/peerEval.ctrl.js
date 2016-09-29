@@ -163,35 +163,38 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         display_questions($scope.index);
     });
     
-  ;
+  
     
     
     // bonus part:
     $scope.money = 10000;
-    var bonusChange = function(){
-        var bonus = 0;
-        $(".bonus input[type=number]").each(function(index){
-              bonus += parseInt($(this).val());
-          });
-         if (bonus > 10000){
-              alert("You have paid more than $10000, please fix before getting broke!");
-          }
-        $scope.money -= bonus;
-    }
-    $(".bonus input[type=number]").change(bonusChange);
     
-     
+    $scope.bonusChange = function(){
+        var bonus = 0;
+        $("input[type=number]").each(function(index){
+            var points = ($(this).val() == "") ? 0 : $(this).val();//avoid NaN problem
+            bonus += parseInt(points);
+        });
+        if (bonus > 10000){
+            alert("You have paid more than $10000, please fix before getting broke!");
+        }
+        $scope.money = 10000 - bonus;
+    };
+    // $("input[type=number]").change(function(){
+    //     console.log("bonus change!");
+    //     bonusChange();
+    // });
+
     var adjustProcess =function(index, length){
         $scope.process = Math.floor((index / length) * 100) + '%';
-    }
-    
-    
+    };
+
+    //Buttons
     $scope.previous = function(){
-        
         $scope.index -= 1;
         display_questions($scope.index);
         $('#next-btn').prop('disabled', false);
-        // $scope.submitShow = false;
+        $scope.submitShow = false;
         if($scope.index === 12 ){
             $scope.scale = false;
             $scope.bonus = true;
@@ -215,31 +218,39 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         
     }
     
-    $scope.next = function(){
-        $scope.index += 1;
-        display_questions($scope.index);
-        $('#previous-btn').prop('disabled', false);
-        $("html, body").animate({ scrollTop: 0 }, "fast");
-        if($scope.index === 12 ){
-            $scope.scale = false;
-            $scope.bonus = true;
-            $scope.comment = false;
-        }else if($scope.index === 13){
-            $scope.scale = false;
-            $scope.bonus = false;
-            $scope.comment = true;
-        }else{
-            $scope.scale = true;
-            $scope.bonus = false;
-            $scope.comment = false;
-        }
-         if($scope.index >= 13){
-            $('#next-btn').prop('disabled', true);
-            $scope.submitShow = true;
-            
-        }
-        adjustProcess($scope.index, 13);
-        
+    $scope.next = function(isValid){
+      if(isValid){
+        if($scope.index === 12 && $scope.money !== 0){//validation for the money
+            alert("Don't keep any bonus for yourself! Please divide them all.")
+        }else{  
+            $scope.index += 1;
+            display_questions($scope.index);
+            $('#previous-btn').prop('disabled', false);
+            $("html, body").animate({ scrollTop: 0 }, "fast");
+            if($scope.index === 12 ){
+                $scope.scale = false;
+                $scope.bonus = true;
+                $scope.comment = false;
+            }else if($scope.index === 13){
+                $scope.scale = false;
+                $scope.bonus = false;
+                $scope.comment = true;
+            }else{
+                $scope.scale = true;
+                $scope.bonus = false;
+                $scope.comment = false;
+            }
+            if($scope.index >= 13){
+                $('#next-btn').prop('disabled', true);
+                $scope.submitShow = true;
+                
+            }
+            adjustProcess($scope.index, 13);
+            }//money
+         }else{
+          alert("Please fill all the answers before moving to the next")
+         
+      }
     }
     $scope.lastQuestion = function(){
         $scope.index = 13
@@ -253,10 +264,13 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         adjustProcess($scope.index, 13);
     }
     
-    $scope.submit = function(){
+    $scope.submit = function(isValid){
+        if(isValid){
         console.log($scope.answers);
         var ref = "Answers/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.answers);
+        } 
+        
     }
     
     
