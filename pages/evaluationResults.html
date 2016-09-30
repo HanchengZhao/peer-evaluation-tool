@@ -4,7 +4,7 @@
     </div>
     <ol class="breadcrumb">
       <li>
-        <select ng-model="teamSelected" class="btn btn-default dropdown-toggle">
+        <select ng-model="teamSelected" class="btn btn-default dropdown-toggle" ng-change = "displayStudents()">
             <option value=''>--Choose the Group--</option>
             <option value='ELEG_267'>E-Textile</option>
             <option value='ELEG_367'>Cloud Crypto</option>
@@ -12,12 +12,32 @@
         </select>
       </li>
       <li>
-        <select ng-options="item for item in students" ng-model="studentName" class="btn btn-default dropdown-toggle pull-right">
+        <select ng-options="item for item in students" ng-model="studentName" ng-change = "displayResults()" class="btn btn-default dropdown-toggle pull-right">
             <option value=''>--Choose a student--</option>
         </select>
       </li>
      
     </ol>
     
+    <!--Result table-->
+    <div class="panel panel-default" id="result" >
+      <div class="panel-heading">Peer Evaluations of <strong>{{studentName}}</strong></div>
+      <div class="panel-body">
+        <table class="table table-hover table-striped table-bordered">
+          <thead>
+          <tr >
+            <th>Question</th>
+            <th ng-repeat = "peer in peers" >{{peer}}</th>
+          </tr>
+          </thead>
+        <tbody>
+          <tr ng-repeat = "question in questions track by $index">
+            <td>{{question}}</td>
+            <td ng-repeat = "result in results[{{$index}}]">{{result}}</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div><!--questions-->
     
 </div>

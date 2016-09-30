@@ -108,8 +108,14 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
     
     $scope.addToSubgroup = function(name){
-        $scope.subgroup.push(name);
-        console.log($scope.subgroup);
+        var index = $scope.subgroup.indexOf(name);
+        if(index === -1){
+            $scope.subgroup.push(name);
+            console.log($scope.subgroup);
+        }else{
+            $scope.subgroup.splice(index,1);
+            console.log($scope.subgroup);
+        }
     }
     
     $scope.chosenSub = function(){
@@ -144,7 +150,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         console.log(answers);
     }
     
-     var display_questions = function(index){
+    var display_questions = function(index){
     
     $scope.questionText = $scope.questionsArray[index].questionText;
     $scope.low = ($scope.questionsArray[index].options !==undefined) ? $scope.questionsArray[index].options.low : '';
