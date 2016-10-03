@@ -13,9 +13,10 @@
   <script data-require="bootstrap.js@*" data-semver="3.3.6" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-  <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
   <script src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js" integrity="sha256-55Jz3pBCF8z9jBO1qQ7cIf0L+neuPTD1u7Ytzrp2dqo=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   
   <!--local files-->
   <link rel="icon" type="image/png" href="/images/favicon.png"/>
@@ -26,13 +27,17 @@
   <script src="js/common/directives.js"></script>
   <script src="js/core/config.js"></script>
   <!--controllers-->
+  <script src="js/core/controllers/about.ctrl.js"></script>
   <script src="js/core/controllers/auth.ctrl.js"></script>
   <script src="js/core/controllers/advisor.ctrl.js"></script>
   <script src="js/core/controllers/home.ctrl.js"></script>
   <script src="js/core/controllers/membersManagement.ctrl.js"></script>
   <script src="js/core/controllers/questionsGenerate.ctrl.js"></script>
+  <script src="js/core/controllers/invalid.ctrl.js"></script>
   <script src="js/core/controllers/student.ctrl.js"></script>
   <script src="js/core/controllers/peerEval.ctrl.js"></script>
+  <script src="js/core/controllers/viewMyGrade.ctrl.js"></script>
+  <script src="js/core/controllers/evaluationResults.ctrl.js"></script>
 </head>
 
 <body>
@@ -65,30 +70,30 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="header-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Grid Integrated-Vehicles</a></li>
-              <li><a href="#">E-Textiles</a></li>
-              <li><a href="#">Cloud Crypto</a></li>
+          <!--<li class="dropdown">-->
+          <!--  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>-->
+          <!--  <ul class="dropdown-menu">-->
+          <!--    <li><a href="#">Grid Integrated-Vehicles</a></li>-->
+          <!--    <li><a href="#">E-Textiles</a></li>-->
+          <!--    <li><a href="#">Cloud Crypto</a></li>-->
               <!--<li role="separator" class="divider"></li>-->
               <!--<li><a href="#">Separated link</a></li>-->
               <!--<li role="separator" class="divider"></li>-->
               <!--<li><a href="#">One more separated link</a></li>-->
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Advisors <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Fouad Kiamilev</a></li>
-              <li><a href="#">Mark Mirotznik</a></li>
-              <li><a href="#">Andy Novocin</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </li>
+          <!--  </ul>-->
+          <!--</li>-->
+          <!--<li class="dropdown">-->
+          <!--  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Advisors <span class="caret"></span></a>-->
+          <!--  <ul class="dropdown-menu">-->
+          <!--    <li><a href="#">Fouad Kiamilev</a></li>-->
+          <!--    <li><a href="#">Mark Mirotznik</a></li>-->
+          <!--    <li><a href="#">Andy Novocin</a></li>-->
+          <!--    <li role="separator" class="divider"></li>-->
+          <!--    <li><a href="#">Separated link</a></li>-->
+          <!--  </ul>-->
+          <!--</li>-->
           <li><a href="#/about">About <span class="sr-only">(current)</span></a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="mailto:andynovo@udel.edu">Contact</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-controller="authCtrl">
           <li ><img id="user-pic"></img></li>
@@ -113,10 +118,10 @@
       <div class="container footer-styles">
         <div class="row">
           <div class="clearfix"></div>
-          <p class="copyright">University of Delaware &mdash;
+          <p class="copyright text-center">University of Delaware &mdash;
             All Rights Reserved &bull; Newark, DE 19716 &bull;
             USA &bull; 2015 &bull; <small>Website by Andy Novocin & Hancheng Zhao</small></p>
-          <p class="copyright">
+          <p class="copyright text-center">
             <a data-no-instant href="mailto:andynovo@udel.edu">Comments</a> &bull;
             <a data-no-instant href="http://www.udel.edu/aboutus/legalnotices.html">
               Legal Notices</a>

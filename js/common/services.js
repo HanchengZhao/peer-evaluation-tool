@@ -23,8 +23,26 @@ app.service('firebaseService', function() {
         return firebase.database().ref().update(updates);
     }
     
-    // this.getStudentsData = function(){
-    //     firebase
-    // }
+    this.advisorCheck = function(){
+        var user = firebase.auth().currentUser;
+        if (user != null) {//verify whether the user has logged in
+            var email = user.email;
+            firebase.database().ref("Advisors")
+            .orderByChild("email")
+            .startAt(email)
+            .endAt(email)
+            .once('value').then(function(snapshot){
+              if(snapshot.val()!== null){
+                  //advisor login
+              }else{
+                  window.location.href = "/";
+              }
+            });
+        }else{
+        window.location.href = "/";
+    }
+    };
+    
+
     
 });

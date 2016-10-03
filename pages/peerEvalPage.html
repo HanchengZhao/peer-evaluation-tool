@@ -23,7 +23,7 @@
             <tr ng-repeat = "name in peers">
               <td>{{name}}</td>
               <!--scale question-->
-              <td><input type="checkbox" name="{{name}}" value='{{name}}' ng-click="addToSubgroup(name)">&nbsp;&nbsp;&nbsp; I know this person</td>
+              <td><input type="checkbox" name="{{name}}" value='{{name}}' ng-click="addToSubgroup(name)"></td>
             </tr>
           <tbody>
         </table>
@@ -42,7 +42,7 @@
     </div> 
     <!--questions-->
     <form name = "myForm">
-    <!--<p>{{myForm.$valid}}</p>-->
+    <p>{{myForm.$valid}}</p>
     <div class="panel panel-default" id="question" >
       <div class="panel-heading">{{questionText}}</div>
       <div class="panel-body">

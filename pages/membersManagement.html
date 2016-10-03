@@ -1,13 +1,16 @@
 <div class="container">
     <!--add team members-->
 
-     <button type="button" class="btn btn-primary glyphicon glyphicon-plus" ng-click="addMemeber()">&nbsp;Add Student</button>
-     <select ng-options="item for item in team" ng-model="teamSelected" class="btn btn-primary dropdown-toggle pull-right">
-        <option value=''>--Team--</option>
-      </select>
-     <div>&nbsp;</div> <!--new line-->
+     <select  ng-model="teamSelected" class="btn btn-primary dropdown-toggle">
+        <option value=''>--Choose the Group--</option>
+        <option value='ELEG_267'>E-Textile</option>
+        <option value='ELEG_367'>Cloud Crypto</option>
+        <option value='ELEG_467'>Grid-Integrated Vehicles</option>
+    </select>
+    <button type="button" class="btn btn-primary pull-right" ng-click="addMemeber()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Student</button>
+    <div>&nbsp;</div> <!--new line-->
      
-     <section ng-show="addMemeberContent">
+    <section ng-show="addMemeberContent">
       <div class="form-group">
         <div class="panel panel-default">
           <!-- Default panel contents -->

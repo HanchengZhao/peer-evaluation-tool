@@ -1,6 +1,6 @@
 <!--Add quiz part-->
 <div class="container">
-  <h2>Advisor page -- Questions Generating</h2>
+  <h2>Questions Generating</h2>
   <hr />
     <section>
       <h4>Select quiz ID:</h4>
@@ -23,8 +23,9 @@
         <hr>
         <button type="button" class="btn btn-primary" ng-click="saveQuiz(quizTitle,startDate,endDate)">Save</button>
       </div>
+      <hr>
     </section>
-    <hr>
+    
     
     <section ng-show="quizSelected">
       <h3>Add question for {{quizSelected}}:</h3>
@@ -85,8 +86,9 @@
         <button type="button" class="btn btn-info" ng-click="addOption(checkboxes)">Add Option</button>
         <button type="button" class="btn btn-primary" ng-click="saveCheckbox(question)">Save</button>
       </div>
+      <hr>
     </section>
-    <hr>
+   
     
     
     <!--Quiz content-->

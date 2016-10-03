@@ -1,11 +1,15 @@
-app.controller('homeCtrl', ['$scope', '$location', 'firebaseService', function($scope, $location,firebaseService) {
+app.controller('homeCtrl', ['$scope', '$location', 'firebaseService', '$timeout', function($scope, $location,firebaseService,$timeout) {
+    
+    $scope.noPemission = false;
+    $scope.notLogin = false;
     
     $scope.authCheck = function(){
         var user = firebase.auth().currentUser;
         if (user != null) {//verify whether the user has logged in
         var email = user.email;
+        $location.path("/student-page");
         }else{
-            alert("Please login!");
+            $scope.notLogin = true;
         }
     };
     
@@ -19,13 +23,15 @@ app.controller('homeCtrl', ['$scope', '$location', 'firebaseService', function($
             .endAt(email)
             .once('value').then(function(snapshot){
               if(snapshot.val()!== null){
-                  console.log(snapshot.val());
+                  $timeout(function () { // solve the problem of delay
+                    $location.path("/advisor-page");
+                    }, 0);
               }else{
-                  alert("Sorry, you do not have permission!");
+                  $scope.noPemission = true;
               }
             });
         }else{
-            alert("Please login!");
+            $scope.noPemission = true;
         }
         
        

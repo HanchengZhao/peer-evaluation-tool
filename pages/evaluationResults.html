@@ -20,7 +20,7 @@
     </ol>
     
     <!--Result table-->
-    <div class="panel panel-default" id="result" >
+    <div class="panel panel-default" id="result" ng-show="tableShow">
       <div class="panel-heading">Peer Evaluations of <strong>{{studentName}}</strong></div>
       <div class="panel-body">
         <table class="table table-hover table-striped table-bordered">
@@ -33,7 +33,7 @@
         <tbody>
           <tr ng-repeat = "question in questions track by $index">
             <td>{{question}}</td>
-            <td ng-repeat = "result in results[{{$index}}]">{{result}}</td>
+            <td ng-repeat = "result in results[$index + 1] track by $index">{{result}}</td>
           </tr>
         </tbody>
       </table>

@@ -94,6 +94,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
       });
       
       $scope.userPic = $('#user-pic');
+      
       $scope.userPic.css('background-image', 'url(' + $scope.profilePicUrl + ')');
       console.log("Signed in as:", firebaseUser.displayName);
       $scope.route.reload();

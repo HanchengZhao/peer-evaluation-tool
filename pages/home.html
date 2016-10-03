@@ -1,16 +1,18 @@
 <div class="jumbotron">
   <div class="container">
   <h1>Advisor Page</h1>
-  <p>In progress</p>
-  <p><a class="btn btn-primary btn-lg" href="#/advisor-page" role="button">Learn more >></a></p>
+  <p>Generate quizzes, Manage team members and Check evaluation results.</p>
+  <p><a class="btn btn-primary btn-lg"  role="button" ng-click="advisorCheck()">Learn more >></a></p>
+  <p class="text-danger" ng-show ="noPemission">Sorry, you do not have permission!</p>
   </div>
 </div>
 
 <div class="jumbotron">
   <div class="container">
   <h1>Student Page</h1>
-  <p>In progress</p>
-  <p><a class="btn btn-primary btn-lg" href="#/student-page" role="button">Learn more >></a></p>
+  <p>Evaluate peers and View grades.</p>
+  <p><a class="btn btn-primary btn-lg"  role="button" ng-click="authCheck()">Learn more >></a></p>
+  <p class="text-danger" ng-show ="notLogin">Please sign in!</p>
   </div>
 </div>
 
