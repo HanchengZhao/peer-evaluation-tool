@@ -1,15 +1,8 @@
 app.controller("questionsGenerateCtrl", ["$scope", "$firebaseObject", "$firebaseArray","firebaseService",
  function($scope, $firebaseObject, $firebaseArray , firebaseService) {
    
-   var user = firebase.auth().currentUser;
-    if (user != null) {//verify whether the user has logged in
-    }else{
-        $location.path("/");
-    }
-   
-   
-   
-   
+   firebaseService.advisorCheck();
+
    $scope.types = ["Linear scale", "Multiple choice", "Paragraph", "Dropdown", "Check box"];
    $scope.question = "Please describe question";
    

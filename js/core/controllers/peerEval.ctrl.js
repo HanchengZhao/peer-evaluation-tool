@@ -111,10 +111,10 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         var index = $scope.subgroup.indexOf(name);
         if(index === -1){
             $scope.subgroup.push(name);
-            console.log($scope.subgroup);
+            // console.log($scope.subgroup);
         }else{
             $scope.subgroup.splice(index,1);
-            console.log($scope.subgroup);
+            // console.log($scope.subgroup);
         }
     }
     
@@ -146,9 +146,9 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         })
     }
     
-    $scope.radiovalue = function(answers){
-        console.log(answers);
-    }
+    // $scope.radiovalue = function(answers){
+    //     console.log(answers);
+    // }
     
     var display_questions = function(index){
     
@@ -165,7 +165,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             questionsArray.push(record.val());
         });
         $scope.questionsArray = questionsArray;
-        console.log($scope.questionsArray);
+        // console.log($scope.questionsArray);
         display_questions($scope.index);
     });
     
@@ -186,10 +186,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         }
         $scope.money = 10000 - bonus;
     };
-    // $("input[type=number]").change(function(){
-    //     console.log("bonus change!");
-    //     bonusChange();
-    // });
+
 
     var adjustProcess =function(index, length){
         $scope.process = Math.floor((index / length) * 100) + '%';
@@ -275,7 +272,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
     $scope.submit = function(isValid){
         if(isValid){
-        console.log($scope.answers);
+        // console.log($scope.answers);
         var ref = "Answers/Midterm_16fall/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.answers);
         } 

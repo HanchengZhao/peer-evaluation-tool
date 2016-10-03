@@ -37,6 +37,11 @@ app.config(function($routeProvider){
         controller: 'peerEvalCtrl'
     })
     
+    .when('/view-my-grade',{
+        templateUrl: 'pages/viewMyGrade.html',
+        controller: 'viewMyGradeCtrl'
+    })
+    
     .when('/about',{
         templateUrl: 'pages/about.html',
         controller: 'aboutCtrl'
