@@ -1,127 +1,15 @@
 app.controller('homeCtrl', ['$scope', '$location', 'firebaseService', function($scope, $location,firebaseService) {
     
-    var members = [
-       {"Grade_Basis": "Standard", "Name": "Billone,Matthew T", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "mbillone@udel.edu", "ID": "702354103", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Faulkenberry,Stephen Thomas", "Level": "Senior", "Program_and_Plan": "Engineering - Biomedical Engineering BBE/Bioelectrical Engineering/Computer Science/Electrical & Computer Engineer", "Email_Address": "stfberry@udel.edu", "ID": "701948730", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Garcia Jr,Gerson Jonathan", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "jgarcia@udel.edu", "ID": "701395176", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Jorss,Jackson Karl", "Level": "Junior", "Program_and_Plan": "Arts and Sciences - Cognitive Science BS/Computer Science/Electrical & Computer Engineer", "Email_Address": "jorss@udel.edu", "ID": "701548242", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Lort,Gregory Owen", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "glort@udel.edu", "ID": "702009753", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Lu,Jingcheng", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Honors/Mathematics", "Email_Address": "ariclu@udel.edu", "ID": "701976994", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Mason,Naiim", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Linguistics BA/Cognitive Science BS/4+1 Joint Bachelor and Master", "Email_Address": "naiim@udel.edu", "ID": "701765393", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Matimu,Michael H", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "mmatimu@udel.edu", "ID": "701490754", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Qiao,Chu", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Computer Science", "Email_Address": "qiaochu@udel.edu", "ID": "702265456", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Ryan,Conor James", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "cjryan@udel.edu", "ID": "702020636", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Seda,Mark Phillip", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Computer Science/Honors", "Email_Address": "mseda@udel.edu", "ID": "702212523", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Sharma,Akash", "Level": "Sophomore", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Computer Science", "Email_Address": "aksharma@udel.edu", "ID": "702282265", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Wang,Qile", "Level": "Junior", "Program_and_Plan": "Arts and Sciences - Mathematics and Economics BS/Art/Computer Science", "Email_Address": "kylewang@udel.edu", "ID": "702040235", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Williams,Joshua Ryan", "Level": "Sophomore", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Honors", "Email_Address": "joshrw@udel.edu", "ID": "702327335", "Units": "1"}
-       
-       ,{"Grade_Basis": "Standard", "Name": "Betters,Mark Nathan", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Computer Science", "Email_Address": "mbetters@udel.edu", "ID": "701765071", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Brady,Carlton Thomas", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Mathematics", "Email_Address": "ctbrady@udel.edu", "ID": "701765508", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Bubel,Christopher S", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Science BS/Honors", "Email_Address": "cbubel@udel.edu", "ID": "701899548", "Units": "3"}
-       ,{"Grade_Basis": "Standard", "Name": "Chang,Jonathan J", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Cybersecurity/Honors", "Email_Address": "jjxc@udel.edu", "ID": "702277603", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Clark,Benjamin Buckey", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Mathematics BS/Computer Science/Honors", "Email_Address": "benclark@udel.edu", "ID": "702050986", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Dorsch,Michael Edward", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Mathematics BS/Computer Science/Honors", "Email_Address": "mdorsch@udel.edu", "ID": "702112308", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Geron-Neubauer,David", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Science BS/Cybersecurity", "Email_Address": "davidgn@udel.edu", "ID": "702110315", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Gouert,Charles Henry", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "cgouert@udel.edu", "ID": "702038732", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Hahn,Hyung Jun", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Computer Science/Honors", "Email_Address": "coreymu@udel.edu", "ID": "702217706", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Kong,Dehu", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Mathematics BS/Computer Science", "Email_Address": "kongdehu@udel.edu", "ID": "702001439", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "McConomy,Jacob William", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "jacobmcc@udel.edu", "ID": "702226678", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "McNeil,Emily Ann", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "mcneilea@udel.edu", "ID": "702214542", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Meyer,Keith", "Level": "Sophomore", "Program_and_Plan": "Engineering - Mechanical Engineering BME", "Email_Address": "kmeyer@udel.edu", "ID": "702289245", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Moores,Christopher David", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "cmoores@udel.edu", "ID": "701977469", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Paramesh,Naveen", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "npara@udel.edu", "ID": "701977003", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Rinaldi,Thomas Jesse", "Level": "Junior", "Program_and_Plan": "Business and Economics - Management Info Systems BS/Computer Science", "Email_Address": "jrinaldi@udel.edu", "ID": "702219366", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Roberts Jr,John Michael", "Level": "Junior", "Program_and_Plan": "Business and Economics - Management Info Systems BS/Operations Management BS", "Email_Address": "jmrobert@udel.edu", "ID": "702245213", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Shafique,Saad", "Level": "Sophomore", "Program_and_Plan": "University Studies - University Studies", "Email_Address": "sshafiq@udel.edu", "ID": "702226714", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Swalm,Connor Jaydon", "Level": "Junior", "Program_and_Plan": "Arts and Sciences - Mathematics BS/Computer Science", "Email_Address": "cswalm@udel.edu", "ID": "702050606", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Walker,Nathan Augustus", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "nwalkeh@udel.edu", "ID": "702124455", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Wallace,Daulton Gregory", "Level": "Junior", "Program_and_Plan": "Engineering - Mechanical Engineering BME/Theatre Studies", "Email_Address": "dwall@udel.edu", "ID": "701977771", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Wittreich,Christof Francis", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "wittrecf@udel.edu", "ID": "702211884", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Wood,Jonathan Paul", "Level": "Junior", "Program_and_Plan": "Business and Economics - Economics BS/Honors", "Email_Address": "jpwood@udel.edu", "ID": "702347668", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Zingo,Pasquale A", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Applied Mathematics BS/Computer Science", "Email_Address": "patzingo@udel.edu", "ID": "701765579", "Units": "1"}
-       
-       
-       ,{"Grade_Basis": "Standard", "Name": "Campbell,Casey Kevan", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Honors", "Email_Address": "ckcamp@udel.edu", "ID": "702011792", "Units": "3"}
-       ,{"Grade_Basis": "Standard", "Name": "Chann,Jonathon Michael", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "jchann@udel.edu", "ID": "702054274", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Deputy,Alexis Marissa", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "adeputy@udel.edu", "ID": "702266251", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Esteves,William Franklin", "Level": "Sophomore", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "westeves@udel.edu", "ID": "702289091", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Fierro,Vincent James", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "vfierro@udel.edu", "ID": "701025549", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Flaquer,Jael Alejandro", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "jflaquer@udel.edu", "ID": "701490798", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Hall,Kemba Ashley", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "kembah@udel.edu", "ID": "701969025", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Ndingwan,Awah-Moutan", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "awahndin@udel.edu", "ID": "701842027", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Neuburger,Daniel Ross", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Cybersecurity/Entrepreneurial Studies", "Email_Address": "drn@udel.edu", "ID": "702344453", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Rutkowski,Johnathan Paul", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "johnnypr@udel.edu", "ID": "48792", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Smith,Jacob Charles", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "jakesmit@udel.edu", "ID": "701977001", "Units": "2"}
-       ,{"Grade_Basis": "Standard", "Name": "Stacy,Brandon James", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Sustainable Energy Technology", "Email_Address": "bstac@udel.edu", "ID": "702036082", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Stoup,Jolyne Elizabeth Ann", "Level": "Sophomore", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Computer Science", "Email_Address": "jstoup@udel.edu", "ID": "702299537", "Units": "1"}
-       ,{"Grade_Basis": "Standard", "Name": "Weber,Robert Anthony", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "rcweber@udel.edu", "ID": "701845314", "Units": "1"}
-,
-
-    ]
-    
-    var ELEG_267 = [{"Grade_Basis": "Standard", "Name": "Billone,Matthew T", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "mbillone@udel.edu", "ID": "702354103", "Units": "1", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Faulkenberry,Stephen Thomas", "Level": "Senior", "Program_and_Plan": "Engineering - Biomedical Engineering BBE/Bioelectrical Engineering/Computer Science/Electrical & Computer Engineer", "Email_Address": "stfberry@udel.edu", "ID": "701948730", "Units": "1", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Garcia Jr,Gerson Jonathan", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "jgarcia@udel.edu", "ID": "701395176", "Units": "2", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Jorss,Jackson Karl", "Level": "Junior", "Program_and_Plan": "Arts and Sciences - Cognitive Science BS/Computer Science/Electrical & Computer Engineer", "Email_Address": "jorss@udel.edu", "ID": "701548242", "Units": "2", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Lort,Gregory Owen", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "glort@udel.edu", "ID": "702009753", "Units": "2", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Lu,Jingcheng", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Honors/Mathematics", "Email_Address": "ariclu@udel.edu", "ID": "701976994", "Units": "2", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Mason,Naiim", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Linguistics BA/Cognitive Science BS/4+1 Joint Bachelor and Master", "Email_Address": "naiim@udel.edu", "ID": "701765393", "Units": "2", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Matimu,Michael H", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "mmatimu@udel.edu", "ID": "701490754", "Units": "2", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Qiao,Chu", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Computer Science", "Email_Address": "qiaochu@udel.edu", "ID": "702265456", "Units": "1", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Ryan,Conor James", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "cjryan@udel.edu", "ID": "702020636", "Units": "2", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Seda,Mark Phillip", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Computer Science/Honors", "Email_Address": "mseda@udel.edu", "ID": "702212523", "Units": "1", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Sharma,Akash", "Level": "Sophomore", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Computer Science", "Email_Address": "aksharma@udel.edu", "ID": "702282265", "Units": "2", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Wang,Qile", "Level": "Junior", "Program_and_Plan": "Arts and Sciences - Mathematics and Economics BS/Art/Computer Science", "Email_Address": "kylewang@udel.edu", "ID": "702040235", "Units": "1", "Class": "ELEG_267"}
-       ,{"Grade_Basis": "Standard", "Name": "Williams,Joshua Ryan", "Level": "Sophomore", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Honors", "Email_Address": "joshrw@udel.edu", "ID": "702327335", "Units": "1", "Class": "ELEG_267"}
-        ]
+    $scope.authCheck = function(){
+        var user = firebase.auth().currentUser;
+        var name, email;
         
-    var ELEG_367 = [
-        {"Grade_Basis": "Standard", "Name": "Betters,Mark Nathan", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Computer Science", "Email_Address": "mbetters@udel.edu", "ID": "701765071", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Brady,Carlton Thomas", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Mathematics", "Email_Address": "ctbrady@udel.edu", "ID": "701765508", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Bubel,Christopher S", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Science BS/Honors", "Email_Address": "cbubel@udel.edu", "ID": "701899548", "Units": "3", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Chang,Jonathan J", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Cybersecurity/Honors", "Email_Address": "jjxc@udel.edu", "ID": "702277603", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Clark,Benjamin Buckey", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Mathematics BS/Computer Science/Honors", "Email_Address": "benclark@udel.edu", "ID": "702050986", "Units": "2", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Dorsch,Michael Edward", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Mathematics BS/Computer Science/Honors", "Email_Address": "mdorsch@udel.edu", "ID": "702112308", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Geron-Neubauer,David", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Science BS/Cybersecurity", "Email_Address": "davidgn@udel.edu", "ID": "702110315", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Gouert,Charles Henry", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "cgouert@udel.edu", "ID": "702038732", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Hahn,Hyung Jun", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Computer Science/Honors", "Email_Address": "coreymu@udel.edu", "ID": "702217706", "Units": "2", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Kong,Dehu", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Mathematics BS/Computer Science", "Email_Address": "kongdehu@udel.edu", "ID": "702001439", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "McConomy,Jacob William", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "jacobmcc@udel.edu", "ID": "702226678", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "McNeil,Emily Ann", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "mcneilea@udel.edu", "ID": "702214542", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Meyer,Keith", "Level": "Sophomore", "Program_and_Plan": "Engineering - Mechanical Engineering BME", "Email_Address": "kmeyer@udel.edu", "ID": "702289245", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Moores,Christopher David", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "cmoores@udel.edu", "ID": "701977469", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Paramesh,Naveen", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "npara@udel.edu", "ID": "701977003", "Units": "2", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Rinaldi,Thomas Jesse", "Level": "Junior", "Program_and_Plan": "Business and Economics - Management Info Systems BS/Computer Science", "Email_Address": "jrinaldi@udel.edu", "ID": "702219366", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Roberts Jr,John Michael", "Level": "Junior", "Program_and_Plan": "Business and Economics - Management Info Systems BS/Operations Management BS", "Email_Address": "jmrobert@udel.edu", "ID": "702245213", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Shafique,Saad", "Level": "Sophomore", "Program_and_Plan": "University Studies - University Studies", "Email_Address": "sshafiq@udel.edu", "ID": "702226714", "Units": "2", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Swalm,Connor Jaydon", "Level": "Junior", "Program_and_Plan": "Arts and Sciences - Mathematics BS/Computer Science", "Email_Address": "cswalm@udel.edu", "ID": "702050606", "Units": "2", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Walker,Nathan Augustus", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "nwalkeh@udel.edu", "ID": "702124455", "Units": "2", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Wallace,Daulton Gregory", "Level": "Junior", "Program_and_Plan": "Engineering - Mechanical Engineering BME/Theatre Studies", "Email_Address": "dwall@udel.edu", "ID": "701977771", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Wittreich,Christof Francis", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "wittrecf@udel.edu", "ID": "702211884", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Wood,Jonathan Paul", "Level": "Junior", "Program_and_Plan": "Business and Economics - Economics BS/Honors", "Email_Address": "jpwood@udel.edu", "ID": "702347668", "Units": "1", "Class": "ELEG_367"}
-       ,{"Grade_Basis": "Standard", "Name": "Zingo,Pasquale A", "Level": "Senior", "Program_and_Plan": "Arts and Sciences - Applied Mathematics BS/Computer Science", "Email_Address": "patzingo@udel.edu", "ID": "701765579", "Units": "1", "Class": "ELEG_367"}]
-    
-    var ELEG_467 =[
-        {"Grade_Basis": "Standard", "Name": "Campbell,Casey Kevan", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Honors", "Email_Address": "ckcamp@udel.edu", "ID": "702011792", "Units": "3", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Chann,Jonathon Michael", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "jchann@udel.edu", "ID": "702054274", "Units": "1", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Deputy,Alexis Marissa", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "adeputy@udel.edu", "ID": "702266251", "Units": "1", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Esteves,William Franklin", "Level": "Sophomore", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "westeves@udel.edu", "ID": "702289091", "Units": "2", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Fierro,Vincent James", "Level": "Senior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "vfierro@udel.edu", "ID": "701025549", "Units": "1", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Flaquer,Jael Alejandro", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "jflaquer@udel.edu", "ID": "701490798", "Units": "1", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Hall,Kemba Ashley", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE", "Email_Address": "kembah@udel.edu", "ID": "701969025", "Units": "1", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Ndingwan,Awah-Moutan", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "awahndin@udel.edu", "ID": "701842027", "Units": "2", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Neuburger,Daniel Ross", "Level": "Sophomore", "Program_and_Plan": "Engineering - Computer Engineering BCPE/Cybersecurity/Entrepreneurial Studies", "Email_Address": "drn@udel.edu", "ID": "702344453", "Units": "2", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Rutkowski,Johnathan Paul", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "johnnypr@udel.edu", "ID": "48792", "Units": "1", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Smith,Jacob Charles", "Level": "Junior", "Program_and_Plan": "Engineering - Computer Engineering BCPE", "Email_Address": "jakesmit@udel.edu", "ID": "701977001", "Units": "2", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Stacy,Brandon James", "Level": "Junior", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Sustainable Energy Technology", "Email_Address": "bstac@udel.edu", "ID": "702036082", "Units": "1", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Stoup,Jolyne Elizabeth Ann", "Level": "Sophomore", "Program_and_Plan": "Engineering - Electrical Engineering BEE/Computer Science", "Email_Address": "jstoup@udel.edu", "ID": "702299537", "Units": "1", "Class": "ELEG_467"}
-       ,{"Grade_Basis": "Standard", "Name": "Weber,Robert Anthony", "Level": "Senior", "Program_and_Plan": "Engineering - Computer Science BS", "Email_Address": "rcweber@udel.edu", "ID": "701845314", "Units": "1", "Class": "ELEG_467"}
-        ]
-    
-    $scope.pushJson = function(){
-        for(var i = 0; i < members.length; i++){
-            firebaseService.pushDataWithUniqueID('/Students/All_Members', members[i]);
+        if (user != null) {//verify whether the user has logged in
+            name = user.displayName;
+            email = user.email;
+        }else{
+            
+            alert("Please login!");
         }
-    }
+    };
 }]);

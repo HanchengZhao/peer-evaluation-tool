@@ -10,7 +10,7 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
         $location.path("/");
     }
     
-    $scope.team = ['ELEG_267','ELEG_367', 'ELEG_467']
+    // $scope.team = ['ELEG_267','ELEG_367', 'ELEG_467']
     $scope.teamSelected;
     firebase.database().ref("Students").on('value', function(snapshot) {
        $scope.members = snapshot.val();

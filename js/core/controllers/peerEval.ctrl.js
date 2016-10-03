@@ -120,12 +120,12 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
     $scope.chosenSub = function(){
         $scope.submitted = true;
-        var ref = "Subgroups/" + $scope.class + "/" + $scope.username;
+        var ref = "Subgroups/Midterm_16fall/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.subgroup);
     }
     
     var fetchSubgroup = function(){
-        firebase.database().ref("Subgroups/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
+        firebase.database().ref("Subgroups/Midterm_16fall/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
             if(snapshot.val() !== null){
                 $scope.submitted = true;
                 $scope.subgroup = snapshot.val();
@@ -137,7 +137,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
     var fetchSubmittedAnswers = function(){
            // get students submitted answers
-        firebase.database().ref("Answers/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
+        firebase.database().ref("Answers/Midterm_16fall/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
             $scope.answers = snapshot.val();
             $scope.$apply();
         },function(err){
@@ -227,7 +227,10 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     $scope.next = function(isValid){
       if(isValid){
         if($scope.index === 12 && $scope.money !== 0){//validation for the money
-            alert("Don't keep any bonus for yourself! Please divide them all.")
+            $scope.bonusChange();
+            if($scope.money !== 0){
+                alert("Don't keep any bonus for yourself! Please divide them all.");
+            }
         }else{  
             $scope.index += 1;
             display_questions($scope.index);
@@ -273,7 +276,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     $scope.submit = function(isValid){
         if(isValid){
         console.log($scope.answers);
-        var ref = "Answers/" + $scope.class + "/" + $scope.username;
+        var ref = "Answers/Midterm_16fall/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.answers);
         } 
         

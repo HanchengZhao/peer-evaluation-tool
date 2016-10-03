@@ -3,8 +3,8 @@ app.controller('studentCtrl', ['$scope', 'firebaseService','$location', function
     var name, email;
     
     if (user != null) {//verify whether the user has logged in
-      name = user.displayName;
-      email = user.email;
+        name = user.displayName;
+        email = user.email;
     }else{
         $location.path("/");
     }

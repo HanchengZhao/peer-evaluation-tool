@@ -6,41 +6,50 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
       name = user.displayName;
       email = user.email;
     }else{
-        $location.path("/");
+      alert("Please login!");
+      $location.path("/");
     }
     
+    
+    $scope.tableShow =false;
+    
      //get the answers object
-    firebase.database().ref("Answers").on('value', function(snapshot) {
+    firebase.database().ref("Answers/Midterm_16fall").on('value', function(snapshot) {
         $scope.data = snapshot.val();
         console.log(snapshot.val());
     });
     
     $scope.displayStudents = function (){
       $scope.groupData = $scope.data[$scope.teamSelected];
-      var studentsArray = []
+      console.log($scope.groupData);
+      var studentsArray = [];
+      var evaluatorsArray = _.keys($scope.groupData);
       _.each($scope.groupData, function(peer) {
           studentsArray = studentsArray.concat(_.keys(peer));
       });//get all the students that have been evaluated
       $scope.students = _.uniq(studentsArray);//remove duplicates
       console.log($scope.students);
+      console.log(evaluatorsArray);
       
       //seperate result
       var report = {};
       _.each($scope.students, function(student){
-        _.each(_.keys($scope.groupData[student]), function(peer){
-              // console.log($scope.groupData[student][peer]);
-              if (report.hasOwnProperty(peer)){
-                report[peer][student] = $scope.groupData[student][peer];
+        console.log($scope.groupData[student]);
+        _.each(evaluatorsArray, function(peer){
+            console.log($scope.groupData[peer][student]);
+            if (($scope.groupData[peer]).hasOwnProperty(student)){
+              if (report.hasOwnProperty(student)){
+                report[student][peer] = $scope.groupData[peer][student];
               } else {
-                report[peer] = {};
-                report[peer][student] = $scope.groupData[student][peer];
+                report[student] = {};
+                report[student][peer] = $scope.groupData[peer][student];
               }
+            }
           });
       });
       $scope.report = report;
       
-      console.log(report["Bubel,Christopher S"]);
-      
+
       var subjects = _.keys(report);
       _.each(subjects, function(kid){
         var aggregate = {};
@@ -57,16 +66,26 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
         });
         report[kid].results = aggregate;
       });
+            console.log(report);
       
-      console.log(report["Bubel,Christopher S"].results);
+      // console.log(report["Bubel,Christopher S"].results);
     }
     
     $scope.displayResults = function(){
+      $scope.tableShow = true;
       $scope.results = $scope.report[$scope.studentName].results;
       $scope.peers = _.keys($scope.report[$scope.studentName]);
       $scope.peers.pop();
       console.log($scope.results);
     }
+    
+    var getQuestionText = function(questionsArray){
+      $scope.questions = [];
+      for(var i = 0; i <= 13; i++){
+        $scope.questions.push(questionsArray[i].questionText);
+      }
+      $scope.$apply();
+    };
     
     firebase.database().ref("Quizzes/Quiz4/questions").once('value', function(snapshot) {
         var questionsArray = [];
@@ -76,13 +95,7 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
         getQuestionText(questionsArray);
     });
     
-    var getQuestionText = function(questionsArray){
-      $scope.questions = [];
-      for(var i = 0; i <= 13; i++){
-        $scope.questions.push(questionsArray[i].questionText);
-      }
-      $scope.$apply();
-    };
+    
     
     
     

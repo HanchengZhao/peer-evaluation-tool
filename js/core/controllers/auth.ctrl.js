@@ -24,37 +24,48 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
   
    $scope.isEmailValid = function(email){
     var deferred = $q.defer();
-    firebase.database().ref("Students/ELEG_267")
-    .orderByChild("Email_Address")
-    .startAt(email)
-    .endAt(email)
-    .once('value').then(function(snapshot) {
-        if(snapshot.val()!== null){
-          deferred.resolve(true);
-        }else {
-          firebase.database().ref("Students/ELEG_367")
-            .orderByChild("Email_Address")
-            .startAt(email)
-            .endAt(email)
-            .once('value').then(function(snapshot) {
-                if(snapshot.val()!== null){
-                  deferred.resolve(true);
-                }else {
-                  firebase.database().ref("Students/ELEG_467")
-                  .orderByChild("Email_Address")
-                  .startAt(email)
-                  .endAt(email)
-                  .once('value').then(function(snapshot) {
-                      if(snapshot.val()!== null){
-                        deferred.resolve(true);
-                      }else {
-                        deferred.reject(false);
-                      }
-                    });
-                }
-            });
+    
+     firebase.database().ref("Advisors")
+        .orderByChild("email")
+        .startAt(email)
+        .endAt(email)
+        .once('value').then(function(snapshot){
+          if(snapshot.val()!== null){
+              deferred.resolve('advisor');
+        }else{
+        firebase.database().ref("Students/ELEG_267")
+        .orderByChild("Email_Address")
+        .startAt(email)
+        .endAt(email)
+        .once('value').then(function(snapshot) {
+            if(snapshot.val()!== null){
+              deferred.resolve('student');
+            }else {
+              firebase.database().ref("Students/ELEG_367")
+                .orderByChild("Email_Address")
+                .startAt(email)
+                .endAt(email)
+                .once('value').then(function(snapshot) {
+                    if(snapshot.val()!== null){
+                      deferred.resolve('student');
+                    }else {
+                      firebase.database().ref("Students/ELEG_467")
+                      .orderByChild("Email_Address")
+                      .startAt(email)
+                      .endAt(email)
+                      .once('value').then(function(snapshot) {
+                          if(snapshot.val()!== null){
+                            deferred.resolve('student');
+                          }else {
+                            deferred.reject(false);
+                          }
+                        });
+                    }//467
+                });
+            }//367
+        });
         }
-    });
+      });
     
     return deferred.promise;
   };
@@ -72,7 +83,11 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
       
       $scope.isEmailValid($scope.email).then(function(res){
         //the email address is valid
+         if(res === "advisor"){
+           $location.path("/advisor-page");
+         }else{
           $location.path("/peer-evaluation");
+         }
         },function(res){
           //the email address is not valid
         $location.path("/invalid-login");
