@@ -42,7 +42,7 @@
     </div> 
     <!--questions-->
     <form name = "myForm">
-    <p>{{myForm.$valid}}</p>
+    <!--<p>{{myForm.$valid}}</p>-->
     <div class="panel panel-default" id="question" >
       <div class="panel-heading">{{questionText}}</div>
       <div class="panel-body">
@@ -80,10 +80,13 @@
       </table>
       </div>
     </div><!--questions-->
+    <div class="pull-left">
+      <button type="button" id="previous-btn" class="btn btn-default" ng-click="reset()" ng-show="!formSubmitted"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;Reselect Peers</button>
+    </div>
     <div class="pull-right">
       <button type="button" id="previous-btn" class="btn btn-default" ng-click="previous()" disabled> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>Previous</button>
       <button type="button" id="next-btn" class="btn btn-default" ng-click="next(myForm.$valid)">Next <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span></button>
-      <button type="button" id="lastQuestion-btn" class="btn btn-default " ng-click="lastQuestion()"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>&nbsp;The last quetion</button>
+      <button type="button" id="lastQuestion-btn" class="btn btn-default " ng-click="lastQuestion()" ng-show="formSubmitted"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>&nbsp;The last quetion</button>
       <br>
       <br>
       <button type="button" id="submit-btn" class="btn btn-success pull-right" ng-click="submit(myForm.$valid)" ng-show ="submitShow && myForm.$valid" data-toggle="modal" data-target="#submitModal">Submit</button>

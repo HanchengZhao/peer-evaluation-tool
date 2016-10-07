@@ -79,7 +79,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
       $scope.displayName = firebaseUser.displayName;
       $scope.profilePicUrl = firebaseUser.photoURL || 'images/profile_placeholder.png';
       $scope.email = firebaseUser.email;
-      console.log($scope.email);
+      // console.log($scope.email);
       
       $scope.isEmailValid($scope.email).then(function(res){
         //the email address is valid
@@ -96,7 +96,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
       $scope.userPic = $('#user-pic');
       
       $scope.userPic.css('background-image', 'url(' + $scope.profilePicUrl + ')');
-      console.log("Signed in as:", firebaseUser.displayName);
+      // console.log("Signed in as:", firebaseUser.displayName);
       $scope.route.reload();
     } else {
       $scope.firebaseUser = false;

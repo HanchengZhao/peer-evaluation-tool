@@ -14,14 +14,14 @@ app.service('firebaseService', function() {
         var updates = {};
          updates[ref] = obj;
          return firebase.database().ref().update(updates);
-    }
+    };
     
     this.pushDataWithUniqueID = function(ref, obj){
         var newKey = firebase.database().ref().child(ref).push().key;
         var updates = {};
         updates[ref +'/'+ newKey] = obj;
         return firebase.database().ref().update(updates);
-    }
+    };
     
     this.advisorCheck = function(){
         var user = firebase.auth().currentUser;
@@ -40,7 +40,7 @@ app.service('firebaseService', function() {
             });
         }else{
         window.location.href = "/";
-    }
+        }
     };
     
 

@@ -3,6 +3,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     $scope.index = 0;
     $scope.process = 0;
     $scope.submitted = false;
+    $scope.formSubmitted = false;
     $scope.submitShow = false;
     $scope.user;
     $scope.scale = true;
@@ -80,8 +81,8 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
           fetchPeersName($scope.class);
           fetchSubgroup();
         },function(res){
-          console.log("error" + res);
-      });;
+        //   console.log("error" + res);
+      });
     
      //fetch all members' data
     var fetchPeersName = function(Class){
@@ -93,7 +94,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         });
         peerArray.forEach(function(peer){
             nameArray.push(peer.Name); 
-        })
+        });
         
         var index = nameArray.indexOf($scope.username);
         nameArray.splice(index,1);//get rid of user's name
@@ -103,7 +104,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         $scope.$apply();//let angular know the change
     
     });
-    }
+    };
     
     
     
@@ -116,13 +117,13 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             $scope.subgroup.splice(index,1);
             // console.log($scope.subgroup);
         }
-    }
+    };
     
     $scope.chosenSub = function(){
         $scope.submitted = true;
         var ref = "Subgroups/Midterm_16fall/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.subgroup);
-    }
+    };
     
     var fetchSubgroup = function(){
         firebase.database().ref("Subgroups/Midterm_16fall/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
@@ -132,23 +133,23 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
                 fetchSubmittedAnswers();
             }
             $scope.$apply();
-        })
-    }
+        });
+    };
     
     var fetchSubmittedAnswers = function(){
            // get students submitted answers
         firebase.database().ref("Answers/Midterm_16fall/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
-            $scope.answers = snapshot.val();
-            $scope.$apply();
+            if(snapshot.val() !== null){
+                $scope.answers = snapshot.val();
+                $scope.formSubmitted = true;
+                $scope.$apply();
+            }
         },function(err){
             console.log(err);
             
-        })
-    }
+        });
+    };
     
-    // $scope.radiovalue = function(answers){
-    //     console.log(answers);
-    // }
     
     var display_questions = function(index){
     
@@ -157,7 +158,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     $scope.high = ($scope.questionsArray[index].options !==undefined) ? $scope.questionsArray[index].options.high : '';
     // console.log($scope.questionText);
     
-    }
+    };
     
     firebase.database().ref("Quizzes/Quiz4/questions").once('value', function(snapshot) {
         var questionsArray = [];
@@ -191,6 +192,21 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     var adjustProcess =function(index, length){
         $scope.process = Math.floor((index / length) * 100) + '%';
     };
+    
+    $scope.reset = function(){
+        var Ref = firebase.database().ref("/Subgroups/Midterm_16fall/"+ $scope.class +"/" +$scope.username);
+        Ref.remove().then(function() {
+          console.log("Reset subgroup.");
+        })
+        .catch(function(error) {
+          console.log("Reset failed: " + error.message);
+        });
+        $scope.subgroup = [];
+        $scope.submitted = false;
+        $scope.answers = {
+        
+        };
+    };
 
     //Buttons
     $scope.previous = function(){
@@ -219,7 +235,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         }
         adjustProcess($scope.index, 13);
         
-    }
+    };
     
     $scope.next = function(isValid){
       if(isValid){
@@ -254,12 +270,12 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             adjustProcess($scope.index, 13);
             }//money
          }else{
-          alert("Please fill all the answers before moving to the next")
+          alert("Please fill all the answers before moving to the next");
          
       }
-    }
+    };
     $scope.lastQuestion = function(){
-        $scope.index = 13
+        $scope.index = 13;
         $scope.scale = false;
         $scope.bonus = false;
         $scope.comment = true;
@@ -268,16 +284,17 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         $("html, body").animate({ scrollTop: 0 }, "fast");
         $scope.submitShow = true;
         adjustProcess($scope.index, 13);
-    }
+    };
     
     $scope.submit = function(isValid){
         if(isValid){
         // console.log($scope.answers);
         var ref = "Answers/Midterm_16fall/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.answers);
+        $scope.formSubmitted = true;
         } 
         
-    }
+    };
     
     
     
