@@ -2,7 +2,7 @@
 
 ###What are we building?
 
-`This is a peer-evaluation tool to allow students involved in VIP programs around the world to evaluate their team-members.  This feedback will allow administrators and mentors to find problems in their teams, assess students performance, and monitor growth for returning students.`
+`This is a peer-evaluation tool to allow students involved in VIP programs around the universiry to evaluate their team-members.  This feedback will allow administrators and mentors to find problems in their teams, assess students performance, and monitor growth for returning students.`
 
 ###Who uses this software?
 
@@ -11,6 +11,21 @@
 `A VIP team mentor (research faculty member) must be able to upload a roster of students from their team (csv, space separated, excel?) and view the results from their team.`
 
 `A VIP team member must be able to quickly evaluate each of their teammates`
+
+###Demos
+- Homepage
+![homepage](/demo/homepage.png?=250x)
+- Advisor page
+![advisorPage](/demo/advisorPage.png?=250x)
+- Member management
+![member_management](/demo/member_management.png?=250x)
+- Peer evaluation
+![choosePeers](/demo/choosePeers.png?=250x)
+![peerEval2](/demo/peerEval2.png?=250x)
+![peerEvaluation](/demo/peerEvaluation.png?=250x)
+![submit](/demo/submit.png?=250x)
+- Check results
+![resultCheck](/demo/resultCheck.png?=250x)
 
 ## Documentation
 
