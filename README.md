@@ -18,7 +18,7 @@
 - Advisor page
 ![advisorPage](/demo/advisorPage.png?=250x)
 - Member management
-![member_management](/demo/member_management.png?=250x)
+![member_management](/demo/member_management.jpg?=250x)
 - Peer evaluation
 ![choosePeers](/demo/choosePeers.png?=250x)
 ![peerEval2](/demo/peerEval2.png?=250x)
