@@ -16,27 +16,27 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
      //get the answers object
     firebase.database().ref("Answers/Midterm_16fall").on('value', function(snapshot) {
         $scope.data = snapshot.val();
-        console.log(snapshot.val());
+        // console.log(snapshot.val());
     });
     
     $scope.displayStudents = function (){
       $scope.groupData = $scope.data[$scope.teamSelected];
-      console.log($scope.groupData);
+      // console.log($scope.groupData);
       var studentsArray = [];
       var evaluatorsArray = _.keys($scope.groupData);
       _.each($scope.groupData, function(peer) {
           studentsArray = studentsArray.concat(_.keys(peer));
       });//get all the students that have been evaluated
       $scope.students = _.uniq(studentsArray);//remove duplicates
-      console.log($scope.students);
-      console.log(evaluatorsArray);
+      // console.log($scope.students);
+      // console.log(evaluatorsArray);
       
       //seperate result
       var report = {};
       _.each($scope.students, function(student){
-        console.log($scope.groupData[student]);
+        // console.log($scope.groupData[student]);
         _.each(evaluatorsArray, function(peer){
-            console.log($scope.groupData[peer][student]);
+            // console.log($scope.groupData[peer][student]);
             if (($scope.groupData[peer]).hasOwnProperty(student)){
               if (report.hasOwnProperty(student)){
                 report[student][peer] = $scope.groupData[peer][student];
@@ -66,7 +66,7 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
         });
         report[kid].results = aggregate;
       });
-            console.log(report);
+            // console.log(report);
       
       // console.log(report["Bubel,Christopher S"].results);
     }
@@ -76,7 +76,7 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
       $scope.results = $scope.report[$scope.studentName].results;
       $scope.peers = _.keys($scope.report[$scope.studentName]);
       $scope.peers.pop();
-      console.log($scope.results);
+      // console.log($scope.results);
     }
     
     var getQuestionText = function(questionsArray){
