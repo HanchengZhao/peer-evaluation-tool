@@ -247,7 +247,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         }else{  
             $scope.index += 1;
             display_questions($scope.index);
-            $('#previous-btn').prop('disabled', false);
+            $('#previous_btn').prop('disabled', false);
             $("html, body").animate({ scrollTop: 0 }, "fast");
             if($scope.index === 12 ){
                 $scope.scale = false;
@@ -279,7 +279,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         $scope.scale = false;
         $scope.bonus = false;
         $scope.comment = true;
-        $('#previous-btn').prop('disabled', false);
+        $('#previous_btn').prop('disabled', false);
         $('#next-btn').prop('disabled', true);
         $("html, body").animate({ scrollTop: 0 }, "fast");
         $scope.submitShow = true;
