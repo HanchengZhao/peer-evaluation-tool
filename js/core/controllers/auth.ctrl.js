@@ -74,6 +74,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
   // }
   //display the image and username
   $scope.authObj.$onAuthStateChanged(function(firebaseUser) {
+    $scope.userPic = $('#user-pic');
     if (firebaseUser) {
       $scope.firebaseUser = firebaseUser;
       $scope.displayName = firebaseUser.displayName;
@@ -92,9 +93,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
           //the email address is not valid
         $location.path("/invalid-login");
       });
-      
-      $scope.userPic = $('#user-pic');
-      
+
       $scope.userPic.css('background-image', 'url(' + $scope.profilePicUrl + ')');
       // console.log("Signed in as:", firebaseUser.displayName);
       $scope.route.reload();
