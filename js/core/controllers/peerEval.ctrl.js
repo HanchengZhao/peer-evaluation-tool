@@ -100,6 +100,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         nameArray.splice(index,1);//get rid of user's name
         
         $scope.peers = nameArray;
+        $scope.subgroup = nameArray;
         // console.log($scope.peers);
         $scope.$apply();//let angular know the change
     
@@ -201,7 +202,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         .catch(function(error) {
           console.log("Reset failed: " + error.message);
         });
-        $scope.subgroup = [];
+        $scope.subgroup = $scope.peers;
         $scope.submitted = false;
         $scope.answers = {
         

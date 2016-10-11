@@ -5,25 +5,25 @@
   
   <div ng-if="!submitted">
     <!--Choose subgroup peers-->
-    <p class="center" ng-if="class == 'ELEG_467'"><label >Here are peers from Grid Integrated-Vehicles</label></p>
-    <p class="center" ng-if="class == 'ELEG_267'"><label>Here are peers from E-Textiles</label></p>
-    <p class="center" ng-if="class == 'ELEG_367'"><label>Here are peers from Cloud Crypto</label></p>
+    <p class="center" ng-if="class == 'ELEG_467'"><label >Here are your peers from Grid Integrated-Vehicles</label></p>
+    <p class="center" ng-if="class == 'ELEG_267'"><label>Here are your peers from E-Textiles</label></p>
+    <p class="center" ng-if="class == 'ELEG_367'"><label>Here are your peers from Cloud Crypto</label></p>
     
     <div class="panel panel-default" id="question">
-      <div class="panel-heading">Do you Know this person? Please choose the guy in your subgroup.</div>
+      <div class="panel-heading">Please unselect the people you have not worked with in VIP.</div>
       <div class="panel-body">
         <table class="table table-hover table-striped">
           <thead>
             <tr>
               <th class="col-md-2">Name</th>
-              <th class="col-md-2">Click if you know her/him.</th>
+              <th class="col-md-2">Checked means you know her/him.</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat = "name in peers">
               <td>{{name}}</td>
               <!--scale question-->
-              <td><input type="checkbox" name="{{name}}" value='{{name}}' ng-click="addToSubgroup(name)"></td>
+              <td><input type="checkbox" name="{{name}}" value='{{name}}' ng-click="addToSubgroup(name)" ng-checked="subgroup.indexOf(name) > -1"></td>
             </tr>
           <tbody>
         </table>
