@@ -46,7 +46,7 @@ app.controller("authCtrl", function($scope, $firebaseAuth) {
    } else {
      $scope.firebaseUser = false;
      console.log("Signed out");
-     $scope.userPic.css('background-image', 'url(/images/profile_placeholder.png)');
+     $scope.userPic.css('background-image', 'url(images/profile_placeholder.png)');
 
    }
  });

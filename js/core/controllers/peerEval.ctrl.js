@@ -229,7 +229,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         }
         
         if($scope.index === 0){
-            $('#previous-btn').prop('disabled', true);
+            $('#previous_btn').prop('disabled', true);
         }else{
             $("html, body").animate({ scrollTop: 0 }, "fast"); // scoll to the top of the page
         }
