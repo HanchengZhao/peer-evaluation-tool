@@ -12,7 +12,7 @@ A VIP team mentor (research faculty member) must be able to upload a roster of s
 
 A VIP team member must be able to quickly evaluate each of their teammates
 
-###[Link](http:// vip.udel.edu/peer)
+###[Link](vip.udel.edu/peer)
 
 
 ###Demos
