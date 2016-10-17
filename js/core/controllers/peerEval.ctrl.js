@@ -99,8 +99,8 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         var index = nameArray.indexOf($scope.username);
         nameArray.splice(index,1);//get rid of user's name
         
-        $scope.peers = nameArray;
-        $scope.subgroup = nameArray;
+        $scope.peers = nameArray.slice();
+        $scope.subgroup = nameArray.slice();
         // console.log($scope.peers);
         $scope.$apply();//let angular know the change
     
@@ -113,10 +113,8 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         var index = $scope.subgroup.indexOf(name);
         if(index === -1){
             $scope.subgroup.push(name);
-            // console.log($scope.subgroup);
         }else{
             $scope.subgroup.splice(index,1);
-            // console.log($scope.subgroup);
         }
     };
     
@@ -202,7 +200,8 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         .catch(function(error) {
           console.log("Reset failed: " + error.message);
         });
-        $scope.subgroup = $scope.peers;
+        // $scope.subgroup = $scope.peers.slice();
+        // console.log($scope.peers);
         $scope.submitted = false;
         $scope.answers = {
         
