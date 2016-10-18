@@ -70,7 +70,6 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             });
         }
     });
-    // console.log(deferred.promise);
     return deferred.promise;
   };
   
@@ -195,7 +194,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     $scope.reset = function(){
         var Ref = firebase.database().ref("/Subgroups/Midterm_16fall/"+ $scope.class +"/" +$scope.username);
         Ref.remove().then(function() {
-          console.log("Reset subgroup.");
+        //   console.log("Reset subgroup.");
         })
         .catch(function(error) {
           console.log("Reset failed: " + error.message);
