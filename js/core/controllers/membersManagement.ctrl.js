@@ -6,7 +6,7 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
     $scope.teamSelected;
     firebase.database().ref("Students").on('value', function(snapshot) {
        $scope.members = snapshot.val();
-       console.log(snapshot.val());
+    //   console.log(snapshot.val());
   });
     
     $scope.addMemeberContent = false;
@@ -47,7 +47,7 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
        "Class": Class
      };
      
-     console.log(newMember);//debug
+    //  console.log(newMember);//debug
     var ref = '/Students/'+$scope.teamSelected;
     // var ref2 = '/Students/All_Members';
     
@@ -61,7 +61,7 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
     console.log('/Students/'+  unique_id);//debug
       var memberRef = firebase.database().ref('/Students/'+ $scope.teamSelected +"/" +unique_id);
       memberRef.remove().then(function() {
-          console.log("Remove succeeded.")
+        //   console.log("Remove succeeded.")
        })
        .catch(function(error) {
           console.log("Remove failed: " + error.message)

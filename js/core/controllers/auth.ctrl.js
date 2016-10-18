@@ -6,7 +6,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
   //login with google
   $scope.signIn = function() {
       $scope.authObj.$signInWithPopup("google").then(function(firebaseUser) {
-        console.log("Signed in as:", firebaseUser.displayName);
+        // console.log("Signed in as:", firebaseUser.displayName);
       }).catch(function(error) {
         console.error("Authentication failed:", error);
       });
