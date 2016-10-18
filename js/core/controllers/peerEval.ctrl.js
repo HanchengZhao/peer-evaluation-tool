@@ -206,6 +206,8 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         $scope.answers = {
         
         };
+        $scope.index = 0;
+        adjustProcess($scope.index, 13);
     };
 
     //Buttons
