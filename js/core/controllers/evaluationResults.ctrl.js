@@ -14,7 +14,7 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
     $scope.tableShow =false;
     
      //get the answers object
-    firebase.database().ref("Answers/Midterm_16fall").on('value', function(snapshot) {
+    firebase.database().ref("Answers/Final_16fall").on('value', function(snapshot) {
         $scope.data = snapshot.val();
         // console.log(snapshot.val());
     });
@@ -66,10 +66,7 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
         });
         report[kid].results = aggregate;
       });
-            // console.log(report);
-      
-      // console.log(report["Bubel,Christopher S"].results);
-    }
+    };
     
     $scope.displayResults = function(){
       $scope.tableShow = true;
@@ -77,7 +74,7 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
       $scope.peers = _.keys($scope.report[$scope.studentName]);
       $scope.peers.pop();
       // console.log($scope.results);
-    }
+    };
     
     var getQuestionText = function(questionsArray){
       $scope.questions = [];
