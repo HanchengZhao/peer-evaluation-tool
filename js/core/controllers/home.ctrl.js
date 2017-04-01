@@ -33,7 +33,6 @@ app.controller('homeCtrl', ['$scope', '$location', 'firebaseService', '$timeout'
         }else{
             $scope.noPemission = true;
         }
-        
-       
-    }
+    };
+    
 }]);

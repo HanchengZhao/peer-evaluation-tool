@@ -4,9 +4,9 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
     
     // $scope.team = ['ELEG_267','ELEG_367', 'ELEG_467']
     $scope.teamSelected;
-    firebase.database().ref("Students").on('value', function(snapshot) {
+    firebase.database().ref("Students/17spring").on('value', function(snapshot) {
        $scope.members = snapshot.val();
-    //   console.log(snapshot.val());
+      // console.log(snapshot.val());
   });
     
     $scope.addMemeberContent = false;
@@ -33,7 +33,7 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
     var Grade_Basis       = $scope.Grade_Basis;
     var Program_and_Plan   = $scope.Program_and_Plan;
     var Units       = $scope.Units;
-    var Class       = $scope.teamSelected;
+    // var Class       = $scope.teamSelected;
  
     
     var newMember = {
@@ -43,12 +43,12 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
        "Level": Level,
        "Grade_Basis": Grade_Basis,
        "Program_and_Plan": Program_and_Plan,
-       "Units": Units,
-       "Class": Class
+       "Units": Units
+      // "Class": Class
      };
      
     //  console.log(newMember);//debug
-    var ref = '/Students/'+$scope.teamSelected;
+    var ref = '/Students/17spring/'+$scope.teamSelected;
     // var ref2 = '/Students/All_Members';
     
     firebaseService.pushDataWithUniqueID(ref, newMember);
@@ -58,8 +58,8 @@ app.controller('membersManagementCtrl', ['$scope', 'firebaseService', function($
   };
   
   $scope.deleteMember = function(team, unique_id) {
-    console.log('/Students/'+  unique_id);//debug
-      var memberRef = firebase.database().ref('/Students/'+ $scope.teamSelected +"/" +unique_id);
+    console.log('/Students/17spring/'+  unique_id);//debug
+      var memberRef = firebase.database().ref('/Students/17spring/'+ $scope.teamSelected +"/" +unique_id);
       memberRef.remove().then(function() {
         //   console.log("Remove succeeded.")
        })

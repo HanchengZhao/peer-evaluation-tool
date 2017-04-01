@@ -26,7 +26,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
     $scope.getClassInfo = function(email){
     var deferred = $q.defer();
-    firebase.database().ref("Students/ELEG_267")
+    firebase.database().ref("Students/17spring/ARTGINEERING")
     .orderByChild("Email_Address")
     .startAt(email)
     .endAt(email)
@@ -36,9 +36,9 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
             snapshot.forEach(function(record){
                 $scope.username = record.val().Name;
             })
-          deferred.resolve('ELEG_267');
+          deferred.resolve('ARTGINEERING');
         }else {
-          firebase.database().ref("Students/ELEG_367")
+          firebase.database().ref("Students/17spring/CLOUD_CRYPTO")
             .orderByChild("Email_Address")
             .startAt(email)
             .endAt(email)
@@ -49,9 +49,9 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
                         $scope.username = record.val().Name;
                     })
                     
-                  deferred.resolve('ELEG_367');
+                  deferred.resolve('CLOUD_CRYPTO');
                 }else {
-                  firebase.database().ref("Students/ELEG_467")
+                  firebase.database().ref("Students/17spring/E-TEXTILES")
                   .orderByChild("Email_Address")
                   .startAt(email)
                   .endAt(email)
@@ -61,12 +61,40 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
                         snapshot.forEach(function(record){
                             $scope.username = record.val().Name;
                         })
-                        deferred.resolve('ELEG_467');
+                        deferred.resolve('E-TEXTILES');
                       }else {
-                        deferred.reject(false);
-                      }
+                        firebase.database().ref("Students/17spring/GRID-INTEGRATED_VEHICLES")
+                          .orderByChild("Email_Address")
+                          .startAt(email)
+                          .endAt(email)
+                          .once('value').then(function(snapshot) {
+                              if(snapshot.val()!== null){
+                                //get the user's name
+                                snapshot.forEach(function(record){
+                                    $scope.username = record.val().Name;
+                                })
+                                deferred.resolve('GRID-INTEGRATED_VEHICLES');
+                              }else {
+                                firebase.database().ref("Students/17spring/HIGH-PERFORM_COMPUTING")
+                                  .orderByChild("Email_Address")
+                                  .startAt(email)
+                                  .endAt(email)
+                                  .once('value').then(function(snapshot) {
+                                      if(snapshot.val()!== null){
+                                        //get the user's name
+                                        snapshot.forEach(function(record){
+                                            $scope.username = record.val().Name;
+                                        })
+                                        deferred.resolve('HIGH-PERFORM_COMPUTING');
+                                      }else {
+                                        deferred.reject(false);
+                                      }
+                                    });
+                              }//HIGH-PERFORM_COMPUTING
+                            });
+                      }//GRID-INTEGRATED_VEHICLES
                     });
-                }
+                }//E-TEXTILES
             });
         }
     });
@@ -75,7 +103,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
   
    $scope.getClassInfo(email).then(function(res){
        //the email address is valid
-        //   console.log("promise:" + res);
+          console.log("promise:" + res);
           $scope.class = res;
           fetchPeersName($scope.class);
           fetchSubgroup();
@@ -85,7 +113,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
      //fetch all members' data
     var fetchPeersName = function(Class){
-    firebase.database().ref("Students/" + Class).once('value', function(snapshot) {
+    firebase.database().ref("Students/17spring/" + Class).once('value', function(snapshot) {
         var peerArray = [];
         var nameArray = [];
         snapshot.forEach(function(record) {
@@ -100,7 +128,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
         
         $scope.peers = nameArray.slice();
         $scope.subgroup = nameArray.slice();
-        // console.log($scope.peers);
+        
         $scope.$apply();//let angular know the change
     
     });
@@ -119,12 +147,12 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
     $scope.chosenSub = function(){
         $scope.submitted = true;
-        var ref = "Subgroups/Final_16fall/" + $scope.class + "/" + $scope.username;
+        var ref = "Subgroups/Midterm_17spring/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.subgroup);
     };
     
     var fetchSubgroup = function(){
-        firebase.database().ref("Subgroups/Final_16fall/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
+        firebase.database().ref("Subgroups/Midterm_17spring/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
             if(snapshot.val() !== null){
                 $scope.submitted = true;
                 $scope.subgroup = snapshot.val();
@@ -136,7 +164,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
     var fetchSubmittedAnswers = function(){
            // get students submitted answers
-        firebase.database().ref("Answers/Final_16fall/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
+        firebase.database().ref("Answers/Midterm_17spring/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
             if(snapshot.val() !== null){
                 $scope.answers = snapshot.val();
                 $scope.formSubmitted = true;
@@ -192,7 +220,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     };
     
     $scope.reset = function(){
-        var Ref = firebase.database().ref("/Subgroups/Final_16fall/"+ $scope.class +"/" +$scope.username);
+        var Ref = firebase.database().ref("/Subgroups/Midterm_17spring/"+ $scope.class +"/" +$scope.username);
         Ref.remove().then(function() {
         //   console.log("Reset subgroup.");
         })
@@ -291,7 +319,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     $scope.submit = function(isValid){
         if(isValid){
         // console.log($scope.answers);
-        var ref = "Answers/Final_16fall/" + $scope.class + "/" + $scope.username;
+        var ref = "Answers/Midterm_17spring/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.answers);
         $scope.formSubmitted = true;
         } 

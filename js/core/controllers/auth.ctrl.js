@@ -33,7 +33,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
           if(snapshot.val()!== null){
               deferred.resolve('advisor');
         }else{
-        firebase.database().ref("Students/ELEG_267")
+        firebase.database().ref("Students/17spring/ARTGINEERING")
         .orderByChild("Email_Address")
         .startAt(email)
         .endAt(email)
@@ -41,7 +41,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
             if(snapshot.val()!== null){
               deferred.resolve('student');
             }else {
-              firebase.database().ref("Students/ELEG_367")
+              firebase.database().ref("Students/17spring/CLOUD_CRYPTO")
                 .orderByChild("Email_Address")
                 .startAt(email)
                 .endAt(email)
@@ -49,7 +49,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
                     if(snapshot.val()!== null){
                       deferred.resolve('student');
                     }else {
-                      firebase.database().ref("Students/ELEG_467")
+                      firebase.database().ref("Students/17spring/E-TEXTILES")
                       .orderByChild("Email_Address")
                       .startAt(email)
                       .endAt(email)
@@ -57,14 +57,34 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
                           if(snapshot.val()!== null){
                             deferred.resolve('student');
                           }else {
-                            deferred.reject(false);
-                          }
+                            firebase.database().ref("Students/17spring/GRID-INTEGRATED_VEHICLES")
+                              .orderByChild("Email_Address")
+                              .startAt(email)
+                              .endAt(email)
+                              .once('value').then(function(snapshot) {
+                                  if(snapshot.val()!== null){
+                                    deferred.resolve('student');
+                                  }else {
+                                    firebase.database().ref("Students/17spring/HIGH-PERFORM_COMPUTING")
+                                      .orderByChild("Email_Address")
+                                      .startAt(email)
+                                      .endAt(email)
+                                      .once('value').then(function(snapshot) {
+                                          if(snapshot.val()!== null){
+                                            deferred.resolve('student');
+                                          }else {
+                                            deferred.reject(false);
+                                          }
+                                        });
+                                  }//HIGH-PERFORM_COMPUTING
+                                });
+                            }//GRID-INTEGRATED_VEHICLES
                         });
-                    }//467
+                    }//E-TEXTTILES
                 });
-            }//367
+            }//CLOUD_CRYPTO
         });
-        }
+        }//ARTGINEERING
       });
     
     return deferred.promise;
@@ -86,7 +106,7 @@ app.controller("authCtrl",['$scope', '$firebaseAuth','$route',"$location", "$q",
         //the email address is valid
          if(res === "advisor"){
            $location.path("/advisor-page");
-         }else{
+         }else if(res === "student"){
           $location.path("/peer-evaluation");
          }
         },function(res){

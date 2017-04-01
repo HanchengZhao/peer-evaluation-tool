@@ -6,10 +6,12 @@
       <li>
         <select ng-model="teamSelected" class="btn btn-default dropdown-toggle" ng-change = "displayStudents()">
             <option value=''>--Choose the Group--</option>
-            <option value='ELEG_267'>E-Textile</option>
-            <option value='ELEG_367'>Cloud Crypto</option>
-            <option value='ELEG_467'>Grid-Integrated Vehicles</option>
-        </select>
+            <option value='ARTGINEERING'>ARTGINEERING</option>
+            <option value='CLOUD_CRYPTO'>CLOUD CRYPTO</option>
+            <option value='E-TEXTILES'>E-Textile</option>
+            <option value='GRID-INTEGRATED_VEHICLES'>GRID-INTEGRATED VEHICLES</option>
+            <option value='HIGH-PERFORM_COMPUTING'>HIGH-PERFORM_COMPUTING</option>
+            </select>
       </li>
       <li>
         <select ng-options="item for item in students" ng-model="studentName" ng-change = "displayResults()" class="btn btn-default dropdown-toggle">
