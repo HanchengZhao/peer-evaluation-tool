@@ -14,7 +14,7 @@ app.controller('evaluationResultsCtrl', ['$scope', 'firebaseService', '$location
     $scope.tableShow =false;
     
      //get the answers object
-    firebase.database().ref("Answers/Midterm_17spring").on('value', function(snapshot) {
+    firebase.database().ref("Answers/Final_17spring").on('value', function(snapshot) {
         $scope.data = snapshot.val();
         // console.log(snapshot.val());
     });

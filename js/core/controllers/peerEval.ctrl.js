@@ -147,12 +147,12 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
     $scope.chosenSub = function(){
         $scope.submitted = true;
-        var ref = "Subgroups/Midterm_17spring/" + $scope.class + "/" + $scope.username;
+        var ref = "Subgroups/Final_17spring/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.subgroup);
     };
     
     var fetchSubgroup = function(){
-        firebase.database().ref("Subgroups/Midterm_17spring/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
+        firebase.database().ref("Subgroups/Final_17spring/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
             if(snapshot.val() !== null){
                 $scope.submitted = true;
                 $scope.subgroup = snapshot.val();
@@ -164,7 +164,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     
     var fetchSubmittedAnswers = function(){
            // get students submitted answers
-        firebase.database().ref("Answers/Midterm_17spring/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
+        firebase.database().ref("Answers/Final_17spring/" + $scope.class + "/" + $scope.username).once('value', function(snapshot) {
             if(snapshot.val() !== null){
                 $scope.answers = snapshot.val();
                 $scope.formSubmitted = true;
@@ -220,7 +220,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     };
     
     $scope.reset = function(){
-        var Ref = firebase.database().ref("/Subgroups/Midterm_17spring/"+ $scope.class +"/" +$scope.username);
+        var Ref = firebase.database().ref("/Subgroups/Final_17spring/"+ $scope.class +"/" +$scope.username);
         Ref.remove().then(function() {
         //   console.log("Reset subgroup.");
         })
@@ -319,7 +319,7 @@ app.controller('peerEvalCtrl', ['$scope', '$location','firebaseService',"$fireba
     $scope.submit = function(isValid){
         if(isValid){
         // console.log($scope.answers);
-        var ref = "Answers/Midterm_17spring/" + $scope.class + "/" + $scope.username;
+        var ref = "Answers/Final_17spring/" + $scope.class + "/" + $scope.username;
         firebaseService.pushData(ref, $scope.answers);
         $scope.formSubmitted = true;
         } 
